@@ -62,11 +62,20 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     //UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if infoArr.count < 1{
+            return 1
+        }
         return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FirstTableViewCell
+        if infoArr.count < 1{
+           var noCell = UITableViewCell.init()
+            noCell.textLabel?.text = "無資訊"
+            return noCell
+        }
+        
         if cell == nil{
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell") as! FirstTableViewCell
         }
@@ -74,7 +83,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             if let imgUrl = URL(string: info.album_file){
                 do{
                    let imgData = try Data(contentsOf: imgUrl)
-                   cell.aniImage.image = UIImage(data: imgData)
+                        cell.aniImage.image = UIImage(data: imgData)
                 }catch{
                    print("catch imageData fail..")
                 }
@@ -91,12 +100,14 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if infoArr.count > 1{
         let info = infoArr[indexPath.row]
         let sb = UIStoryboard.init(name: "First", bundle: Bundle.main)
         let firstDetailVC = sb.instantiateViewController(withIdentifier: "firstDetailVC") as! FirstDetailViewController
         firstDetailVC.hidesBottomBarWhenPushed = true
         firstDetailVC.infoDetail = info
         navigationController?.show(firstDetailVC, sender: nil)
+      }
     }
     //UIPickerViewDelegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -157,10 +168,8 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
     
     @objc func search(){
-        DispatchQueue.global().async {
             HUD.show(.label("稍等..."))
-            HUD.hide(afterDelay: 2.0)
-        }
+            HUD.hide(afterDelay: 3.0)
         infoArr = []
         if let local = localTextField.text , let type = typeTextField.text {
             let realm = try! Realm()
