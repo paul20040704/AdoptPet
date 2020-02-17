@@ -65,11 +65,12 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         if infoArr.count < 1{
             return 1
         }
-        return 100
+        return infoArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FirstTableViewCell
+        print(infoArr.count)
         if infoArr.count < 1{
            var noCell = UITableViewCell.init()
             noCell.textLabel?.text = "無資訊"
