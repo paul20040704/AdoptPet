@@ -20,6 +20,25 @@ class Share : NSObject{
         return alertView
     }
     
+    func fileDocumentsPath(fileName: String) -> URL {
+        
+        let homeURL = URL(fileURLWithPath: NSHomeDirectory())
+        let documents = homeURL.appendingPathComponent("Documents")
+        let fileURL = documents.appendingPathComponent(fileName)
+        return fileURL
+    }
+    
+    func loadImage(fileName:String?) -> UIImage? {
+        if let fileName = fileName{
+            let fileURL = fileDocumentsPath(fileName: fileName)
+            if let imageData = try? Data(contentsOf: fileURL){
+                return UIImage(data: imageData)
+            }
+        }
+        return UIImage(named: "search")
+    }
+    
+    
     
 
 

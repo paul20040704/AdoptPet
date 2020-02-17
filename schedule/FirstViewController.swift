@@ -80,16 +80,9 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell") as! FirstTableViewCell
         }
             var info = infoArr[indexPath.row]
-            if let imgUrl = URL(string: info.album_file){
-                do{
-                   let imgData = try Data(contentsOf: imgUrl)
-                        cell.aniImage.image = UIImage(data: imgData)
-                }catch{
-                   print("catch imageData fail..")
-                }
-            }else{
-                print("analysis imageUrl fail..")
-            }
+            let imageID = info.animal_id
+            let cellImage = US.loadImage(fileName: "\(imageID).jpg")
+            cell.aniImage.image = cellImage?.scaleImage(scaleSize: 0.5)
             cell.type.text = "種類 : \(info.animal_kind)"
             cell.address.text = "位置 : \(info.shelter_name)"
             cell.checkDate.text = "登入日期 : \(info.cDate)"

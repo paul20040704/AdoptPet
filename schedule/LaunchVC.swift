@@ -21,12 +21,14 @@ class LaunchVC: UIViewController {
      let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if response.result.isSuccess {
+                var count = 0
                 do {
                     let json = try JSON(data:response.data!)
                     if let result = json.array{
                         if let r = try? Realm(){
                             try? r.write {
                                 for data in result{
+                                    if count < 100 {
                                     var aniArray = [String]()
                                     if data["album_file"] != ""{
                                         aniArray.append(data["animal_id"].stringValue)
@@ -57,8 +59,11 @@ class LaunchVC: UIViewController {
                                         aniArray.append(data["shelter_address"].stringValue)
                                         aniArray.append(data["shelter_tel"].stringValue)
                                         r.create(RLM_ApiData.self, value: aniArray, update: true)
+                                        self.downloadImage(path: data["album_file"].stringValue, name:data["animal_id"].stringValue)
+                                        count += 1
                                     }
                                 }
+                            }
                             }
                         }
                     }
@@ -81,6 +86,24 @@ class LaunchVC: UIViewController {
         let mainTBC = sb.instantiateViewController(withIdentifier: "mainTBC")
         appDelegate.window?.rootViewController = mainTBC
     }
+    
+    func downloadImage(path:String , name:String){
+        let fileName = "\(name).jpg"
+        print(fileName)
+        let filePath = US.fileDocumentsPath(fileName: fileName)
+        if let imgUrl = URL(string: path){
+            do{
+                let imgData = try Data(contentsOf: imgUrl)
+                try imgData.write(to: filePath)
+            }catch{
+                print("\(name) : catch imageData fail..")
+            }
+        }else{
+            print("\(name) : analysis imageUrl fail..")
+        }
+    }
+    
+    
     
     
     
