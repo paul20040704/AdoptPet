@@ -60,14 +60,8 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         if infoArr.count > 0{
             let info = infoArr[indexPath.row]
-            if let imgUrl = URL(string: info.album_file){
-                    do{
-                        let imgData = try Data(contentsOf: imgUrl)
-                        cell.aniImage.image = UIImage(data: imgData)
-                    }catch{
-                        print("catch imageData fail..")
-                    }
-                  }//End imgUrl
+            let cellImage = US.loadImage(fileName: "\(info.animal_id).jpg")
+                    cell.aniImage.image = cellImage?.scaleImage(scaleSize: 0.5)
                     cell.type.text = "種類 : \(info.animal_kind)"
                     cell.address.text = "位置 : \(info.shelter_address)"
                     cell.checkDate.text = "登入日期 : \(info.animal_createtime)"

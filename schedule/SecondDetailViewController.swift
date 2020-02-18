@@ -26,12 +26,8 @@ class SecondDetailViewController: UIViewController {
         super.viewDidLoad()
         
         print(infoDetail.animal_id)
-        do{
-            let imgData = try Data(contentsOf: URL(string: infoDetail.album_file)!)
-            imageView.image = UIImage.init(data: imgData)
-        }catch{
-            print("catch imageData fail..")
-        }
+        let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
+        imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
         idLabel.text =    "編號      : \(infoDetail.animal_id)"
         placeLabel.text = "所在地    : \(infoDetail.animal_place)"
         kindLabel.text =  "種類     : \(infoDetail.animal_kind)"

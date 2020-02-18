@@ -81,8 +81,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell") as! FirstTableViewCell
         }
             var info = infoArr[indexPath.row]
-            let imageID = info.animal_id
-            let cellImage = US.loadImage(fileName: "\(imageID).jpg")
+            let cellImage = US.loadImage(fileName: "\(info.animal_id).jpg")
             cell.aniImage.image = cellImage?.scaleImage(scaleSize: 0.5)
             cell.type.text = "種類 : \(info.animal_kind)"
             cell.address.text = "位置 : \(info.shelter_name)"
@@ -150,13 +149,15 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             self.present(alert,animated: true,completion: nil)
         }else{
         HUD.show(.label("更新中..."))
-        HUD.hide(afterDelay: 2.0)
+            HUD.hide(afterDelay: 1.0) { (finish) in
+                HUD.flash(.success, delay: 0.5)
+            }
         idArr.append(info.animal_id)
         UD.set(idArr, forKey: "likeID")
         //NotificationCenter
         NotificationCenter.default.post(name: Notification.Name("loadData"), object: nil)
-        let alert = US.alertVC(message: "已加入收藏", title: "提醒")
-        self.present(alert,animated: true,completion: nil)
+//        let alert = US.alertVC(message: "已加入收藏", title: "提醒")
+//        self.present(alert,animated: true,completion: nil)
         }
     
     }
