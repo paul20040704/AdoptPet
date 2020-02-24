@@ -26,11 +26,16 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     let localPickerView = UIPickerView()
     let typePickerView = UIPickerView()
     var infoArr = [RLM_ApiData]()
-    var localArr = ["全部地點","台北","新北","桃園","新竹","苗栗","台中","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭","基隆","南投"]
+    var localArr = ["全部地點","台北","新北","桃園","新竹","苗栗","臺中","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭","基隆","南投"]
     var typeArr = ["全部種類","貓","狗"]
+    var refreshControl : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         searchBtn.layer.cornerRadius = 9.0
         searchBtn.clipsToBounds = true
         searchBtn.addTarget(self, action: #selector(search), for: .touchUpInside)
@@ -49,16 +54,16 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         localTextField.text = localArr[0]
         typeTextField.text = typeArr[0]
         
-        let realm = try! Realm()
-        let orders = realm.objects(RLM_ApiData.self)
-        if orders.count > 10{
-            for order in orders{
-                infoArr.append(order)
-            }
-        }
-       
+       self.resetInfoArr()
         
     }
+    @objc func loadData(){
+            self.resetInfoArr()
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+    }
+    
+    
     
     //UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,7 +75,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FirstTableViewCell
-        print(infoArr.count)
         if infoArr.count < 1{
            var noCell = UITableViewCell.init()
             noCell.textLabel?.text = "無資訊"
@@ -200,6 +204,15 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
 
 
+     func resetInfoArr() {
+        let realm = try! Realm()
+        let orders = realm.objects(RLM_ApiData.self)
+        if orders.count > 10{
+            for order in orders{
+                infoArr.append(order)
+            }
+        }
+    }
     
 
     

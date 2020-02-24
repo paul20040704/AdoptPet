@@ -195,7 +195,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6we-Ru-MBF"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rOs-5o-Pdw"/>
+                    <navigationItem key="navigationItem" id="rOs-5o-Pdw">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="search" id="Pz6-3p-BoR"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="localTextField" destination="lbT-gX-eNL" id="kDe-5p-nkm"/>
                         <outlet property="searchBtn" destination="3fG-6f-yJ5" id="iNr-E0-ThB"/>
