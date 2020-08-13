@@ -23,12 +23,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f7s-H0-dSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3462" y="-813"/>
+            <point key="canvasLocation" x="-3848" y="-794"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pmO-IU-2QL">
             <objects>
-                <tabBarController storyboardIdentifier="mainTBC" automaticallyAdjustsScrollViewInsets="NO" id="4ld-mv-eD1" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="mainTBC" automaticallyAdjustsScrollViewInsets="NO" id="4ld-mv-eD1" customClass="TabBarController" customModule="schedule" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0tB-Dn-WAm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

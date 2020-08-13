@@ -38,11 +38,11 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let info = infoArr[indexPath.row]
-        let sb = UIStoryboard.init(name: "Second", bundle: Bundle.main)
-        let secondDetailVC = sb.instantiateViewController(withIdentifier: "secondDetailVC") as! SecondDetailViewController
-        secondDetailVC.hidesBottomBarWhenPushed = true
-        secondDetailVC.infoDetail = info
-        navigationController?.show(secondDetailVC, sender: nil)
+        let sb = UIStoryboard.init(name: "First", bundle: Bundle.main)
+        let firstDetailVC = sb.instantiateViewController(withIdentifier: "firstDetailVC") as! FirstDetailViewController
+        firstDetailVC.hidesBottomBarWhenPushed = true
+        firstDetailVC.infoDetail = info
+        navigationController?.show(firstDetailVC, sender: nil)
     }
     
     

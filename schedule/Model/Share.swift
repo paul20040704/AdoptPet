@@ -40,20 +40,29 @@ class Share : NSObject{
     
     func downloadImage(path:String , name:String){
         DispatchQueue.global().async {
-        let fileName = "\(name).jpg"
-        print(fileName)
-        let filePath = US.fileDocumentsPath(fileName: fileName)
-        if let imgUrl = URL(string: path){
-            do{
-                let imgData = try Data(contentsOf: imgUrl)
-                try imgData.write(to: filePath)
-            }catch{
-                print("\(name) : catch imageData fail..")
+            let fileName = "\(name).jpg"
+            print(fileName)
+            let filePath = US.fileDocumentsPath(fileName: fileName)
+            if let imgUrl = URL(string: path){
+                do{
+                    let imgData = try Data(contentsOf: imgUrl)
+                    try imgData.write(to: filePath)
+                }catch{
+                    print("\(name) : catch imageData fail..")
+                }
+            }else{
+                print("\(name) : analysis imageUrl fail..")
             }
-        }else{
-            print("\(name) : analysis imageUrl fail..")
         }
-      }
+    }
+    
+    func judgeImage(fileName:String) -> Bool{
+        let fileURL = fileDocumentsPath(fileName: fileName)
+        if let imageData = try? Data(contentsOf: fileURL){
+            return true
+        }else{
+            return false
+        }
     }
     
     

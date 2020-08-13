@@ -12,5 +12,8 @@ target 'schedule' do
   pod 'RealmSwift', '~> 3.20.0'
   pod 'ReachabilitySwift'
   pod 'PKHUD', '~> 5.0'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'AKSideMenu'
 
 end

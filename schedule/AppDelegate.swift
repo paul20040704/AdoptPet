@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+import AKSideMenu
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,17 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        GMSServices.provideAPIKey("AIzaSyBQ1zsYnFa0IH-LLz_5FGWuu88bngMavtk")
         // Override point for customization after application launch.
         let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
+        var i = 0
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if response.result.isSuccess {
-                var count = 0
                 do {
                     let json = try JSON(data:response.data!)
                     if let result = json.array{
                         if let r = try? Realm(){
                             try? r.write {
                                 for data in result{
+                                    i += 1
                                     var aniArray = [String]()
                                     if data["album_file"] != ""{
                                         aniArray.append(data["animal_id"].stringValue)
@@ -58,12 +62,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         aniArray.append(data["cDate"].stringValue)
                                         aniArray.append(data["shelter_address"].stringValue)
                                         aniArray.append(data["shelter_tel"].stringValue)
+                                        if US.judgeImage(fileName: "\(data["animal_id"].stringValue).jpg"){
+                                            continue
+                                        }
+                                        let fileURL = US.fileDocumentsPath(fileName: data["animal_id"].stringValue)
                                         r.create(RLM_ApiData.self, value: aniArray, update: true)
+                                        //下載圖片100筆
+                                        if i < 100{
                                         US.downloadImage(path: data["album_file"].stringValue, name:data["animal_id"].stringValue)
-                                        count += 1
+                                        }
                                     }
                                 }
-                            }
+                           }
                         }
                     }
                 }catch{
@@ -74,12 +84,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         })
         
+        if UD.bool(forKey: "firstIN"){
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+            self.goMain()
+            }
+        }else{
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+                self.goMain()
+            }
+            UD.set(true, forKey: "firstIN")
+        }
+        
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let sb = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-        let mainTBC = sb.instantiateViewController(withIdentifier: "mainTBC")
-        appDelegate.window?.rootViewController = mainTBC
         return true
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -104,6 +122,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func goMain(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let sb = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let mainTBC = sb.instantiateViewController(withIdentifier: "mainTBC")
+        appDelegate.window?.rootViewController = mainTBC
+    }
+    
 
 }
 
