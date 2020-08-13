@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         if UD.bool(forKey: "firstIN"){
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2){
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3){
             self.goMain()
             }
         }else{

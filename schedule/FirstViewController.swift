@@ -64,9 +64,10 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
         
-       self.resetInfoArr()
+        self.resetInfoArr()
         
-        sliderBarView.setUI(spView: self.view)
+        sliderBarView.setUI(spView: self.view )
+        
         
     }
     @objc func loadData(){
