@@ -27,6 +27,7 @@
 		6F186B2324E3DF780013C065 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F186B2124E3DF780013C065 /* LoadingCell.xib */; };
 		6F4A94EC242216C10088024A /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A94EB242216C10088024A /* GoogleMapViewController.swift */; };
 		6F9F35ED24189E0B0003896D /* SliderBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9F35EC24189E0B0003896D /* SliderBarView.swift */; };
+		6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE757524E5430E006C4E08 /* RuleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		6F186B2124E3DF780013C065 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		6F4A94EB242216C10088024A /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		6F9F35EC24189E0B0003896D /* SliderBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBarView.swift; sourceTree = "<group>"; };
+		6FDE757524E5430E006C4E08 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleViewController.swift; path = /Users/yenfu/Documents/yenfu/schedule/schedule/RuleViewController.swift; sourceTree = "<absolute>"; };
 		85D31E20975BAA7B29E8B65B /* Pods-schedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-schedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-schedule/Pods-schedule.release.xcconfig"; sourceTree = "<group>"; };
 		C9693604D4A636BCDC9C8BE4 /* Pods-schedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-schedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-schedule/Pods-schedule.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 				141421DD238673B400B063A1 /* SecondViewController.swift */,
 				14D0F09F234C97E500B599A2 /* LaunchVC.swift */,
 				6F9F35EC24189E0B0003896D /* SliderBarView.swift */,
+				6FDE757524E5430E006C4E08 /* RuleViewController.swift */,
 				145049EB233DE6CB00FAF3AA /* Assets.xcassets */,
 				145049ED233DE6CB00FAF3AA /* LaunchScreen.storyboard */,
 				145049F0233DE6CB00FAF3AA /* Info.plist */,
@@ -318,6 +321,7 @@
 				141421E02386762100B063A1 /* SecondTableViewCell.swift in Sources */,
 				14D0F0AC234DC8A400B599A2 /* RLM.swift in Sources */,
 				6F186B2224E3DF780013C065 /* LoadingCell.swift in Sources */,
+				6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */,
 				14D0F09D2345D55C00B599A2 /* FirstTableViewCell.swift in Sources */,
 				141421DE238673B400B063A1 /* SecondViewController.swift in Sources */,
 				142086C32355D517008496D8 /* FirstDetailViewController.swift in Sources */,
