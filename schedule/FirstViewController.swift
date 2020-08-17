@@ -90,7 +90,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if pageStatus == .LoadingMore && indexPath.row == arrayCount {
-            var cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! LoadingCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! LoadingCell
             cell.spinner.startAnimating()
             return cell
         }else{

@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         //下載圖片100筆
                                         if i < 100{
                                         US.downloadImage(path: data["album_file"].stringValue, name:data["animal_id"].stringValue)
+                                            print("\(i)")
                                         }
                                     }
                                 }
@@ -82,18 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }else{
                 print("json null..")
             }
+            self.goMain()
         })
-        
-        if UD.bool(forKey: "firstIN"){
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3){
-                self.goMain()
-            }
-        }else{
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
-                self.goMain()
-            }
-            UD.set(true, forKey: "firstIN")
-        }
         
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
         return true

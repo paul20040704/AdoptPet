@@ -11,20 +11,13 @@ import Reachability
 
 class LaunchVC: UIViewController {
     let reachability = Reachability()
-
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //NotificationCenter.default.addObserver(self, selector: #selector(goMainTBC), name: Notification.Name("goMainTBC") , object: nil)
-        goMainTBC()
+        activityView.startAnimating()
     }
    
-    @objc func goMainTBC(){
-        print("goMainTBC")
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let sb = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-        let mainTBC = sb.instantiateViewController(withIdentifier: "mainTBC")
-        appDelegate.window?.rootViewController = mainTBC
-    }
     
     
     
