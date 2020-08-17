@@ -14,6 +14,9 @@ let US = Share.shared
 
 let UD = UserDefaults.standard
 
+let screenWideh = UIScreen.main.bounds.width
+let screenHeight = UIScreen.main.bounds.height
+let screenOrigin = UIScreen.main.bounds.origin
 
 extension Array where Element: Hashable {
     func removingDuplicates() -> [Element] {

@@ -14,7 +14,8 @@ class LaunchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(goMainTBC), name: Notification.Name("goMainTBC") , object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(goMainTBC), name: Notification.Name("goMainTBC") , object: nil)
+        goMainTBC()
     }
    
     @objc func goMainTBC(){
