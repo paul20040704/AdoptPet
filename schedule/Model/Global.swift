@@ -14,7 +14,7 @@ let US = Share.shared
 
 let UD = UserDefaults.standard
 
-let screenWideh = UIScreen.main.bounds.width
+let screenWidth = UIScreen.main.bounds.width
 let screenHeight = UIScreen.main.bounds.height
 let screenOrigin = UIScreen.main.bounds.origin
 

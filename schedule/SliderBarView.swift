@@ -20,7 +20,7 @@ class SliderBarView: UIView {
         bgView.backgroundColor = .white
         bgView.alpha = 0.7
         self.frame.size.height = screenHeight
-        self.frame.size.width = screenWideh/3 * 2
+        self.frame.size.width = screenWidth/3 * 2
         self.frame.origin = screenOrigin
         self.backgroundColor = .lightGray
         
@@ -68,6 +68,7 @@ class SliderBarView: UIView {
         switch sender.tag{
         case 1 :
             let ruleVC = RuleViewController()
+            ruleVC.modalPresentationStyle = .fullScreen
             let currentController = self.getCurrentViewController()
             currentController?.present(ruleVC,animated:false,completion:nil)
         case 2 :

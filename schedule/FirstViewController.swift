@@ -80,11 +80,22 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     //UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if infoArr.count < 1{
+            return 1
+        }
         switch self.pageStatus {
         case .LoadingMore:
-            return arrayCount + 1
+            if infoArr.count > arrayCount {
+                return arrayCount + 1
+            }else{
+                return infoArr.count + 1
+            }
         default:
-            return arrayCount
+            if infoArr.count > arrayCount {
+                return arrayCount
+            }else{
+            return infoArr.count
+            }
         }
     }
     
@@ -104,6 +115,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             if cell == nil{
                 cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell") as! FirstTableViewCell
             }
+            if indexPath.row < infoArr.count{
                 let info = infoArr[indexPath.row]
                 let cellImage = US.loadImage(fileName: "\(info.animal_id).jpg")
                 cell.aniImage.image = cellImage?.scaleImage(scaleSize: 0.5)
@@ -112,7 +124,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
                 cell.checkDate.text = "登入日期 : \(info.cDate)"
                 cell.likeBtn.tag = indexPath.row
                 cell.likeBtn.addTarget(self, action: #selector(like(sender:)), for: .touchUpInside)
-            
+            }
             return cell
         }
         
@@ -225,8 +237,15 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
                     }
                 }
             }
-            for i in 0...49{
-                US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)
+            if self.infoArr.count > 0 && self.infoArr.count < 50 {
+                for i in 0...self.infoArr.count - 1{
+                    US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)
+                }
+            }
+            if self.infoArr.count > 49{
+                for i in 0...49{
+                    US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)
+                }
             }
             self.tableView.reloadData()
             HUD.hide({ (finish) in
@@ -270,7 +289,9 @@ extension FirstViewController : UIScrollViewDelegate{
                     //預載25張圖片
                     print(self.arrayCount)
                     for i in self.arrayCount...self.arrayCount + 25{
+                        if self.infoArr.count > i {
                         US.downloadImage(path: self.infoArr[i-1].album_file, name: self.infoArr[i-1].animal_id)
+                        }
                     }
                 }
             }

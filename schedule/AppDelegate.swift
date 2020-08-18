@@ -65,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         if US.judgeImage(fileName: "\(data["animal_id"].stringValue).jpg"){
                                             continue
                                         }
-                                        let fileURL = US.fileDocumentsPath(fileName: data["animal_id"].stringValue)
                                         r.create(RLM_ApiData.self, value: aniArray, update: true)
                                         //下載圖片100筆
                                         if i < 100{

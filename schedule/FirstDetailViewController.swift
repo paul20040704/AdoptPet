@@ -25,7 +25,6 @@ class FirstDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(infoDetail.animal_id)
         let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
         imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
         idLabel.text =    "編號      : \(infoDetail.animal_id)"
