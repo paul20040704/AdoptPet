@@ -10,7 +10,6 @@ import UIKit
 
 class LoadingCell: UITableViewCell {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

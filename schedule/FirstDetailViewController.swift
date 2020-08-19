@@ -11,6 +11,8 @@ import UIKit
 class FirstDetailViewController: UIViewController {
 
     var infoDetail = RLM_ApiData()
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var idLabel: UILabel!
     @IBOutlet var placeLabel: UILabel!
@@ -22,9 +24,11 @@ class FirstDetailViewController: UIViewController {
     @IBOutlet var createLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var telLabel: UILabel!
+    @IBOutlet weak var remarkLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
         imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
         idLabel.text =    "編號      : \(infoDetail.animal_id)"
@@ -37,6 +41,8 @@ class FirstDetailViewController: UIViewController {
         createLabel.text = "發現日   : \(infoDetail.animal_createtime)"
         addressLabel.text = "收容所地址 : \(infoDetail.shelter_address)"
         telLabel.text =   "聯繫收容所 : \(infoDetail.shelter_tel)"
+        remarkLabel.text = "備註     : \(infoDetail.animal_remark)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nderrevevevre"
+        
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(phoneCall(recognizer:)))
         telLabel.isUserInteractionEnabled = true

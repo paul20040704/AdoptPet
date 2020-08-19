@@ -23,11 +23,22 @@
                                     <constraint firstAttribute="height" constant="100" id="fOV-7o-aZ4"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="資料加載中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i32-lS-euy">
+                                <rect key="frame" x="163.5" y="498" width="87" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Ecg-pp-4B6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.55458801469999996" green="0.82536535609999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="moe-x1-x4J" firstAttribute="centerY" secondItem="bN4-8w-EeD" secondAttribute="centerY" id="PhO-33-DSS"/>
+                            <constraint firstItem="i32-lS-euy" firstAttribute="top" secondItem="moe-x1-x4J" secondAttribute="bottom" id="crB-En-Iou"/>
                             <constraint firstItem="moe-x1-x4J" firstAttribute="centerX" secondItem="bN4-8w-EeD" secondAttribute="centerX" id="gRE-oo-2gI"/>
+                            <constraint firstItem="i32-lS-euy" firstAttribute="centerX" secondItem="bN4-8w-EeD" secondAttribute="centerX" id="xG1-ic-GAx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TQm-av-qCQ"/>
                     </view>
@@ -37,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f7s-H0-dSE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3848" y="-794"/>
+            <point key="canvasLocation" x="-3849.275362318841" y="-794.19642857142856"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pmO-IU-2QL">

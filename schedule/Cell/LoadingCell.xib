@@ -36,7 +36,7 @@
             <connections>
                 <outlet property="spinner" destination="kUG-Jf-jXa" id="SrT-Zj-37I"/>
             </connections>
-            <point key="canvasLocation" x="139" y="112"/>
+            <point key="canvasLocation" x="137.68115942028987" y="111.83035714285714"/>
         </tableViewCell>
     </objects>
 </document>

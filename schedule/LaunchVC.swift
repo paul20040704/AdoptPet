@@ -10,7 +10,7 @@ import UIKit
 import Reachability
 
 class LaunchVC: UIViewController {
-    let reachability = Reachability()
+    
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
