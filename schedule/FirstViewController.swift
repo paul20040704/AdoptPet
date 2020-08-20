@@ -65,11 +65,13 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
         
         self.resetInfoArr()
+        self.updateTotal()
         
         sliderBarView.setUI(spView: self.view )
         
         
     }
+    
     @objc func loadData(){
             self.resetInfoArr()
             self.tableView.reloadData()
@@ -248,13 +250,20 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
                 }
             }
             self.tableView.reloadData()
+            let index = IndexPath.init(row: 0, section: 0)
+            self.tableView.scrollToRow(at: index, at: .bottom, animated: true)
+            self.updateTotal()
             HUD.hide({ (finish) in
                 HUD.flash(.success, delay:2)
             })
         }
         
     }
-
+    
+    //更新總共有幾筆資料
+    func updateTotal(){
+        self.navigationItem.title = "總共 : \(infoArr.count) 筆"
+    }
 
      func resetInfoArr() {
         let realm = try! Realm()
@@ -274,6 +283,9 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
 
     
 }
+
+
+
 
 extension FirstViewController : UIScrollViewDelegate{
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

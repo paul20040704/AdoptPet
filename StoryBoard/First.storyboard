@@ -226,13 +226,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jio-e5-j9d">
                                                 <rect key="frame" x="10" y="345" width="394" height="269"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-1v-G9H">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeT-1v-G9H" userLabel="Sterilization Label">
                                                         <rect key="frame" x="0.0" y="0.0" width="394" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgx-bm-Ne3">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgx-bm-Ne3" userLabel="Bacterin Label">
                                                         <rect key="frame" x="0.0" y="35.5" width="394" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                         <nil key="textColor"/>
@@ -277,13 +277,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KGE-lm-2qI">
-                                                <rect key="frame" x="10" y="674" width="394" height="20.5"/>
+                                                <rect key="frame" x="10" y="689" width="394" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <color key="textColor" red="1" green="0.05102418528394348" blue="0.043700189321462468" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UF2-aM-ba3">
-                                                <rect key="frame" x="10" y="709.5" width="394" height="20.5"/>
+                                                <rect key="frame" x="10" y="724.5" width="394" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -320,7 +320,7 @@
                                             <constraint firstAttribute="trailing" secondItem="pyg-l8-bXL" secondAttribute="trailing" constant="10" id="M23-sa-ivB"/>
                                             <constraint firstAttribute="height" constant="1500" id="PBk-oq-0yz"/>
                                             <constraint firstItem="pyg-l8-bXL" firstAttribute="leading" secondItem="hTR-IY-vIA" secondAttribute="trailing" constant="10" id="TMm-n5-6i7"/>
-                                            <constraint firstItem="KGE-lm-2qI" firstAttribute="top" secondItem="pyg-l8-bXL" secondAttribute="bottom" constant="15" id="TlR-UP-fy7"/>
+                                            <constraint firstItem="KGE-lm-2qI" firstAttribute="top" secondItem="pyg-l8-bXL" secondAttribute="bottom" constant="30" id="TlR-UP-fy7"/>
                                             <constraint firstAttribute="trailing" secondItem="Jio-e5-j9d" secondAttribute="trailing" constant="10" id="UVS-8s-Hk4"/>
                                             <constraint firstItem="pyg-l8-bXL" firstAttribute="top" secondItem="Jio-e5-j9d" secondAttribute="bottom" constant="15" id="WRa-Ye-GMc"/>
                                             <constraint firstItem="KGE-lm-2qI" firstAttribute="leading" secondItem="YKF-Im-Nk1" secondAttribute="leading" constant="10" id="cc0-Mn-HNA"/>
@@ -356,16 +356,16 @@
                     </view>
                     <connections>
                         <outlet property="addressLabel" destination="hTR-IY-vIA" id="VSH-l3-MtI"/>
+                        <outlet property="bacterinLabel" destination="Rgx-bm-Ne3" id="W8e-IE-slS"/>
                         <outlet property="colorLabel" destination="ZeN-5p-5Nt" id="yKZ-Wb-LEb"/>
                         <outlet property="createLabel" destination="saG-8j-83y" id="hrA-ut-GOG"/>
                         <outlet property="foundLabel" destination="I8p-OF-owT" id="yzW-fO-28i"/>
-                        <outlet property="idLabel" destination="VeT-1v-G9H" id="X96-re-ZsA"/>
                         <outlet property="imageView" destination="EdU-DX-PJz" id="K5p-dz-SLv"/>
                         <outlet property="kindLabel" destination="nXd-Sz-KtD" id="WvJ-8l-Zr8"/>
-                        <outlet property="placeLabel" destination="Rgx-bm-Ne3" id="RVT-9U-c2S"/>
                         <outlet property="remarkLabel" destination="UF2-aM-ba3" id="lhL-pZ-zrL"/>
                         <outlet property="scrollView" destination="Lgd-rb-Qo7" id="hD7-pK-RGk"/>
                         <outlet property="sexLabel" destination="Obm-zy-zZO" id="pto-XN-bqB"/>
+                        <outlet property="sterilizationLabel" destination="VeT-1v-G9H" id="oqq-Wd-0Au"/>
                         <outlet property="telLabel" destination="KGE-lm-2qI" id="fPG-zV-tzP"/>
                         <outlet property="typeLabel" destination="gtZ-77-mSw" id="sbi-Gq-qu3"/>
                     </connections>

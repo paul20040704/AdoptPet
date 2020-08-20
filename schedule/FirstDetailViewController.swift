@@ -14,8 +14,8 @@ class FirstDetailViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet var idLabel: UILabel!
-    @IBOutlet var placeLabel: UILabel!
+    @IBOutlet weak var sterilizationLabel: UILabel!
+    @IBOutlet weak var bacterinLabel: UILabel!
     @IBOutlet var kindLabel: UILabel!
     @IBOutlet var sexLabel: UILabel!
     @IBOutlet var typeLabel: UILabel!
@@ -25,23 +25,27 @@ class FirstDetailViewController: UIViewController {
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var telLabel: UILabel!
     @IBOutlet weak var remarkLabel: UILabel!
+    var sterilization = ""
+    var sex = ""
+    var type = ""
+    var bacterin = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        judge()
         let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
         imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
-        idLabel.text =    "編號      : \(infoDetail.animal_id)"
-        placeLabel.text = "所在地    : \(infoDetail.animal_place)"
+        sterilizationLabel.text =    "是否絕育    : \(sterilization)"
+        bacterinLabel.text = "是否疫苗    : \(bacterin)"
         kindLabel.text =  "種類     : \(infoDetail.animal_kind)"
-        sexLabel.text =   "性別     : \(infoDetail.animal_sex)"
-        typeLabel.text =  "體型     : \(infoDetail.animal_bodytype)"
+        sexLabel.text =   "性別     : \(sex)"
+        typeLabel.text =  "體型     : \(type)"
         colorLabel.text = "顏色     : \(infoDetail.animal_colour)"
         foundLabel.text = "發現地   : \(infoDetail.animal_foundplace)"
         createLabel.text = "發現日   : \(infoDetail.animal_createtime)"
         addressLabel.text = "收容所地址 : \(infoDetail.shelter_address)"
         telLabel.text =   "聯繫收容所 : \(infoDetail.shelter_tel)"
-        remarkLabel.text = "備註     : \(infoDetail.animal_remark)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nderrevevevre"
+        remarkLabel.text = "備註     : \(infoDetail.animal_remark)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
         
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(phoneCall(recognizer:)))
@@ -61,6 +65,46 @@ class FirstDetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let googleMapVC = segue.destination as! GoogleMapViewController
         googleMapVC.pickAddress = infoDetail.shelter_address
+    }
+    
+    func judge(){
+        switch infoDetail.animal_sterilization {
+        case "T":
+           sterilization = "是"
+        case "F":
+           sterilization = "否"
+        default:
+           sterilization = "未知"
+        }
+        
+        switch infoDetail.animal_sex {
+        case "M":
+            sex = "公"
+        case "F":
+            sex = "母"
+        default:
+            sex = "未知"
+        }
+        
+        switch infoDetail.animal_bodytype {
+        case "BIG":
+            type = "大型"
+        case "SMALL":
+            type = "小型"
+        case "MEDIUM":
+            type = "中型"
+        default:
+            type = "未知"
+        }
+        
+        switch infoDetail.animal_bacterin {
+        case "T":
+           bacterin = "是"
+        case "F":
+           bacterin = "否"
+        default:
+           bacterin = "未知"
+        }
     }
 
 }
