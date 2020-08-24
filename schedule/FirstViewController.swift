@@ -23,9 +23,9 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
+    
     @IBOutlet weak var localTextField: UITextField!
     @IBOutlet weak var typeTextField: UITextField!
-    @IBOutlet weak var searchBtn: UIButton!
     
     let localPickerView = UIPickerView()
     let typePickerView = UIPickerView()
@@ -43,9 +43,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
         
-        searchBtn.layer.cornerRadius = 9.0
-        searchBtn.clipsToBounds = true
-        searchBtn.addTarget(self, action: #selector(search), for: .touchUpInside)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -55,11 +52,11 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         typePickerView.delegate = self
         typePickerView.dataSource = self
         //將textFeild預設鍵盤改為pickerView
-        localTextField.inputView = localPickerView
-        typeTextField.inputView = typePickerView
+        //localTextField.inputView = localPickerView
+        //typeTextField.inputView = typePickerView
         //將textFeild預設文字
-        localTextField.text = localArr[0]
-        typeTextField.text = typeArr[0]
+        //localTextField.text = localArr[0]
+        //typeTextField.text = typeArr[0]
         
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
@@ -169,10 +166,10 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.view.endEditing(true)
             if pickerView == localPickerView{
-                localTextField.text = localArr[row]
+                //localTextField.text = localArr[row]
         }
         else{
-                typeTextField.text = typeArr[row]
+                //typeTextField.text = typeArr[row]
         }
     }
     
@@ -202,6 +199,21 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         }
     
     }
+    
+    @IBAction func goSearch(_ sender: Any) {
+        
+        let storyBoard = UIStoryboard.init(name: "First", bundle: .main)
+        
+        if #available(iOS 13.0, *) {
+            let searchVC = storyBoard.instantiateViewController(identifier: "searchVC") 
+            self.present(searchVC,animated:true,completion:nil)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
+    }
+    
     
     @objc func search(){
         DispatchQueue.main.async {
@@ -251,6 +263,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             }
             self.tableView.reloadData()
             let index = IndexPath.init(row: 0, section: 0)
+            //查詢完回到頂部
             self.tableView.scrollToRow(at: index, at: .bottom, animated: true)
             self.updateTotal()
             HUD.hide({ (finish) in

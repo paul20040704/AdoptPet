@@ -64,7 +64,18 @@ class Share : NSObject{
             return false
         }
     }
-    
+    //取得最上方的view
+    func getCurrentViewController() -> UIViewController?{
+    if let rootVC = UIApplication.shared.keyWindow?.rootViewController{
+        var currentController : UIViewController! = rootVC
+        while( currentController.presentedViewController != nil ) {
+            currentController = currentController.presentedViewController
+            }
+            return currentController
+        }
+        return nil
+     }
+
     
     
 

@@ -67,7 +67,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
     }
     
     @objc func sideBarBtn(sender:UIButton){
-        let currentController = self.getCurrentViewController()
+        let currentController = US.getCurrentViewController()
         
         switch sender.tag{
         case 1 :
@@ -96,16 +96,6 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func getCurrentViewController() -> UIViewController?{
-        if let rootVC = UIApplication.shared.keyWindow?.rootViewController{
-            var currentController : UIViewController! = rootVC
-            while( currentController.presentedViewController != nil ) {
-                currentController = currentController.presentedViewController
-                }
-                return currentController
-            }
-            return nil
-         }
 
 
 
