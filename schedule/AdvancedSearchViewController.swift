@@ -21,7 +21,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
+        //self.tableView.register(AdSearchTableViewCell.self, forCellReuseIdentifier: "Cell")
         
     }
     
