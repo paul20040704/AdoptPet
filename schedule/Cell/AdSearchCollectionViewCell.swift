@@ -12,4 +12,11 @@ class AdSearchCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var labelBtn: UIButton!
     
+    @IBAction func selectCondition(_ sender: UIButton) {
+        
+    }
+    
+    
 }
+
+
