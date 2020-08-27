@@ -40,7 +40,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
         case 3:
             return 300
         default:
-            return 100
+            return 120
         }
     }
     

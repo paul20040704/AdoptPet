@@ -160,7 +160,8 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             let searchVC = storyBoard.instantiateViewController(identifier: "searchVC") 
             self.present(searchVC,animated:true,completion:nil)
         } else {
-            // Fallback on earlier versions
+            let searchVC = storyBoard.instantiateViewController(withIdentifier: "searchVC")
+            self.present(searchVC,animated: true,completion: nil)
         }
         
     }
