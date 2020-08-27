@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }else{
                 print("json null..")
             }
-            self.goMain()
+          self.goMain()
         })
         
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)

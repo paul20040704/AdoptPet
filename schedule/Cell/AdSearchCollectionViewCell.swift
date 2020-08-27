@@ -10,11 +10,8 @@ import UIKit
 
 class AdSearchCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var labelBtn: UIButton!
+    @IBOutlet weak var chooseLabel: UILabel!
     
-    @IBAction func selectCondition(_ sender: UIButton) {
-        
-    }
     
     
 }

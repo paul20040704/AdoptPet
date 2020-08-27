@@ -19,22 +19,20 @@ enum PageStatus {
     case NotLoadingMore
 }
 
-class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UIPickerViewDataSource,UIPickerViewDelegate{
+class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource{
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var kindLabel: UILabel!
+    @IBOutlet weak var localLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var sexLabel: UILabel!
+    @IBOutlet weak var sterLabel: UILabel!
+    @IBOutlet weak var ageLabel: UILabel!
     
-    
-    @IBOutlet weak var localTextField: UITextField!
-    @IBOutlet weak var typeTextField: UITextField!
-    
-    let localPickerView = UIPickerView()
-    let typePickerView = UIPickerView()
     let sliderBarView = SliderBarView()
     var infoArr = [RLM_ApiData]()
     var pageStatus: PageStatus = .NotLoadingMore
     var arrayCount = 25
-    var localArr = ["全部地點","台北","新北","桃園","新竹","苗栗","臺中","彰化","雲林","嘉義","台南","高雄","屏東","台東","花蓮","宜蘭","基隆","南投"]
-    var typeArr = ["全部種類","貓","狗"]
     var refreshControl : UIRefreshControl!
     
     override func viewDidLoad() {
@@ -43,20 +41,10 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(search), name: NSNotification.Name(rawValue: "search"), object: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        localPickerView.delegate = self
-        localPickerView.dataSource = self
-        typePickerView.delegate = self
-        typePickerView.dataSource = self
-        //將textFeild預設鍵盤改為pickerView
-        //localTextField.inputView = localPickerView
-        //typeTextField.inputView = typePickerView
-        //將textFeild預設文字
-        //localTextField.text = localArr[0]
-        //typeTextField.text = typeArr[0]
         
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
@@ -70,11 +58,9 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
     
     @objc func loadData(){
-            self.resetInfoArr()
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
     }
-    
     
     
     //UITableViewDelegate
@@ -140,40 +126,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
       }
     }
     
-    //UIPickerViewDelegate
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == localPickerView {
-            return localArr.count
-        }
-        else {
-            return typeArr.count
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == localPickerView{
-            return localArr[row]
-        }
-        else{
-            return typeArr[row]
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.view.endEditing(true)
-            if pickerView == localPickerView{
-                //localTextField.text = localArr[row]
-        }
-        else{
-                //typeTextField.text = typeArr[row]
-        }
-    }
-    
-    
     
     //按下喜歡
     @objc func like (sender:UIButton){
@@ -211,66 +163,75 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             // Fallback on earlier versions
         }
         
-        
     }
     
     
     @objc func search(){
+        changeLabel()
         DispatchQueue.main.async {
             HUD.show(.label("稍等..."))
-            //HUD.hide(afterDelay: 3.0)
             self.infoArr = []
             self.arrayCount = 25
-            if let local = self.localTextField.text , let type = self.typeTextField.text {
-                let realm = try! Realm()
-                let orders = realm.objects(RLM_ApiData.self)
-                if local == "全部地點" && type != "全部種類" {
-                    for order in orders {
-                        if order.animal_kind == type{
-                            self.infoArr.append(order)
+            let realm = try! Realm()
+            let orders = realm.objects(RLM_ApiData.self)
+            for order in orders {
+                var conditionFound = true
+                if sexArray.count > 0{
+                    if !(sexArray.contains(order.animal_sex)){
+                        conditionFound = false
+                    }
+                }
+                if typeArray.count > 0{
+                    if !(typeArray.contains(order.animal_kind)){
+                        conditionFound = false
+                    }
+                }
+                if sizeArray.count > 0{
+                    if !(sizeArray.contains(order.animal_bodytype)){
+                        conditionFound = false
+                    }
+                }
+                if localArray.count > 0{
+                    var localCondition = false
+                    for local in localArray{
+                        if order.shelter_address.contains(local){
+                            localCondition = true
+                            }
                         }
-                    }
-                }
-                else if type == "全部種類" && local != "全部地點"  {
-                    for order in orders {
-                        if order.shelter_address.contains(local) {
-                            self.infoArr.append(order)
+                        if !(localCondition){
+                            conditionFound = false
                         }
+                }
+                if ageArray.count > 0{
+                    if !(ageArray.contains(order.animal_age)){
+                        conditionFound = false
                     }
                 }
-                else if local == "全部地點" && type == "全部種類"{
-                    for order in orders {
-                        self.infoArr.append(order)
+                if sterilizationArray.count > 0{
+                    if !(sterilizationArray.contains(order.animal_sterilization)){
+                        conditionFound = false
                     }
                 }
-                else {
-                    for order in orders {
-                        if order.animal_kind == type && order.shelter_address.contains(local) {
-                            self.infoArr.append(order)
-                        }
-                    }
-                }
-            }
-            if self.infoArr.count > 0 && self.infoArr.count < 50 {
-                for i in 0...self.infoArr.count - 1{
-                    US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)
-                }
-            }
-            if self.infoArr.count > 49{
-                for i in 0...49{
-                    US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)
+                if conditionFound {
+                    self.infoArr.append(order)
                 }
             }
             self.tableView.reloadData()
             let index = IndexPath.init(row: 0, section: 0)
-            //查詢完回到頂部
+            //查詢完回頂部
             self.tableView.scrollToRow(at: index, at: .bottom, animated: true)
             self.updateTotal()
-            HUD.hide({ (finish) in
-                HUD.flash(.success, delay:2)
-            })
+            //刪除所有條件
+            sexArray.removeAll()
+            typeArray.removeAll()
+            sizeArray.removeAll()
+            localArray.removeAll()
+            ageArray.removeAll()
+            sterilizationArray.removeAll()
+            HUD.hide { (finish) in
+                HUD.flash(.success,delay:2)
+            }
         }
-        
     }
     
     //更新總共有幾筆資料
@@ -279,6 +240,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
 
      func resetInfoArr() {
+        infoArr = []
         let realm = try! Realm()
         let orders = realm.objects(RLM_ApiData.self)
         if orders.count > 10{
@@ -292,7 +254,83 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         sliderBarView.show()
     }
     
+    @IBAction func resetCondition(_ sender: Any) {
+        print("resetCondition")
+        resetInfoArr()
+        changeLabel()
+        updateTotal()
+        search()
+        self.tableView.reloadData()
+    }
     
+    func changeLabel(){
+        if typeArray.count == 2 || typeArray.count == 0{
+            kindLabel.text = "全部種類"
+        }
+        if typeArray.count == 1{
+            kindLabel.text = typeArray[0]
+        }
+        if localArray.count > 1 || localArray.count == 0{
+            localLabel.text = "多個地區"
+        }
+        if localArray.count == 1{
+            localLabel.text = localArray[0]
+        }
+        if sizeArray.count > 1 || sizeArray.count == 0{
+            sizeLabel.text = "多種體型"
+        }
+        if sizeArray.count == 1{
+            let size = sizeArray[0]
+            switch size {
+            case "SMALL":
+                sizeLabel.text = "小型"
+            case "MEDIUN":
+                sizeLabel.text = "中型"
+            case "BIG":
+                sizeLabel.text = "大型"
+            default:
+                return
+            }
+        }
+        if sexArray.count > 1 || localArray.count == 0{
+            sexLabel.text = "不分性別"
+        }
+        if sexArray.count == 1{
+            let sex = sexArray[0]
+            switch sex {
+            case "M":
+                sexLabel.text = "公"
+            default:
+                sexLabel.text = "母"
+            }
+        }
+        if sterilizationArray.count > 1 || sterilizationArray.count == 0{
+            sterLabel.text = "絕育未定"
+        }
+        if sterilizationArray.count == 1{
+            let sterilization = sterilizationArray[0]
+            switch sterilization {
+            case "T":
+                sterLabel.text = "是"
+            case "F":
+                sterLabel.text = "否"
+            default:
+                sterLabel.text = "未知"
+            }
+        }
+        if ageArray.count > 1 || ageArray.count == 0{
+            ageLabel.text = "不分年紀"
+        }
+        if ageArray.count == 1{
+            let age = ageArray[0]
+            switch age {
+            case "ADULT":
+                ageLabel.text = "成年"
+            default:
+                ageLabel.text = "幼年"
+            }
+        }
+    }
 
     
 }
