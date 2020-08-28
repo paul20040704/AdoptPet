@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import RealmSwift
 
 class Share : NSObject{
     static let shared = Share()
@@ -76,6 +76,55 @@ class Share : NSObject{
         return nil
      }
 
+    //搜尋條件結果
+    func search() -> [RLM_ApiData]{
+        var infoArr : [RLM_ApiData] = []
+        let realm = try! Realm()
+        let orders = realm.objects(RLM_ApiData.self)
+        for order in orders {
+            var conditionFound = true
+            if sexArray.count > 0{
+                if !(sexArray.contains(order.animal_sex)){
+                    conditionFound = false
+                }
+            }
+            if typeArray.count > 0{
+                if !(typeArray.contains(order.animal_kind)){
+                    conditionFound = false
+                }
+            }
+            if sizeArray.count > 0{
+                if !(sizeArray.contains(order.animal_bodytype)){
+                    conditionFound = false
+                }
+            }
+            if localArray.count > 0{
+                var localCondition = false
+                for local in localArray{
+                    if order.shelter_address.contains(local){
+                        localCondition = true
+                        }
+                    }
+                    if !(localCondition){
+                        conditionFound = false
+                    }
+            }
+            if ageArray.count > 0{
+                if !(ageArray.contains(order.animal_age)){
+                    conditionFound = false
+                }
+            }
+            if sterilizationArray.count > 0{
+                if !(sterilizationArray.contains(order.animal_sterilization)){
+                    conditionFound = false
+                }
+            }
+            if conditionFound {
+                infoArr.append(order)
+            }
+        }
+        return infoArr
+    }
     
     
 

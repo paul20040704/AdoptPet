@@ -12,6 +12,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var searchLabel: UIButton!
     
     
     var titleArr = ["性別","類型","體型","地區","年紀","絕育"]
@@ -27,6 +28,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
         tableView.delegate = self
         tableView.dataSource = self
         //self.tableView.register(AdSearchTableViewCell.self, forCellReuseIdentifier: "Cell")
+        NotificationCenter.default.addObserver(self, selector: #selector(changeNumber), name: NSNotification.Name(rawValue: "changeNumber"), object: nil)
         
     }
     
@@ -46,6 +48,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! AdSearchTableViewCell
+        
         cell.titleLabel.text = titleArr[indexPath.row]
         cell.collectionArray = totalDic[titleArr[indexPath.row]]!
         cell.tableTag = indexPath.row + 1
@@ -66,6 +69,10 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func changeNumber(){
+        var info = US.search()
+        searchLabel.setTitle("總共 \(info.count) 筆資料。點擊查詢", for: .normal)
+    }
     
     
 }

@@ -171,52 +171,8 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         changeLabel()
         DispatchQueue.main.async {
             HUD.show(.label("稍等..."))
-            self.infoArr = []
             self.arrayCount = 25
-            let realm = try! Realm()
-            let orders = realm.objects(RLM_ApiData.self)
-            for order in orders {
-                var conditionFound = true
-                if sexArray.count > 0{
-                    if !(sexArray.contains(order.animal_sex)){
-                        conditionFound = false
-                    }
-                }
-                if typeArray.count > 0{
-                    if !(typeArray.contains(order.animal_kind)){
-                        conditionFound = false
-                    }
-                }
-                if sizeArray.count > 0{
-                    if !(sizeArray.contains(order.animal_bodytype)){
-                        conditionFound = false
-                    }
-                }
-                if localArray.count > 0{
-                    var localCondition = false
-                    for local in localArray{
-                        if order.shelter_address.contains(local){
-                            localCondition = true
-                            }
-                        }
-                        if !(localCondition){
-                            conditionFound = false
-                        }
-                }
-                if ageArray.count > 0{
-                    if !(ageArray.contains(order.animal_age)){
-                        conditionFound = false
-                    }
-                }
-                if sterilizationArray.count > 0{
-                    if !(sterilizationArray.contains(order.animal_sterilization)){
-                        conditionFound = false
-                    }
-                }
-                if conditionFound {
-                    self.infoArr.append(order)
-                }
-            }
+            self.infoArr = US.search()
             self.tableView.reloadData()
             let index = IndexPath.init(row: 0, section: 0)
             //查詢完回頂部
@@ -256,7 +212,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
     
     @IBAction func resetCondition(_ sender: Any) {
-        print("resetCondition")
         resetInfoArr()
         changeLabel()
         updateTotal()

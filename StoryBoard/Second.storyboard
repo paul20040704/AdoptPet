@@ -64,6 +64,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="cfi-3c-5x9" secondAttribute="bottom" constant="60" id="KV7-O9-Tf0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="cfi-3c-5x9" secondAttribute="trailing" constant="10" id="U7c-0I-G6A"/>
                                                 <constraint firstItem="cfi-3c-5x9" firstAttribute="leading" secondItem="wQh-0X-G2Q" secondAttribute="trailing" constant="10" id="btU-Us-0f5"/>
+                                                <constraint firstAttribute="bottom" secondItem="wQh-0X-G2Q" secondAttribute="bottom" constant="5" id="tuE-JA-xNU"/>
                                                 <constraint firstItem="wQh-0X-G2Q" firstAttribute="top" secondItem="s93-HE-a9b" secondAttribute="top" constant="5" id="yrq-IC-48c"/>
                                             </constraints>
                                         </tableViewCellContentView>

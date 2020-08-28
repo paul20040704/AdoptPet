@@ -33,7 +33,7 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
         collectionView.dataSource = self
         
         collectionView.frame.size.height = 300
-
+        NotificationCenter.default.post(name: Notification.Name("changeNumber"), object: nil)
         
         
     }
@@ -69,7 +69,6 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     }
     
     @objc func resetCollection(){
-        print("resetCollection")
         for i in 0...collectionArray.count - 1  {
             let index = IndexPath.init(row: i, section: 0)
             let cell = collectionView.cellForItem(at: index) as! AdSearchCollectionViewCell
@@ -131,12 +130,19 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
         default:
             return
         }
+        NotificationCenter.default.post(name: Notification.Name("changeNumber"), object: nil)
     }
     
     func removeCondition(tag:Int,condition:String){
+        var conditionValue = ""
         switch tag {
         case 1:
-            if let index = sexArray.firstIndex(of: condition){
+            if condition == "公"{
+                conditionValue = "M"
+            }else if condition == "母"{
+                conditionValue = "F"
+            }
+            if let index = sexArray.firstIndex(of: conditionValue){
                 sexArray.remove(at: index)
             }
         case 2:
@@ -144,7 +150,14 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
                 typeArray.remove(at: index)
             }
         case 3:
-            if let index = sizeArray.firstIndex(of: condition){
+            if condition == "大型"{
+                conditionValue = "BIG"
+            }else if condition == "中型"{
+                conditionValue = "MEDIUM"
+            }else if condition == "小型"{
+                conditionValue = "SMALL"
+            }
+            if let index = sizeArray.firstIndex(of: conditionValue){
                 sizeArray.remove(at: index)
             }
         case 4:
@@ -152,16 +165,29 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
                 localArray.remove(at: index)
             }
         case 5:
-            if let index = ageArray.firstIndex(of: condition){
+            if condition == "幼年"{
+                conditionValue = "CHILD"
+                }else if condition == "成年"{
+                conditionValue = "ADULT"
+                }
+            if let index = ageArray.firstIndex(of: conditionValue){
                 ageArray.remove(at: index)
             }
         case 6:
-            if let index = sterilizationArray.firstIndex(of: condition){
+            if condition == "是"{
+                conditionValue = "T"
+            }else if condition == "否"{
+                conditionValue = "F"
+            }else if condition == "未知"{
+                conditionValue = ""
+            }
+            if let index = sterilizationArray.firstIndex(of: conditionValue){
                 sterilizationArray.remove(at: index)
             }
         default:
             return
         }
+        NotificationCenter.default.post(name: Notification.Name("changeNumber"), object: nil)
     }
 
 }
