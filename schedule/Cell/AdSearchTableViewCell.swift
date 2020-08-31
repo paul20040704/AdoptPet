@@ -20,8 +20,9 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    var collectionArray : Array<String> = [""]
+    //var collectionArray : Array<String> = [""]
     var tableTag : Int = 0
+    var tableTitle : String = ""
     var localIsSelect : Bool = false
     
     
@@ -46,12 +47,12 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionArray.count
+        return totalDic[tableTitle]!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! AdSearchCollectionViewCell
-        cell.chooseLabel.text = collectionArray[indexPath.row]
+        cell.chooseLabel.text = totalDic[tableTitle]![indexPath.row]
         cell.tag = tableTag
         return cell
     }
@@ -59,17 +60,17 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
         let cell = collectionView.cellForItem(at: indexPath) as! AdSearchCollectionViewCell
         if cell.tag > 0 {
             cell.chooseLabel.backgroundColor = .lightGray
-            addCondition(tag: cell.tag, condition: collectionArray[indexPath.row])
+            addCondition(tag: cell.tag, condition: totalDic[tableTitle]![indexPath.row])
             cell.tag = -(cell.tag)
         }else if cell.tag < 0 {
             cell.chooseLabel.backgroundColor = .systemYellow
             cell.tag = -(cell.tag)
-            removeCondition(tag: cell.tag, condition: collectionArray[indexPath.row])
+            removeCondition(tag: cell.tag, condition: totalDic[tableTitle]![indexPath.row])
         }
     }
     
     @objc func resetCollection(){
-        for i in 0...collectionArray.count - 1  {
+        for i in 0...totalDic[tableTitle]!.count - 1  {
             let index = IndexPath.init(row: i, section: 0)
             let cell = collectionView.cellForItem(at: index) as! AdSearchCollectionViewCell
             if cell.tag < 0 {

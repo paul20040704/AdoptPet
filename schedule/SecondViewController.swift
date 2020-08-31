@@ -49,7 +49,11 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if infoArr.count == 0{
+            return 1
+        }else{
         return infoArr.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,6 +61,13 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SecondTableViewCell
         if cell == nil{
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell") as! SecondTableViewCell
+        }
+        if infoArr.count == 0{
+            let noCell = UITableViewCell.init()
+            noCell.textLabel?.text = "無資訊"
+            noCell.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
+            tableView.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
+            return noCell
         }
         if infoArr.count > 0{
             let info = infoArr[indexPath.row]

@@ -92,8 +92,10 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         }else{
             var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FirstTableViewCell
             if infoArr.count < 1{
-               let noCell = UITableViewCell.init()
+                let noCell = UITableViewCell.init()
                 noCell.textLabel?.text = "無資訊"
+                noCell.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
+                tableView.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
                 return noCell
             }
             
