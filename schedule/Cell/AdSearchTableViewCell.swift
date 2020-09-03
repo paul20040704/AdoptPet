@@ -59,7 +59,7 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! AdSearchCollectionViewCell
         if cell.tag > 0 {
-            cell.chooseLabel.backgroundColor = .lightGray
+            cell.chooseLabel.backgroundColor = .green
             addCondition(tag: cell.tag, condition: totalDic[tableTitle]![indexPath.row])
             cell.tag = -(cell.tag)
         }else if cell.tag < 0 {

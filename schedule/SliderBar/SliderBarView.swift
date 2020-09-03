@@ -44,9 +44,10 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         button2.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
         button3.frame = CGRect(x: 0 , y: 290, width: self.view.frame.width, height: 99)
         button3.tag = 3
-        button3.setTitle("test3", for: .normal)
+        button3.setTitle("關於我", for: .normal)
         button3.setTitleColor(.white, for: .normal)
         button3.backgroundColor = .black
+        button3.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
         
         self.view.addSubview(button1)
         self.view.addSubview(button2)
@@ -73,7 +74,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         case 1 :
             let ruleVC = RuleViewController()
             //ruleVC.modalPresentationStyle = .fullScreen
-            currentController?.present(ruleVC,animated:false,completion:nil)
+            currentController?.present(ruleVC,animated: false,completion: nil)
         case 2 :
             guard MFMailComposeViewController.canSendMail() else{
                 print("Mail servies not available")
@@ -84,9 +85,10 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
             mailController.setToRecipients(["paul20040704@gmail.com"])
             mailController.setSubject("APP領養")
             self.present(mailController,animated:true,completion:nil)
-            print("2")
         case 3 :
-            print("3")
+            let aboutMe = AboutMeViewController()
+            currentController?.present(aboutMe,animated: false,completion: nil)
+            
         default:
             return
         }

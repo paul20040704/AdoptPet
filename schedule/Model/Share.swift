@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RealmSwift
+import Alamofire
+import SwiftyJSON
 
 class Share : NSObject{
     static let shared = Share()
@@ -25,6 +27,7 @@ class Share : NSObject{
         let homeURL = URL(fileURLWithPath: NSHomeDirectory())
         let documents = homeURL.appendingPathComponent("Documents")
         let fileURL = documents.appendingPathComponent(fileName)
+
         return fileURL
     }
     
@@ -75,6 +78,12 @@ class Share : NSObject{
         }
         return nil
      }
+    //取得現在時間
+    func getTimeStampToDouble() -> Double {
+        let d = Date()
+        let timeInterval:TimeInterval = d.timeIntervalSince1970
+        return floor(timeInterval)
+    }
 
     //搜尋條件結果
     func search() -> [RLM_ApiData]{
@@ -126,9 +135,87 @@ class Share : NSObject{
         return infoArr
     }
     
+    func updateData(type:Int, completion: @escaping(_ finish: Bool) -> ()){
+        if let r = try? Realm(){
+            let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
+            let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
+            print(gapTime)
+            if (type == 1 && gapTime < 86400){
+                completion(true)
+            }
+            if (type == 0){
+                    try? r.write {
+                    let orders = r.objects(RLM_ApiData.self)
+                     r.delete(orders)
+                     UD.set(US.getTimeStampToDouble(), forKey: UPD)
+                    }
+            }
+            var i = 0
+            Alamofire.request(url).responseJSON { (response) in
+                if response.result.isSuccess {
+                    do {
+                        let json = try JSON(data:response.data!)
+                        if let result = json.array{
+                            try? r.write {
+                                for data in result{
+                                    i += 1
+                                    if i == 50{
+                                        completion(true)
+                                    }
+                                    var aniArray = [String]()
+                                    if data["album_file"] != ""{
+                                        aniArray.append(data["animal_id"].stringValue)
+                                        aniArray.append(data["animal_subid"].stringValue)
+                                        aniArray.append(data["animal_area_pkid"].stringValue)
+                                        aniArray.append(data["animal_shelter_pkid"].stringValue)
+                                        aniArray.append(data["animal_place"].stringValue)
+                                        aniArray.append(data["animal_kind"].stringValue)
+                                        aniArray.append(data["animal_sex"].stringValue)
+                                        aniArray.append(data["animal_bodytype"].stringValue)
+                                        aniArray.append(data["animal_colour"].stringValue)
+                                        aniArray.append(data["animal_age"].stringValue)
+                                        aniArray.append(data["animal_sterilization"].stringValue)
+                                        aniArray.append(data["animal_bacterin"].stringValue)
+                                        aniArray.append(data["animal_foundplace"].stringValue)
+                                        aniArray.append(data["animal_title"].stringValue)
+                                        aniArray.append(data["animal_status"].stringValue)
+                                        aniArray.append(data["animal_remark"].stringValue)
+                                        aniArray.append(data["animal_caption"].stringValue)
+                                        aniArray.append(data["animal_opendate"].stringValue)
+                                        aniArray.append(data["animal_closeddate"].stringValue)
+                                        aniArray.append(data["animal_update"].stringValue)
+                                        aniArray.append(data["animal_createtime"].stringValue)
+                                        aniArray.append(data["shelter_name"].stringValue)
+                                        aniArray.append(data["album_file"].stringValue)
+                                        aniArray.append(data["album_update"].stringValue)
+                                        aniArray.append(data["cDate"].stringValue)
+                                        aniArray.append(data["shelter_address"].stringValue)
+                                        aniArray.append(data["shelter_tel"].stringValue)
+                                        r.create(RLM_ApiData.self, value: aniArray, update: true)
+                                        //下載圖片100筆
+                                        if i < 100 {
+                                            if US.judgeImage(fileName: "\(data["animal_id"].stringValue).jpg"){
+                                                continue
+                                            }
+                                            US.downloadImage(path: data["album_file"].stringValue, name:data["animal_id"].stringValue)
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                }catch{
+                    completion(false)
+                    print("response data fail..")
+                }
+            }else{
+                completion(false)
+                print("json null..")
+                    }
+                }
+            }
+        }
     
-
-
+        
 
 
 }

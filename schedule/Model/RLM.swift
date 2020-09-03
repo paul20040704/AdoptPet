@@ -44,4 +44,29 @@ class RLM_ApiData : Object {
     }
     
 }
+    
+class RLM_LostApi : Object {
+    
+    @objc dynamic var chip_id : String = ""
+    @objc dynamic var pet_name : String = ""
+    @objc dynamic var pet_kind : String = ""
+    @objc dynamic var pet_sex : String = ""
+    @objc dynamic var pet_type : String = ""
+    @objc dynamic var pet_color : String = ""
+    @objc dynamic var pet_outward : String = ""
+    @objc dynamic var pet_feature : String = ""
+    @objc dynamic var lost_date : String = ""
+    @objc dynamic var lost_place : String = ""
+    @objc dynamic var host_name : String = ""
+    @objc dynamic var host_tel : String = ""
+    @objc dynamic var host_email : String = ""
+    @objc dynamic var album_file: String = ""
+    
+    override static func primaryKey() -> String {
+        return "chip_id"
+        }
+    
+    }
+    
+
 

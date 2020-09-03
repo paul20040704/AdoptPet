@@ -12,6 +12,7 @@ import SwiftyJSON
 import RealmSwift
 import AKSideMenu
 import GoogleMaps
+import PKHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,69 +22,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GMSServices.provideAPIKey("AIzaSyBQ1zsYnFa0IH-LLz_5FGWuu88bngMavtk")
-        // Override point for customization after application launch.
-        let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
-        var i = 0
-        Alamofire.request(url).responseJSON(completionHandler: { (response) in
-            if response.result.isSuccess {
-                do {
-                    let json = try JSON(data:response.data!)
-                    if let result = json.array{
-                        if let r = try? Realm(){
-                            try? r.write {
-                                for data in result{
-                                    i += 1
-                                    var aniArray = [String]()
-                                    if data["album_file"] != ""{
-                                        aniArray.append(data["animal_id"].stringValue)
-                                        aniArray.append(data["animal_subid"].stringValue)
-                                        aniArray.append(data["animal_area_pkid"].stringValue)
-                                        aniArray.append(data["animal_shelter_pkid"].stringValue)
-                                        aniArray.append(data["animal_place"].stringValue)
-                                        aniArray.append(data["animal_kind"].stringValue)
-                                        aniArray.append(data["animal_sex"].stringValue)
-                                        aniArray.append(data["animal_bodytype"].stringValue)
-                                        aniArray.append(data["animal_colour"].stringValue)
-                                        aniArray.append(data["animal_age"].stringValue)
-                                        aniArray.append(data["animal_sterilization"].stringValue)
-                                        aniArray.append(data["animal_bacterin"].stringValue)
-                                        aniArray.append(data["animal_foundplace"].stringValue)
-                                        aniArray.append(data["animal_title"].stringValue)
-                                        aniArray.append(data["animal_status"].stringValue)
-                                        aniArray.append(data["animal_remark"].stringValue)
-                                        aniArray.append(data["animal_caption"].stringValue)
-                                        aniArray.append(data["animal_opendate"].stringValue)
-                                        aniArray.append(data["animal_closeddate"].stringValue)
-                                        aniArray.append(data["animal_update"].stringValue)
-                                        aniArray.append(data["animal_createtime"].stringValue)
-                                        aniArray.append(data["shelter_name"].stringValue)
-                                        aniArray.append(data["album_file"].stringValue)
-                                        aniArray.append(data["album_update"].stringValue)
-                                        aniArray.append(data["cDate"].stringValue)
-                                        aniArray.append(data["shelter_address"].stringValue)
-                                        aniArray.append(data["shelter_tel"].stringValue)
-                                        if US.judgeImage(fileName: "\(data["animal_id"].stringValue).jpg"){
-                                            continue
-                                        }
-                                        r.create(RLM_ApiData.self, value: aniArray, update: true)
-                                        //下載圖片100筆
-                                        if i < 100{
-                                        US.downloadImage(path: data["album_file"].stringValue, name:data["animal_id"].stringValue)
-                                            print("\(i)")
-                                        }
-                                    }
-                                }
-                           }
-                        }
-                    }
-                }catch{
-                    print("response data fail..")
-                }
-            }else{
-                print("json null..")
-            }
-          self.goMain()
-        })
+        UINavigationBar.appearance().backgroundColor = .blue
+        UITabBar.appearance().backgroundColor = .blue
+        //初始化時間UD
+        if UD.object(forKey: UPD) == nil {
+             UD.set(US.getTimeStampToDouble(), forKey: UPD)
+             UD.synchronize()
+         }
+        US.updateData(type: 0) { (finish) in
+            self.goMain()
+        }
+        
         
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
         return true
@@ -102,6 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        HUD.show(.label("更新資料中"))
+            US.updateData(type: 1) { (finish) in
+                if finish  {
+                    HUD.hide()
+                }
+            }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

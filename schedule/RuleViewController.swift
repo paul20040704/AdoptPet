@@ -29,8 +29,8 @@ class RuleViewController: UIViewController {
         titleLabel.text = ruleTitle
         self.view.addSubview(titleLabel)
         
-        backButton = UIButton(frame: CGRect(x: screenWidth - 50, y: 50 , width: 30, height: 30))
-        backButton.setImage(UIImage(named: "back"), for: .normal)
+        backButton = UIButton(frame: CGRect(x: screenWidth - 50, y: 20 , width: 30, height: 30))
+        backButton.setImage(UIImage(named: "cancel"), for: .normal)
         backButton.backgroundColor = .none
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
         self.view.addSubview(backButton)
@@ -51,14 +51,13 @@ class RuleViewController: UIViewController {
         textLabel.numberOfLines = 100
         //取得textlabel總共行數 讓textLabel靠到最上方
         let lineCount = Int(textLabel.frame.height / textLabel.font.lineHeight)
-        print(lineCount)
         for _ in 70...lineCount {
             ruleText += "\n"
         }
         textLabel.text = ruleText
         scrollView.addSubview(textLabel)
         
-        scrollView.backgroundColor = .lightGray
+        scrollView.backgroundColor = defultColor
         self.view.addSubview(scrollView)
         
     }

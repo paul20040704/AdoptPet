@@ -94,8 +94,9 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             if infoArr.count < 1{
                 let noCell = UITableViewCell.init()
                 noCell.textLabel?.text = "無資訊"
-                noCell.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
-                tableView.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
+                noCell.selectionStyle = .none
+                noCell.backgroundColor = defultColor
+                tableView.backgroundColor = defultColor
                 return noCell
             }
             
@@ -124,6 +125,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         let firstDetailVC = sb.instantiateViewController(withIdentifier: "firstDetailVC") as! FirstDetailViewController
         firstDetailVC.hidesBottomBarWhenPushed = true
         firstDetailVC.infoDetail = info
+        print(info.animal_id)
         navigationController?.show(firstDetailVC, sender: nil)
       }
     }
@@ -175,6 +177,13 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             HUD.show(.label("稍等..."))
             self.arrayCount = 25
             self.infoArr = US.search()
+            for i in 0...self.infoArr.count{
+                if i < 50{
+                    if !(US.judgeImage(fileName: "\(self.infoArr[i].animal_id).jpg")){
+                        US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)
+                    }
+                }
+            }
             self.tableView.reloadData()
             let index = IndexPath.init(row: 0, section: 0)
             //查詢完回頂部

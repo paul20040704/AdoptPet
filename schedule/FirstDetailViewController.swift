@@ -22,10 +22,12 @@ class FirstDetailViewController: UIViewController {
     @IBOutlet var typeLabel: UILabel!
     @IBOutlet var colorLabel: UILabel!
     @IBOutlet var foundLabel: UILabel!
-    @IBOutlet var createLabel: UILabel!
+    @IBOutlet weak var createLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var telLabel: UILabel!
     @IBOutlet weak var remarkLabel: UILabel!
+    @IBOutlet weak var openLabel: UILabel!
+    @IBOutlet weak var updateLabel: UILabel!
     var sterilization = ""
     var sex = ""
     var type = ""
@@ -48,7 +50,9 @@ class FirstDetailViewController: UIViewController {
         createLabel.text = "發現日   : \(infoDetail.animal_createtime)"
         addressLabel.text = "收容所地址 : \(infoDetail.shelter_address)"
         telLabel.text =   "聯繫收容所 : \(infoDetail.shelter_tel)"
-        remarkLabel.text = "備註     : \(infoDetail.animal_remark)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        remarkLabel.text = "備註     : \(infoDetail.animal_remark)"
+        openLabel.text = "開放領養日期 : \(infoDetail.animal_opendate)"
+        updateLabel.text = "資料更新日期 : \(infoDetail.animal_update)"
         
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(phoneCall(recognizer:)))

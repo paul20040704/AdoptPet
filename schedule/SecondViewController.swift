@@ -37,12 +37,14 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if infoArr.count > 0{
         let info = infoArr[indexPath.row]
         let sb = UIStoryboard.init(name: "First", bundle: Bundle.main)
         let firstDetailVC = sb.instantiateViewController(withIdentifier: "firstDetailVC") as! FirstDetailViewController
         firstDetailVC.hidesBottomBarWhenPushed = true
         firstDetailVC.infoDetail = info
         navigationController?.show(firstDetailVC, sender: nil)
+        }
     }
     
     
@@ -65,8 +67,9 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         if infoArr.count == 0{
             let noCell = UITableViewCell.init()
             noCell.textLabel?.text = "無資訊"
-            noCell.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
-            tableView.backgroundColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
+            noCell.selectionStyle = .none
+            noCell.backgroundColor = defultColor
+            tableView.backgroundColor = defultColor
             return noCell
         }
         if infoArr.count > 0{
