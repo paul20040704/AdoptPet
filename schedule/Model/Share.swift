@@ -135,11 +135,9 @@ class Share : NSObject{
         return infoArr
     }
     
-    func updateData(type:Int, completion: @escaping(_ finish: Bool) -> ()){
+    func updateData(type:Int, gapTime:Double, completion: @escaping(_ finish: Bool) -> ()){
         if let r = try? Realm(){
             let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
-            let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
-            print(gapTime)
             if (type == 1 && gapTime < 86400){
                 completion(true)
             }
@@ -215,9 +213,33 @@ class Share : NSObject{
             }
         }
     
+    func updatePetData(type:Int ,gapTime:Double ,completion: @escaping(_ finish: Bool) -> ()){
+        if let r = try? Realm() {
+            let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=IFJomqVzyB0i"
+            if (type == 1 && gapTime < 86400){
+                completion(true)
+            }
+            if(type == 0){
+                try? r.write {
+                    let orders = r.objects(RLM_LostApi.self)
+                    r.delete(orders)
+                    UD.set(US.getTimeStampToDouble(), forKey: UPD)
+                }
+            }
+            
+        }
         
+        
+        
+        
+    }
 
 
+    
+    
+    
+    
+    
 }
 
 

@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
-import RealmSwift
 import AKSideMenu
 import GoogleMaps
 import PKHUD
+import Firebase
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,15 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyBQ1zsYnFa0IH-LLz_5FGWuu88bngMavtk")
         UINavigationBar.appearance().backgroundColor = .blue
-        UITabBar.appearance().backgroundColor = .blue
         //初始化時間UD
         if UD.object(forKey: UPD) == nil {
              UD.set(US.getTimeStampToDouble(), forKey: UPD)
              UD.synchronize()
          }
-        US.updateData(type: 0) { (finish) in
+        let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
+        US.updateData(type: 1 ,gapTime: gapTime) { (finish) in
             self.goMain()
         }
         
@@ -52,7 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         HUD.show(.label("更新資料中"))
-            US.updateData(type: 1) { (finish) in
+        let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
+            US.updateData(type: 1,gapTime: gapTime) { (finish) in
                 if finish  {
                     HUD.hide()
                 }

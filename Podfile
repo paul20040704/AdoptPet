@@ -15,5 +15,7 @@ target 'schedule' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'AKSideMenu'
+  pod 'ReachabilitySwift'
+  pod 'Firebase/Analytics'
 
 end
