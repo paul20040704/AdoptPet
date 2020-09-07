@@ -28,11 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              UD.set(US.getTimeStampToDouble(), forKey: UPD)
              UD.synchronize()
          }
-        let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
-        US.updateData(type: 1 ,gapTime: gapTime) { (finish) in
+        US.updateApiData(type: 0) { (finish) in
             self.goMain()
         }
-        
         
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
         return true
@@ -52,8 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         HUD.show(.label("更新資料中"))
-        let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
-            US.updateData(type: 1,gapTime: gapTime) { (finish) in
+            US.updateApiData(type: 1) { (finish) in
                 if finish  {
                     HUD.hide()
                 }

@@ -135,19 +135,45 @@ class Share : NSObject{
         return infoArr
     }
     
-    func updateData(type:Int, gapTime:Double, completion: @escaping(_ finish: Bool) -> ()){
+    func updateApiData(type:Int ,completion: @escaping(_ finish: Bool) -> ()){
         if let r = try? Realm(){
-            let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
-            if (type == 1 && gapTime < 86400){
+            let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
+            if(type == 1 && gapTime < 84000){
                 completion(true)
             }
-            if (type == 0){
-                    try? r.write {
-                    let orders = r.objects(RLM_ApiData.self)
-                     r.delete(orders)
-                     UD.set(US.getTimeStampToDouble(), forKey: UPD)
-                    }
+            if(type == 0){
+                try? r.write {
+                    let apiDatas = r.objects(RLM_ApiData.self)
+                    let lostDatas = r.objects(RLM_LostApi.self)
+                    r.delete(apiDatas)
+                    r.delete(lostDatas)
+                    UD.set(US.getTimeStampToDouble(), forKey: UPD)
+                }
             }
+        }//end realm
+        let group = DispatchGroup()
+        group.enter()
+        getAdoptData { (finish) in
+            if finish{
+                group.leave()
+            }
+        }
+        
+        group.enter()
+        getLostData { (finish) in
+            if finish{
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            completion(true)
+        }
+    }
+    
+    func getAdoptData(completion: @escaping(_ finish: Bool) -> ()){
+        if let r = try? Realm(){
+            let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
             var i = 0
             Alamofire.request(url).responseJSON { (response) in
                 if response.result.isSuccess {
@@ -157,9 +183,6 @@ class Share : NSObject{
                             try? r.write {
                                 for data in result{
                                     i += 1
-                                    if i == 50{
-                                        completion(true)
-                                    }
                                     var aniArray = [String]()
                                     if data["album_file"] != ""{
                                         aniArray.append(data["animal_id"].stringValue)
@@ -200,6 +223,7 @@ class Share : NSObject{
                                     }
                                 }
                             }
+                        completion(true)
                     }
                 }catch{
                     completion(false)
@@ -213,20 +237,56 @@ class Share : NSObject{
             }
         }
     
-    func updatePetData(type:Int ,gapTime:Double ,completion: @escaping(_ finish: Bool) -> ()){
-        if let r = try? Realm() {
-            let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=IFJomqVzyB0i"
-            if (type == 1 && gapTime < 86400){
-                completion(true)
+    func getLostData(completion: @escaping(_ finish: Bool) -> ()){
+        if let r = try? Realm(){
+        let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=IFJomqVzyB0i"
+        var i = 0
+        Alamofire.request(url).responseJSON { (response) in
+            if response.result.isSuccess {
+                do {
+                    let json = try JSON(data:response.data!)
+                    if let result = json.array{
+                        try? r.write {
+                            for data in result{
+                                i += 1
+                                var aniArray = [String]()
+                                if data["晶片號碼"] != ""{
+                                    aniArray.append(data["晶片號碼"].stringValue)
+                                    aniArray.append(data["寵物名"].stringValue)
+                                    aniArray.append(data["寵物別"].stringValue)
+                                    aniArray.append(data["性別"].stringValue)
+                                    aniArray.append(data["品種"].stringValue)
+                                    aniArray.append(data["毛色"].stringValue)
+                                    aniArray.append(data["外觀"].stringValue)
+                                    aniArray.append(data["特徵"].stringValue)
+                                    aniArray.append(data["遺失時間"].stringValue)
+                                    aniArray.append(data["遺失地點"].stringValue)
+                                    aniArray.append(data["飼主姓名"].stringValue)
+                                    aniArray.append(data["聯絡電話"].stringValue)
+                                    aniArray.append(data["Email"].stringValue)
+                                    aniArray.append(data["PICTURE"].stringValue)
+                                    r.create(RLM_LostApi.self, value: aniArray, update: true)
+                                    //下載圖片100筆
+                                    if i < 50 {
+                                        if US.judgeImage(fileName: "\(data["晶片號碼"].stringValue).jpg"){
+                                            continue
+                                        }
+                                        US.downloadImage(path: data["PICTURE"].stringValue, name:data["晶片號碼"].stringValue)
+                                    }
+                                }
+                            }
+                        }
+                    completion(true)
+                }
+            }catch{
+                completion(false)
+                print("response data fail..")
             }
-            if(type == 0){
-                try? r.write {
-                    let orders = r.objects(RLM_LostApi.self)
-                    r.delete(orders)
-                    UD.set(US.getTimeStampToDouble(), forKey: UPD)
+        }else{
+            completion(false)
+            print("json null..")
                 }
             }
-            
         }
         
         

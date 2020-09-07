@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yLg-3O-jW0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yLg-3O-jW0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -624,11 +624,11 @@
             </objects>
             <point key="canvasLocation" x="2302.898550724638" y="-1094.1964285714284"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--首頁-->
         <scene sceneID="c4J-u9-W3A">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yLg-3O-jW0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="First" id="Df6-ZP-1ZC"/>
+                    <tabBarItem key="tabBarItem" title="首頁" image="First" id="Df6-ZP-1ZC"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="InG-q2-Rmi">
@@ -649,7 +649,7 @@
         <image name="First" width="32" height="32"/>
         <image name="cancel" width="80" height="80"/>
         <image name="heart" width="32" height="32"/>
-        <image name="list.dash" catalog="system" width="64" height="42"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="navagation" width="512" height="512"/>
         <image name="rocket" width="45" height="45"/>
         <image name="search" width="512" height="512"/>
