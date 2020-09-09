@@ -245,7 +245,7 @@
         <!--Advanced Search View Controller-->
         <scene sceneID="x4Y-7t-k6T">
             <objects>
-                <viewController storyboardIdentifier="searchVC" id="CdA-9l-FYg" customClass="AdvancedSearchViewController" customModule="schedule" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchVC" modalPresentationStyle="fullScreen" id="CdA-9l-FYg" customClass="AdvancedSearchViewController" customModule="schedule" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bGa-MD-JvL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

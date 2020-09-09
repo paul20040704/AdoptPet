@@ -1,0 +1,41 @@
+//
+//  Extension.swift
+//  schedule
+//
+//  Created by 陳彥甫 on 2020/9/9.
+//  Copyright © 2020 TimeCity. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+
+
+
+extension Array where Element: Hashable {
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
+    }
+    mutating func removeDuplicates() {
+        self = self.removingDuplicates()
+    }
+}
+
+extension UIImage{
+   
+    func reSizeImage(reSize:CGSize)->UIImage{
+        UIGraphicsBeginImageContextWithOptions(reSize, false, UIScreen.main.scale)
+        self.draw(in: CGRect(x: 0, y: 0, width: reSize.width, height: reSize.height))
+        let reSizeImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return reSizeImage
+    }
+    
+    func scaleImage(scaleSize:CGFloat) -> UIImage{
+        let reSize = CGSize.init(width: self.size.width * scaleSize, height: self.size.height * scaleSize)
+        return reSizeImage(reSize: reSize)
+    }
+}

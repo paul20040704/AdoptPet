@@ -18,7 +18,7 @@ class AboutMeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //取消向下滑動返回&&全螢幕
+        //取消向下滑動返回
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
             }

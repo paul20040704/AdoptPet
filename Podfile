@@ -17,5 +17,9 @@ target 'schedule' do
   pod 'AKSideMenu'
   pod 'ReachabilitySwift'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Database'
+  pod 'SnapKit', '~> 5.0.0'
+  pod 'ImagePicker'
 
 end
