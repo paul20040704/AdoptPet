@@ -151,9 +151,7 @@ class Share : NSObject{
             if(type == 0){
                 try? r.write {
                     let apiDatas = r.objects(RLM_ApiData.self)
-                    let lostDatas = r.objects(RLM_LostApi.self)
                     r.delete(apiDatas)
-                    r.delete(lostDatas)
                     UD.set(US.getTimeStampToDouble(), forKey: UPD)
                 }
             }

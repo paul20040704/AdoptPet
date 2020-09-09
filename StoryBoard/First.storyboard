@@ -624,11 +624,11 @@
             </objects>
             <point key="canvasLocation" x="2302.898550724638" y="-1094.1964285714284"/>
         </scene>
-        <!--首頁-->
+        <!--等待領養-->
         <scene sceneID="c4J-u9-W3A">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yLg-3O-jW0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="首頁" image="First" id="Df6-ZP-1ZC"/>
+                    <tabBarItem key="tabBarItem" title="等待領養" image="First" id="Df6-ZP-1ZC"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="InG-q2-Rmi">

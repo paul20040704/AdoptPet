@@ -10,9 +10,9 @@ import UIKit
 
 class LostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var kindLabel: UILabel!
-    @IBOutlet weak var sexLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var kindLael: UILabel!
+    @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    
     
 }
