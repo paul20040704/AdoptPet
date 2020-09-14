@@ -37,6 +37,7 @@ class FirstDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         judge()
+        self.navigationItem.title = "等待領養"
         let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
         imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
         ageLabel.text = "年齡     : \(age)"

@@ -43,6 +43,8 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         remarkTextView.delegate = self
         remarkTextView.resignFirstResponder()
         remarkTextView.returnKeyType = .done
+        contactField.returnKeyType = .done
+        placeField.returnKeyType = .done
         
         dateBtn.setTitle(US.dateToString(date: Date()), for: .normal)
         
@@ -154,11 +156,13 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         if contactField.text == ""{
             let alertVC = US.alertVC(message: "聯絡方式不可為空", title: "提醒")
             self.present(alertVC,animated: true,completion: nil)
+            HUD.hide()
             return
         }
         if selectPhotos.count == 0{
             let alertVC = US.alertVC(message: "至少上傳一張照片", title: "提醒")
             self.present(alertVC,animated: true,completion: nil)
+            HUD.hide()
             return
         }
         var kind = ""
@@ -181,6 +185,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
             if error != nil {
                 print("Database Error :\(String(describing: error?.localizedDescription))")
                 let alertVC = US.alertVC(message: "上傳失敗", title: "提醒")
+                HUD.hide()
                 self.present(alertVC,animated: true,completion: nil)
                 }else{
                  HUD.hide()
@@ -212,6 +217,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                         print("Error :\(String(describing: error?.localizedDescription))")
                         let alertVC = US.alertVC(message: "上傳失敗", title: "提醒")
                         self.present(alertVC,animated: true,completion: nil)
+                        HUD.hide()
                         return
                     }
                     storageRef.downloadURL { (url, error) in

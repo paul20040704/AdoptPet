@@ -21,5 +21,6 @@ target 'schedule' do
   pod 'Firebase/Database'
   pod 'SnapKit', '~> 5.0.0'
   pod 'ImagePicker'
+  pod 'SDWebImage'
 
 end

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yXU-qp-sfQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yXU-qp-sfQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -84,7 +84,7 @@
         <scene sceneID="Ypv-6z-7vE">
             <objects>
                 <viewControllerPlaceholder storyboardName="First" id="QJx-qo-3t4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="首頁" image="home" id="WPd-pj-xCx"/>
+                    <tabBarItem key="tabBarItem" title="" id="WPd-pj-xCx"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vzx-m6-ZGh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -94,15 +94,11 @@
         <scene sceneID="LEc-A7-itN">
             <objects>
                 <viewControllerPlaceholder storyboardName="Second" id="kzx-Ns-n7u" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="最愛" image="list" id="3Xy-ig-tpj"/>
+                    <tabBarItem key="tabBarItem" title="" id="3Xy-ig-tpj"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dc1-hy-BjL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2451" y="-308"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="home" width="32" height="32"/>
-        <image name="list" width="30" height="30"/>
-    </resources>
 </document>

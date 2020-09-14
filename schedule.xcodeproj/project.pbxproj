@@ -30,6 +30,9 @@
 		6F4A94EC242216C10088024A /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A94EB242216C10088024A /* GoogleMapViewController.swift */; };
 		6F58DC43250879E800A415B1 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC42250879E800A415B1 /* Extension.swift */; };
 		6F58DC4625087E1700A415B1 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC4525087E1700A415B1 /* Database.swift */; };
+		6F58DC74250B5CF000A415B1 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC73250B5CF000A415B1 /* UIImage+Gif.swift */; };
+		6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6F58DC75250B5F5C00A415B1 /* loadView.gif */; };
+		6F58DC78250B69A800A415B1 /* LostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */; };
 		6F8D98762500C3DC00A3CEA7 /* Third.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D98752500C3DC00A3CEA7 /* Third.storyboard */; };
 		6F9F35ED24189E0B0003896D /* SliderBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9F35EC24189E0B0003896D /* SliderBarView.swift */; };
 		6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE757524E5430E006C4E08 /* RuleViewController.swift */; };
@@ -67,6 +70,9 @@
 		6F4A94EB242216C10088024A /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		6F58DC42250879E800A415B1 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6F58DC4525087E1700A415B1 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		6F58DC73250B5CF000A415B1 /* UIImage+Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
+		6F58DC75250B5F5C00A415B1 /* loadView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loadView.gif; sourceTree = "<group>"; };
+		6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostDetailViewController.swift; sourceTree = "<group>"; };
 		6F8D98752500C3DC00A3CEA7 /* Third.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Third.storyboard; sourceTree = "<group>"; };
 		6F9F35EC24189E0B0003896D /* SliderBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBarView.swift; sourceTree = "<group>"; };
 		6FDE757524E5430E006C4E08 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleViewController.swift; path = /Users/yenfu/Documents/yenfu/schedule/schedule/RuleViewController.swift; sourceTree = "<absolute>"; };
@@ -142,9 +148,12 @@
 				145049F0233DE6CB00FAF3AA /* Info.plist */,
 				6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */,
 				6F2CCFED2501E0F000C843AC /* LostViewController.swift */,
+				6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */,
 				6FE235442505E8B900F02974 /* LostPostViewController.swift */,
 				14D0F0AE234DC95D00B599A2 /* Model */,
 				141421E12386762B00B063A1 /* Cell */,
+				6F58DC73250B5CF000A415B1 /* UIImage+Gif.swift */,
+				6F58DC75250B5F5C00A415B1 /* loadView.gif */,
 			);
 			path = schedule;
 			sourceTree = "<group>";
@@ -267,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */,
 				14D0F0AA234CA33F00B599A2 /* Second.storyboard in Resources */,
 				6F2CCFF02501EF3500C843AC /* GoogleService-Info.plist in Resources */,
 				145049EF233DE6CB00FAF3AA /* LaunchScreen.storyboard in Resources */,
@@ -350,11 +360,13 @@
 				141421E02386762100B063A1 /* SecondTableViewCell.swift in Sources */,
 				14D0F0AC234DC8A400B599A2 /* RLM.swift in Sources */,
 				6F186B2224E3DF780013C065 /* LoadingCell.swift in Sources */,
+				6F58DC74250B5CF000A415B1 /* UIImage+Gif.swift in Sources */,
 				6FE93AC924F4ADDB00694B30 /* AdSearchTableViewCell.swift in Sources */,
 				6FE235452505E8B900F02974 /* LostPostViewController.swift in Sources */,
 				6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */,
 				14D0F09D2345D55C00B599A2 /* FirstTableViewCell.swift in Sources */,
 				141421DE238673B400B063A1 /* SecondViewController.swift in Sources */,
+				6F58DC78250B69A800A415B1 /* LostDetailViewController.swift in Sources */,
 				142086C32355D517008496D8 /* FirstDetailViewController.swift in Sources */,
 				14D0F0A0234C97E500B599A2 /* LaunchVC.swift in Sources */,
 				6F4A94EC242216C10088024A /* GoogleMapViewController.swift in Sources */,

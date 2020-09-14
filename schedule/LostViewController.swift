@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import Firebase
 import FirebaseStorage
+import SDWebImage
 
 class LostViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
 
@@ -25,6 +26,7 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
         updateLostView()
+
     }
     
 
@@ -40,18 +42,20 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         cell.dateLabel.text = "發現日 : \(info["pickDate"] as! String)"
         guard let urlArray = info["photoArray"] as? Array<String> else{return cell}
         let urlString = urlArray[0]
-        if let imageUrl = URL(string: urlString) {
-            let task = URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
-                if let data = data , let image = UIImage(data: data){
-                    DispatchQueue.main.async {
-                        cell.imageView.image = image
-                    }
-                }
-            }
-            task.resume()
-        }
+        setImageCell(cell: cell, indexPath: indexPath, url: URL(string: urlString)!)
+        //cell.imageView.image = UIImage.gif(name: "loadView")
         return cell
 }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let info = infoDic[infoKey[indexPath.row]] as? [String:Any] else{return}
+        let sb = UIStoryboard.init(name: "Third", bundle: Bundle.main)
+        let lostDetailVC = sb.instantiateViewController(withIdentifier: "LostDetailVC") as! LostDetailViewController
+        lostDetailVC.hidesBottomBarWhenPushed = true
+        lostDetailVC.info = info
+        navigationController?.show(lostDetailVC, sender: nil)
+        
+    }
 
 
 
@@ -66,5 +70,35 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
             }
         }
     }
+    
+    func setImageCell(cell: LostCollectionViewCell, indexPath: IndexPath, url: URL) -> () {
+        let cachedImage = SDImageCache.shared.imageFromDiskCache(forKey: "\(url)")
+        if cachedImage == nil{
+            downLoadImage(imageUrl: url, indexPath: indexPath)
+            cell.imageView?.image = UIImage.gif(name: "loadView")
+        }else{
+            cell.imageView?.image = cachedImage
+        }
+    }
+    
+    func downLoadImage(imageUrl: URL,indexPath : IndexPath) -> (){
+           SDWebImageDownloader.shared.downloadImage(with: imageUrl, options: .useNSURLCache, progress: { (receivedSize, expectedSize, url) in
+           }) { (image, data, error, finished) in
+               if error == nil{
+                   SDImageCache.shared.store(image, forKey: "\(imageUrl)",toDisk: true ,completion: nil)
+                   DispatchQueue.main.async {
+                       self.performSelector(onMainThread: #selector(self.reloadImageCell(indexPath:)), with: indexPath, waitUntilDone: false)
+                   }
+               }else{
+                   return
+               }
+           }
+       }
+    
+    @objc func reloadImageCell(indexPath: IndexPath) -> () {
+        collectionView.reloadItems(at: [indexPath])
+    }
+    
+    
  
 }
