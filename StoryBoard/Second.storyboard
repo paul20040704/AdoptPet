@@ -118,6 +118,7 @@
             <point key="canvasLocation" x="-1471.0144927536232" y="-473.4375"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.80831039510000002" green="0.0" blue="0.73708815920000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="Second" width="32" height="32"/>
     </resources>

@@ -12,8 +12,9 @@ import ImagePicker
 import FirebaseStorage
 import FirebaseDatabase
 import PKHUD
+import Lightbox
 
-class LostPostViewController: UIViewController , UITextViewDelegate, ImagePickerDelegate {
+class LostPostViewController: UIViewController , UITextViewDelegate, ImagePickerDelegate , LightboxControllerDismissalDelegate {
     
     @IBOutlet weak var chooseKind: UIButton!
     @IBOutlet var kindOptions: [UIButton]!
@@ -127,6 +128,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         let imagePicker = ImagePickerController(configuration: config)
         imagePicker.delegate = self
         imagePicker.imageLimit = 3
+        imagePicker.modalPresentationStyle = .fullScreen
         
         
         present(imagePicker, animated: true, completion: nil)
@@ -134,7 +136,15 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     
     //ImagePickerDelegate
     func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
-        imagePicker.dismiss(animated: true, completion: nil)
+        guard images.count > 0 else{return}
+        let lightboxImages = images.map {
+            return LightboxImage(image: $0)
+        }
+        let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
+        lightbox.dismissalDelegate = self
+        lightbox.modalPresentationStyle = .fullScreen
+        lightbox.dynamicBackground = true
+        imagePicker.present(lightbox,animated: true,completion: nil)
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
@@ -232,8 +242,11 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                 }
             }
         }
-        
     }
+    
+    func lightboxControllerWillDismiss(_ controller: LightboxController) {
+        controller.dismiss(animated: true, completion: nil)
+       }
  
     
     

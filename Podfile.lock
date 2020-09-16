@@ -1,6 +1,7 @@
 PODS:
   - AKSideMenu (1.4.5)
   - Alamofire (4.7.3)
+  - Cache (5.3.0)
   - Firebase/Analytics (6.31.1):
     - Firebase/Core
   - Firebase/Core (6.31.1):
@@ -79,7 +80,11 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.4.0)
   - ImagePicker (3.2.0)
+  - Imaginary (4.3.1):
+    - Cache (~> 5.3.0)
   - leveldb-library (1.22)
+  - Lightbox (2.4.2):
+    - Imaginary (~> 4.3.1)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
     - nanopb/encode (= 1.30906.0)
@@ -108,6 +113,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - ImagePicker
+  - Lightbox
   - PKHUD (~> 5.0)
   - ReachabilitySwift
   - RealmSwift (~> 3.20.0)
@@ -127,6 +133,7 @@ SPEC REPOS:
     - RealmSwift
     - SwiftyJSON
   trunk:
+    - Cache
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -139,7 +146,9 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - ImagePicker
+    - Imaginary
     - leveldb-library
+    - Lightbox
     - nanopb
     - PromisesObjC
     - SDWebImage
@@ -148,6 +157,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AKSideMenu: 2880c44ee04a68f40be783c5cb997b2e0ee22401
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
   Firebase: 658370fa0181826a74b7cfca8d68c5856ca749ae
   FirebaseAnalytics: 0ca9aa2af7cc4dc92392b7a78bfc49feaa2eb60f
   FirebaseCore: 6fb954e350af0885803d5aa49865d15d9a6b264c
@@ -162,7 +172,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   ImagePicker: 1d950bbb2422548ed58791b4ec7f42fe42920511
+  Imaginary: 18c5bba364229eef383b925199db442e71d175e1
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  Lightbox: 8837c35c1150fa0410d94296e369b432d37f18c7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PKHUD: dd5357ac65f26115c35c4a68e9b328053326c5fe
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
@@ -173,6 +185,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 678dfcb788bd845108b93f060fc11bfa599ea375
+PODFILE CHECKSUM: ca3c73a330332b70a8cb9b13c4c6b3f35e0599e8
 
 COCOAPODS: 1.9.3

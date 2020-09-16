@@ -22,5 +22,6 @@ target 'schedule' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'ImagePicker'
   pod 'SDWebImage'
+  pod 'Lightbox'
 
 end

@@ -222,7 +222,7 @@
                         <viewLayoutGuide key="safeArea" id="6we-Ru-MBF"/>
                     </view>
                     <navigationItem key="navigationItem" id="rOs-5o-Pdw">
-                        <barButtonItem key="leftBarButtonItem" image="list.dash" catalog="system" style="plain" id="Pz6-3p-BoR">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="list" style="plain" id="Pz6-3p-BoR">
                             <connections>
                                 <action selector="showSideBar:" destination="bbl-Ys-8Lf" id="LCf-jd-VkE"/>
                             </connections>
@@ -645,11 +645,12 @@
             <point key="canvasLocation" x="-488.40579710144931" y="-1101.5625"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.80586139899999998" green="0.0" blue="0.73485495020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="First" width="32" height="32"/>
         <image name="cancel" width="80" height="80"/>
         <image name="heart" width="32" height="32"/>
-        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="list" width="48" height="48"/>
         <image name="navagation" width="512" height="512"/>
         <image name="rocket" width="45" height="45"/>
         <image name="search" width="512" height="512"/>

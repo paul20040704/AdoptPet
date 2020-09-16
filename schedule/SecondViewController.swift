@@ -91,7 +91,6 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.tableView.reloadData()
         }
     }
-    
 
     @objc func loadData(){
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {

@@ -26,7 +26,7 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
         updateLostView()
-
+        
     }
     
 
@@ -53,6 +53,8 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         let lostDetailVC = sb.instantiateViewController(withIdentifier: "LostDetailVC") as! LostDetailViewController
         lostDetailVC.hidesBottomBarWhenPushed = true
         lostDetailVC.info = info
+        lostDetailVC.key = infoKey[indexPath.row]
+        lostDetailVC.type = 0
         navigationController?.show(lostDetailVC, sender: nil)
         
     }
@@ -66,6 +68,7 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
             if let firebaseData = postData.value as? [String:Any] {
                 self.infoDic = firebaseData
                 self.infoKey = Array(firebaseData.keys)
+                self.navigationItem.title = "總共 : \(self.infoDic.count) 筆"
                 self.collectionView.reloadData()
             }
         }

@@ -73,7 +73,6 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         switch sender.tag{
         case 1 :
             let ruleVC = RuleViewController()
-            //ruleVC.modalPresentationStyle = .fullScreen
             currentController?.present(ruleVC,animated: false,completion: nil)
         case 2 :
             guard MFMailComposeViewController.canSendMail() else{

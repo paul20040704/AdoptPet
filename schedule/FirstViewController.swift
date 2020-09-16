@@ -54,7 +54,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         
         sliderBarView.setUI(spView: self.view )
         
-        
     }
     
     @objc func loadData(){

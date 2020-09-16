@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import PKHUD
 
 class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
 
@@ -19,6 +20,9 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var remarkLabel: UILabel!
     var info = [String:Any]()
+    var key = String()
+    //0:加入關注 1:取消關注
+    var type = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "遺失待領回"
@@ -40,6 +44,14 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         placeLabel.text = "拾獲地 : \(info["place"] as! String)"
         contactLabel.text = "聯絡方式 : \(info["contact"] as! String)"
         remarkLabel.text = "特徵 : \(info["remark"] as! String)"
+        
+        if type == 0{
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入關注", style: .plain, target: self, action: #selector(addFollow))
+        }
+        else{
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消關注", style: .plain, target: self, action: #selector(cancelFollow))
+        }
+        navigationItem.rightBarButtonItem?.tintColor = .darkGray
         
         setupImageView()
         
@@ -68,6 +80,44 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         pageControl.currentPage = page
     }
     
+    @objc func addFollow() {
+        if var followArray = UD.array(forKey: "LostKey") as? [String] {
+            if followArray.contains(key){
+                let alertVC = US.alertVC(message: "已加入關注", title: "提醒")
+                self.present(alertVC, animated: true, completion: nil)
+            }else{
+                HUD.show(.label("加入關注..."))
+                followArray.append(key)
+                UD.set(followArray, forKey: "LostKey")
+                HUD.flash(.success, delay: 0.5)
+            }
+        }else{
+            HUD.show(.label("加入關注..."))
+            var keyArr = [key]
+            UD.set(keyArr, forKey: "LostKey")
+            HUD.flash(.success, delay: 0.5)
+        }
+    }
+    
+    @objc func cancelFollow(){
+        if var followArray = UD.array(forKey: "LostKey") as? [String] {
+            if !followArray.contains(key){
+                let alertVC = US.alertVC(message: "已取消關注", title: "提醒")
+                self.present(alertVC, animated: true, completion: nil)
+            }else {
+                HUD.show(.label("取消關注..."))
+                var i = 0
+                for udKey in followArray {
+                    if udKey == key {
+                        followArray.remove(at: i)
+                        UD.set(followArray, forKey: "LostKey")
+                    }
+                    i += 1
+                }
+                HUD.flash(.success, delay: 0.5)
+            }
+        }
+    }
     
 
     
