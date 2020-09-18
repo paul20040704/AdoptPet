@@ -176,7 +176,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             HUD.show(.label("稍等..."))
             self.arrayCount = 25
             self.infoArr = US.search()
-            for i in 0...self.infoArr.count{
+            for i in 0...self.infoArr.count - 1{
                 if i < 50{
                     if !(US.judgeImage(fileName: "\(self.infoArr[i].animal_id).jpg")){
                         US.downloadImage(path: self.infoArr[i].album_file, name: self.infoArr[i].animal_id)

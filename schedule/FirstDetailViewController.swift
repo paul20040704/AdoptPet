@@ -15,6 +15,7 @@ class FirstDetailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var ageLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var sterilizationLabel: UILabel!
     @IBOutlet weak var bacterinLabel: UILabel!
     @IBOutlet var kindLabel: UILabel!
@@ -41,6 +42,7 @@ class FirstDetailViewController: UIViewController {
         let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
         imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
         ageLabel.text = "年齡     : \(age)"
+        idLabel.text = "ID  : \(infoDetail.animal_id)"
         sterilizationLabel.text =    "是否絕育    : \(sterilization)"
         bacterinLabel.text = "是否疫苗    : \(bacterin)"
         kindLabel.text =  "種類     : \(infoDetail.animal_kind)"
@@ -122,7 +124,6 @@ class FirstDetailViewController: UIViewController {
         default:
            bacterin = "未知"
         }
-        
     }
 
 }

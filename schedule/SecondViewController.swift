@@ -48,8 +48,6 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
     
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if infoArr.count == 0{
             return 1
@@ -117,9 +115,6 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         //print("getInfoArrCount : \(infoArr.count)")
         self.navigationItem.title = "我的收藏送共 : \(infoArr.count) 筆"
-        
-        
-        
         
     }
     

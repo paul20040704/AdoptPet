@@ -38,7 +38,7 @@ class Share : NSObject{
                 return UIImage(data: imageData)
             }
         }
-        return UIImage(named: "search")
+        return UIImage(named: "noImage")
     }
     
     func downloadImage(path:String , name:String){
