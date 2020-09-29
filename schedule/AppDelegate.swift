@@ -27,10 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UD.object(forKey: UPD) == nil {
              UD.set(US.getTimeStampToDouble(), forKey: UPD)
              UD.synchronize()
+            
          }
-        US.updateApiData(type: 0) { (finish) in
-            self.goMain()
-        }
         
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
         return true
@@ -64,13 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-    func goMain(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let sb = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-        let mainTBC = sb.instantiateViewController(withIdentifier: "mainTBC")
-        appDelegate.window?.rootViewController = mainTBC
-    }
+    
     
 
 }

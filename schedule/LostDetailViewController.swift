@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import PKHUD
+import Reachability
 
 class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
 
@@ -19,6 +20,8 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var remarkLabel: UILabel!
+    @IBOutlet weak var netLabel: UILabel!
+    var reachability = try! Reachability()
     var info = [String:Any]()
     var key = String()
     //0:加入關注 1:取消關注
@@ -27,11 +30,27 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         super.viewDidLoad()
         self.navigationItem.title = "遺失待領回"
         
+//        self.reachability!.whenReachable = { reachability in
+//            self.netLabel.isHidden = true
+//        }
+//        
+//        self.reachability?.whenUnreachable = { reachability in
+//            self.netLabel.isHidden = false
+//        }
+//        
+//        do {
+//            try self.reachability!.startNotifier()
+//        } catch {
+//            debugPrint("Unable to start notifier")
+//        }
+        
         scrollView.delegate = self
         guard let urlArray = info["photoArray"] as? Array<String> else{return}
         let urlCount = urlArray.count
         scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(urlCount) , height: scrollView.frame.height)
-        scrollView.bounces = true
+        print("***scrollView : \(scrollView.frame)")
+        scrollView.backgroundColor = .green
+        scrollView.bounces = false
         scrollView.isPagingEnabled = true
         // Do any additional setup after loading the view.
         pageControl.pageIndicatorTintColor = .lightGray
@@ -60,7 +79,8 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     func setupImageView() {
         guard let urlArray = info["photoArray"] as? Array<String> else{return}
         for i in 0...(urlArray.count - 1){
-            let imageView = UIImageView(frame: CGRect(x: scrollView.frame.width * CGFloat(i), y: 0, width: scrollView.frame.width, height:scrollView.frame.height - 50))
+            let imageView = UIImageView(frame: CGRect(x: scrollView.frame.width * CGFloat(i), y: 0, width: scrollView.frame.width , height:scrollView.frame.height - 30))
+            print("***imageView : \(imageView.frame)")
             if let imageUrl = URL(string: urlArray[i]) {
                 let task = URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
                     if let data = data , let image = UIImage(data: data) {

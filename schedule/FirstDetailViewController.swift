@@ -125,5 +125,17 @@ class FirstDetailViewController: UIViewController {
            bacterin = "未知"
         }
     }
+    
+    @IBAction func share(_ sender: Any) {
+        let urlString = URL(string: infoDetail.album_file)
+        let item = ["我要分享給你一個等待領養的流浪動物 ",urlString] as [Any]
+        let activityVC = UIActivityViewController(activityItems: item, applicationActivities: [CustomActivity()])
+        self.present(activityVC,animated: true,completion: nil)
+        
+    }
 
+    
+    
 }
+
+

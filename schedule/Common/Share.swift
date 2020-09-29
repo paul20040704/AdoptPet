@@ -182,7 +182,7 @@ class Share : NSObject{
                                 for data in result{
                                     i += 1
                                     var aniArray = [String]()
-                                    if data["album_file"] != ""{
+                                        if data["album_file"] != ""{
                                         aniArray.append(data["animal_id"].stringValue)
                                         aniArray.append(data["animal_subid"].stringValue)
                                         aniArray.append(data["animal_area_pkid"].stringValue)
@@ -235,13 +235,15 @@ class Share : NSObject{
             }
         }
     
+    func goMain(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let sb = UIStoryboard.init(name: "Main", bundle: Bundle.main)
+        let mainTBC = sb.instantiateViewController(withIdentifier: "mainTBC")
+        appDelegate.window?.rootViewController = mainTBC
+    }
+    
     
 
-
-
-    
-    
-    
     
     
 }

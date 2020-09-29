@@ -13,6 +13,7 @@ import FirebaseStorage
 import FirebaseDatabase
 import PKHUD
 import Lightbox
+import Reachability
 
 class LostPostViewController: UIViewController , UITextViewDelegate, ImagePickerDelegate , LightboxControllerDismissalDelegate {
     
@@ -26,6 +27,9 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     var selectPhotos = [UIImage]()
     @IBOutlet weak var contactField: UITextField!
     @IBOutlet weak var placeField: UITextField!
+    @IBOutlet weak var netLabel: UILabel!
+    var reachability = try! Reachability()
+    var netPossible = true
     
     
     override func viewDidLoad() {
@@ -34,6 +38,23 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         if #available(iOS 13.0, *) {
         self.isModalInPresentation = true
         }
+        
+        self.reachability?.whenReachable = { reachability in
+            self.netLabel.isHidden = true
+            self.netPossible = true
+            }
+               
+        self.reachability?.whenUnreachable = { reachability in
+            self.netLabel.isHidden = false
+            self.netPossible = false
+            }
+               
+        do {
+            try self.reachability!.startNotifier()
+            } catch {
+                debugPrint("Unable to start notifier")
+            }
+        
         
         remarkLabel = UILabel(frame: CGRect(x: 5, y: 5, width: 250, height: 20))
         remarkLabel.text = "特徵 : 如晶片號碼、毛色、體型、性別等。"
@@ -161,6 +182,11 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     }
     
     @IBAction func upload(_ sender: Any) {
+        if netPossible == false {
+            let alertVC = US.alertVC(message: "請確認是否連上網路", title: "提醒")
+            self.present(alertVC, animated: true, completion: nil)
+            return
+        }
         HUD.show(.label("上傳中..."))
         //判斷條件
         if contactField.text == ""{

@@ -8,7 +8,7 @@
 
 import Foundation
 import FirebaseStorage
-
+import Reachability
 
 let US = Share.shared
 
@@ -22,6 +22,6 @@ let totalDic = ["性別":["公","母"],"類型":["貓","狗"],"體型":["大型"
 let defultColor : UIColor = UIColor.init(red: 225/225, green: 192/225, blue: 203/225, alpha: 1)
 let UPD = "updateDate"
 
-
+var reachability = Reachability()
 
 

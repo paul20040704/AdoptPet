@@ -17,11 +17,15 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet weak var collectionView: UICollectionView!
     var infoDic = [String:Any]()
     var infoKey = Array<String>()
-    
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 20)
+        collectionViewLayout.itemSize = CGSize(width: screenWidth/2 - 20, height: 320)
+        collectionViewLayout.minimumLineSpacing = 20
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.

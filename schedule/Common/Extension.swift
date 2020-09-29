@@ -39,3 +39,35 @@ extension UIImage{
         return reSizeImage(reSize: reSize)
     }
 }
+
+class CustomActivity : UIActivity {
+    
+    override class var activityCategory: UIActivity.Category {
+        return .share
+    }
+    
+    override var activityType: UIActivity.ActivityType? {
+        guard let bundleId = Bundle.main.bundleIdentifier else {return nil}
+        return UIActivity.ActivityType(rawValue: bundleId + "\(self.classForCoder)")
+    }
+    
+    override var activityTitle: String? {
+        return "領養"
+    }
+    
+    override var activityImage: UIImage? {
+        return UIImage(named: "Third")
+    }
+    
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+    override func prepare(withActivityItems activityItems: [Any]) {
+        //
+    }
+    
+    override func perform() {
+        activityDidFinish(true)
+    }
+}

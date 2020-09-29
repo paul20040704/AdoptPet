@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import PKHUD
 import RealmSwift
+import Reachability
 
 // 頁面狀態
 enum PageStatus {
@@ -28,15 +29,32 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     @IBOutlet weak var sexLabel: UILabel!
     @IBOutlet weak var sterLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
+    @IBOutlet weak var netLabel: UILabel!
     
     let sliderBarView = SliderBarView()
     var infoArr = [RLM_ApiData]()
     var pageStatus: PageStatus = .NotLoadingMore
     var arrayCount = 25
     var refreshControl : UIRefreshControl!
+    var reachability = try! Reachability()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.reachability!.whenReachable = { reachability in
+            self.netLabel.isHidden = true
+        }
+        
+        self.reachability?.whenUnreachable = { reachability in
+            self.netLabel.isHidden = false
+        }
+        
+        do {
+            try self.reachability!.startNotifier()
+        } catch {
+            debugPrint("Unable to start notifier")
+        }
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
