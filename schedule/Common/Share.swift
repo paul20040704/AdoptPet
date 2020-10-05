@@ -142,8 +142,9 @@ class Share : NSObject{
         return infoArr
     }
     
-    func updateApiData(type:Int ,completion: @escaping(_ finish: Bool) -> ()){
+    func getAdoptData(type:Int, completion: @escaping(_ finish: Bool) -> ()){
         if let r = try? Realm(){
+            //清除舊的DB資料
             let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
             if(type == 1 && gapTime < 84000){
                 completion(true)
@@ -155,22 +156,8 @@ class Share : NSObject{
                     UD.set(US.getTimeStampToDouble(), forKey: UPD)
                 }
             }
-        }//end realm
-        let group = DispatchGroup()
-        group.enter()
-        getAdoptData { (finish) in
-            if finish{
-                group.leave()
-            }
-        }
-        
-        group.notify(queue: .main) {
-            completion(true)
-        }
-    }
-    
-    func getAdoptData(completion: @escaping(_ finish: Bool) -> ()){
-        if let r = try? Realm(){
+            //開始Loading
+            print("***** start get API")
             let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
             var i = 0
             Alamofire.request(url).responseJSON { (response) in
@@ -225,11 +212,13 @@ class Share : NSObject{
                     }
                 }catch{
                     completion(false)
+                    CTAlertView.ctalertView.showAlert(title: "提醒", body: "無法找到資料，麻煩稍後再嘗試", action: "確認")
                     print("response data fail..")
                 }
             }else{
                 completion(false)
                 print("json null..")
+                CTAlertView.ctalertView.showAlert(title: "提醒", body: "無法找到資料，麻煩稍後再嘗試", action: "確認")
                     }
                 }
             }

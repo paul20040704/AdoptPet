@@ -11,6 +11,7 @@ import RealmSwift
 import Firebase
 import FirebaseStorage
 import SDWebImage
+import Reachability
 
 class LostViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource{
 
@@ -18,6 +19,8 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
     var infoDic = [String:Any]()
     var infoKey = Array<String>()
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
+    var reachability = try! Reachability()
+    @IBOutlet weak var netLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -29,8 +32,27 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
+        
+        self.reachability!.whenReachable = { reachability in
+            self.netLabel.isHidden = true
+        }
+        
+        self.reachability?.whenUnreachable = { reachability in
+            self.netLabel.isHidden = false
+        }
+        
+        do {
+            try self.reachability!.startNotifier()
+        } catch {
+            debugPrint("Unable to start notifier")
+        }
+        
         updateLostView()
         
+    }
+    
+    deinit {
+        self.reachability?.stopNotifier()
     }
     
 

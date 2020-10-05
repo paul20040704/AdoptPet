@@ -24,12 +24,8 @@ class LaunchVC: UIViewController {
         DispatchQueue.main.async {
             
             self.reachability!.whenReachable = { reachability in
-                
-                US.updateApiData(type: 0) { (finish) in
-                    if finish {
-                        US.goMain()
-                    }
-                }
+
+                self.goDownload()
             }
             
             self.reachability?.whenUnreachable = { reachability in
@@ -53,20 +49,24 @@ class LaunchVC: UIViewController {
             
             self.reachability!.stopNotifier()
         }
+        
+    }
+    
+    //開始下載API資料
+    func goDownload(){
+        US.getAdoptData(type:0) { (finish) in
+            if finish {
+                US.goMain()
+            }else{
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+                    self.goDownload()
+                }
+            }
+        }
     }
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-   
 
 }

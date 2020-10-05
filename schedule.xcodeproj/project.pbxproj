@@ -34,6 +34,8 @@
 		6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6F58DC75250B5F5C00A415B1 /* loadView.gif */; };
 		6F58DC78250B69A800A415B1 /* LostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */; };
 		6F8D98762500C3DC00A3CEA7 /* Third.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F8D98752500C3DC00A3CEA7 /* Third.storyboard */; };
+		6F9CF60625243632000D71A8 /* CustomAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F9CF60525243632000D71A8 /* CustomAlertView.xib */; };
+		6F9CF60925243991000D71A8 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9CF60825243991000D71A8 /* CustomAlertView.swift */; };
 		6F9F35ED24189E0B0003896D /* SliderBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9F35EC24189E0B0003896D /* SliderBarView.swift */; };
 		6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE757524E5430E006C4E08 /* RuleViewController.swift */; };
 		6FE0F0B524FF966900800521 /* AboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0F0B424FF966900800521 /* AboutMeViewController.swift */; };
@@ -76,6 +78,8 @@
 		6F58DC75250B5F5C00A415B1 /* loadView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loadView.gif; sourceTree = "<group>"; };
 		6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostDetailViewController.swift; sourceTree = "<group>"; };
 		6F8D98752500C3DC00A3CEA7 /* Third.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Third.storyboard; sourceTree = "<group>"; };
+		6F9CF60525243632000D71A8 /* CustomAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlertView.xib; sourceTree = "<group>"; };
+		6F9CF60825243991000D71A8 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		6F9F35EC24189E0B0003896D /* SliderBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderBarView.swift; sourceTree = "<group>"; };
 		6FDE757524E5430E006C4E08 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleViewController.swift; path = /Users/yenfu/Documents/yenfu/schedule/schedule/RuleViewController.swift; sourceTree = "<absolute>"; };
 		6FE0F0B424FF966900800521 /* AboutMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 		145049E3233DE6C900FAF3AA /* schedule */ = {
 			isa = PBXGroup;
 			children = (
+				6F9CF603252434B2000D71A8 /* View */,
 				6F58DC4425087D6700A415B1 /* Common */,
 				6FE0F0B324FE4BA800800521 /* SliderBar */,
 				145049E4233DE6C900FAF3AA /* AppDelegate.swift */,
@@ -201,6 +206,15 @@
 				6F58DC42250879E800A415B1 /* Extension.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		6F9CF603252434B2000D71A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6F9CF60525243632000D71A8 /* CustomAlertView.xib */,
+				6F9CF60825243991000D71A8 /* CustomAlertView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6FE0F0B324FE4BA800800521 /* SliderBar */ = {
@@ -282,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F9CF60625243632000D71A8 /* CustomAlertView.xib in Resources */,
 				6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */,
 				14D0F0AA234CA33F00B599A2 /* Second.storyboard in Resources */,
 				6F2CCFF02501EF3500C843AC /* GoogleService-Info.plist in Resources */,
@@ -382,6 +397,7 @@
 				6F58DC43250879E800A415B1 /* Extension.swift in Sources */,
 				6F9F35ED24189E0B0003896D /* SliderBarView.swift in Sources */,
 				141421DA2386640100B063A1 /* Share.swift in Sources */,
+				6F9CF60925243991000D71A8 /* CustomAlertView.swift in Sources */,
 				145049E5233DE6C900FAF3AA /* AppDelegate.swift in Sources */,
 				6FE0F0B524FF966900800521 /* AboutMeViewController.swift in Sources */,
 				6F58DC4625087E1700A415B1 /* Database.swift in Sources */,

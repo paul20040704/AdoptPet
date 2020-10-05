@@ -21,6 +21,7 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var remarkLabel: UILabel!
     @IBOutlet weak var netLabel: UILabel!
+    
     var reachability = try! Reachability()
     var info = [String:Any]()
     var key = String()
@@ -30,26 +31,24 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         super.viewDidLoad()
         self.navigationItem.title = "遺失待領回"
         
-//        self.reachability!.whenReachable = { reachability in
-//            self.netLabel.isHidden = true
-//        }
-//        
-//        self.reachability?.whenUnreachable = { reachability in
-//            self.netLabel.isHidden = false
-//        }
-//        
-//        do {
-//            try self.reachability!.startNotifier()
-//        } catch {
-//            debugPrint("Unable to start notifier")
-//        }
+        self.reachability!.whenReachable = { reachability in
+            self.netLabel.isHidden = true
+        }
+        
+        self.reachability?.whenUnreachable = { reachability in
+            self.netLabel.isHidden = false
+        }
+        
+        do {
+            try self.reachability!.startNotifier()
+        } catch {
+            debugPrint("Unable to start notifier")
+        }
         
         scrollView.delegate = self
         guard let urlArray = info["photoArray"] as? Array<String> else{return}
         let urlCount = urlArray.count
         scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(urlCount) , height: scrollView.frame.height)
-        print("***scrollView : \(scrollView.frame)")
-        scrollView.backgroundColor = .green
         scrollView.bounces = false
         scrollView.isPagingEnabled = true
         // Do any additional setup after loading the view.
@@ -74,6 +73,10 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         
         setupImageView()
         
+    }
+    
+    deinit {
+        self.reachability?.stopNotifier()
     }
     
     func setupImageView() {
@@ -103,8 +106,7 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @objc func addFollow() {
         if var followArray = UD.array(forKey: "LostKey") as? [String] {
             if followArray.contains(key){
-                let alertVC = US.alertVC(message: "已加入關注", title: "提醒")
-                self.present(alertVC, animated: true, completion: nil)
+                CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
             }else{
                 HUD.show(.label("加入關注..."))
                 followArray.append(key)
@@ -122,8 +124,7 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @objc func cancelFollow(){
         if var followArray = UD.array(forKey: "LostKey") as? [String] {
             if !followArray.contains(key){
-                let alertVC = US.alertVC(message: "已取消關注", title: "提醒")
-                self.present(alertVC, animated: true, completion: nil)
+                CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
             }else {
                 HUD.show(.label("取消關注..."))
                 var i = 0

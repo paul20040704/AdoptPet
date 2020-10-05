@@ -72,6 +72,10 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         
     }
     
+    deinit {
+        self.reachability?.stopNotifier()
+    }
+    
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -116,6 +120,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     }
 
     @IBAction func chooseDate(_ sender: Any) {
+        
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         let alert = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
@@ -183,21 +188,18 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     
     @IBAction func upload(_ sender: Any) {
         if netPossible == false {
-            let alertVC = US.alertVC(message: "請確認是否連上網路", title: "提醒")
-            self.present(alertVC, animated: true, completion: nil)
+            CTAlertView.ctalertView.showAlert(title: "提醒", body: "請確認是否連上網路", action: "確認")
             return
         }
         HUD.show(.label("上傳中..."))
         //判斷條件
         if contactField.text == ""{
-            let alertVC = US.alertVC(message: "聯絡方式不可為空", title: "提醒")
-            self.present(alertVC,animated: true,completion: nil)
+            CTAlertView.ctalertView.showAlert(title: "提醒", body: "聯絡方式不可為空", action: "確定")
             HUD.hide()
             return
         }
         if selectPhotos.count == 0{
-            let alertVC = US.alertVC(message: "至少上傳一張照片", title: "提醒")
-            self.present(alertVC,animated: true,completion: nil)
+            CTAlertView.ctalertView.showAlert(title: "提醒", body: "請至少上傳一張照片", action: "確定")
             HUD.hide()
             return
         }
@@ -220,9 +222,8 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
             databaseRef.setValue(postDataItem.toAnyObject()) { (error, dataRef) in
             if error != nil {
                 print("Database Error :\(String(describing: error?.localizedDescription))")
-                let alertVC = US.alertVC(message: "上傳失敗", title: "提醒")
+                CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳失敗", action: "確定")
                 HUD.hide()
-                self.present(alertVC,animated: true,completion: nil)
                 }else{
                  HUD.hide()
                  self.chooseKind.setTitle("選擇種類", for: .normal)
@@ -233,8 +234,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                  for i in 0...2 {
                     self.photoBtn[i].setImage(UIImage.init(named: "AddPhoto"), for: .normal)
                  }
-                 let alertVC = US.alertVC(message: "上傳成功", title: "提醒")
-                 self.present(alertVC,animated: true,completion: nil)
+                    CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳成功", action: "確定")
                 }
             }
         }
@@ -251,8 +251,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                 storageRef.putData(uploadData, metadata: nil) { (data, error) in
                     if error != nil{
                         print("Error :\(String(describing: error?.localizedDescription))")
-                        let alertVC = US.alertVC(message: "上傳失敗", title: "提醒")
-                        self.present(alertVC,animated: true,completion: nil)
+                        CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳失敗", action: "確定")
                         HUD.hide()
                         return
                     }

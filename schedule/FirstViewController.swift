@@ -74,6 +74,10 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         
     }
     
+    deinit {
+        self.reachability?.stopNotifier()
+    }
+    
     @objc func loadData(){
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
@@ -156,8 +160,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             idArr = id as! [String]
         }
         if idArr.contains(info.animal_id){
-            let alert = US.alertVC(message: "已經有收藏", title: "提醒")
-            self.present(alert,animated: true,completion: nil)
+            CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
         }else{
         HUD.show(.label("更新中..."))
             HUD.hide(afterDelay: 1.0) { (finish) in

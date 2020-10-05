@@ -90,14 +90,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="無法連上網路" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1I-i2-QcO">
+                                <rect key="frame" x="0.0" y="88" width="414" height="35"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="lsX-Xr-TPG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tPI-9l-A51"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="yul-JE-utq" firstAttribute="bottom" secondItem="tPI-9l-A51" secondAttribute="bottom" id="ASc-kG-kjh"/>
+                            <constraint firstItem="J1I-i2-QcO" firstAttribute="top" secondItem="tPI-9l-A51" secondAttribute="top" id="KA5-nw-cJP"/>
+                            <constraint firstItem="tPI-9l-A51" firstAttribute="trailing" secondItem="J1I-i2-QcO" secondAttribute="trailing" id="VWH-MN-I1d"/>
                             <constraint firstItem="tPI-9l-A51" firstAttribute="trailing" secondItem="yul-JE-utq" secondAttribute="trailing" id="bey-Tt-oFI"/>
                             <constraint firstItem="yul-JE-utq" firstAttribute="leading" secondItem="tPI-9l-A51" secondAttribute="leading" id="eME-BQ-5os"/>
                             <constraint firstItem="yul-JE-utq" firstAttribute="top" secondItem="tPI-9l-A51" secondAttribute="top" constant="50" id="m5j-fT-1MT"/>
+                            <constraint firstItem="J1I-i2-QcO" firstAttribute="leading" secondItem="tPI-9l-A51" secondAttribute="leading" id="qXc-ln-p5j"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iz0-cK-fGv">
@@ -125,6 +138,7 @@
                     <connections>
                         <outlet property="collectionView" destination="yul-JE-utq" id="dwL-e6-OUM"/>
                         <outlet property="collectionViewLayout" destination="Ucf-oD-NrA" id="v47-5a-Gic"/>
+                        <outlet property="netLabel" destination="J1I-i2-QcO" id="MPs-ie-yFm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NE0-gC-dvh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -476,7 +490,7 @@
                                     <action selector="back:" destination="R3j-aT-Yen" eventType="touchUpInside" id="0K1-TQ-dcL"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="無法連上網路" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6s-qG-gtQ">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="無法連上網路" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6s-qG-gtQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="35"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -554,6 +568,23 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xmv-aT-Xcf">
                                 <rect key="frame" x="0.0" y="44" width="414" height="414"/>
+                                <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="無法連上網路" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhQ-ig-HZZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="35"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="khD-47-P3h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="hhQ-ig-HZZ" firstAttribute="top" secondItem="33M-18-yn1" secondAttribute="top" id="SF3-1n-eE7"/>
+                                    <constraint firstItem="33M-18-yn1" firstAttribute="trailing" secondItem="hhQ-ig-HZZ" secondAttribute="trailing" id="UKe-ZH-72U"/>
+                                    <constraint firstItem="hhQ-ig-HZZ" firstAttribute="leading" secondItem="33M-18-yn1" secondAttribute="leading" id="bpD-ej-nYR"/>
+                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Paz-H4-flC"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="33M-18-yn1"/>
                             </scrollView>
@@ -621,6 +652,7 @@
                         <outlet property="contactLabel" destination="SHT-ps-Wno" id="Fbh-QO-ziA"/>
                         <outlet property="dateLabel" destination="yES-Sp-9EI" id="i7f-2X-WU4"/>
                         <outlet property="kindLabel" destination="jKc-JV-R2j" id="YcA-ke-bgm"/>
+                        <outlet property="netLabel" destination="hhQ-ig-HZZ" id="Vbg-rR-bba"/>
                         <outlet property="pageControl" destination="ERd-Mq-GRG" id="8mP-Ab-hEJ"/>
                         <outlet property="placeLabel" destination="TNf-8H-tKS" id="t5P-Id-dnr"/>
                         <outlet property="remarkLabel" destination="4ob-cs-1Jt" id="ary-pO-dI1"/>
