@@ -15,7 +15,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
     @IBOutlet weak var searchLabel: UIButton!
     
     
-    var titleArr = ["性別","類型","體型","地區","年紀","絕育"]
+    var titleArr = ["性別","類型","體型","地區","年紀","絕育","拾獲時間"]
     
     
     override func viewDidLoad() {

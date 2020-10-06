@@ -14,6 +14,7 @@ var sizeArray = Array<String>()
 var localArray = Array<String>()
 var ageArray = Array<String>()
 var sterilizationArray = Array<String>()
+var timeGapArray = Array<Double>()
 
 class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
     
@@ -83,6 +84,7 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
             localArray.removeAll()
             ageArray.removeAll()
             sterilizationArray.removeAll()
+            timeGapArray.removeAll()
            
         }
     }
@@ -127,7 +129,19 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
             else if condition == "未知"{
                sterilizationArray.append("")
             }
-            
+        case 7:
+            if condition == "三天"{
+                timeGapArray.append(259200)
+            }
+            else if condition == "一週"{
+                timeGapArray.append(604800)
+            }
+            else if condition == "一月"{
+                timeGapArray.append(2592000)
+            }
+            else if condition == "半年"{
+                timeGapArray.append(15552000)
+            }
         default:
             return
         }
@@ -136,6 +150,7 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     
     func removeCondition(tag:Int,condition:String){
         var conditionValue = ""
+        var conditionDouble = 0.0
         switch tag {
         case 1:
             if condition == "公"{
@@ -185,6 +200,20 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
             if let index = sterilizationArray.firstIndex(of: conditionValue){
                 sterilizationArray.remove(at: index)
             }
+        case 7:
+            if condition == "三天"{
+                conditionDouble = 259200
+            }else if condition == "一週"{
+                conditionDouble = 604800
+            }else if condition == "一月"{
+                conditionDouble = 2592000
+            }else if condition == "半年"{
+                conditionDouble = 15552000
+            }
+            if let index = timeGapArray.firstIndex(of: conditionDouble){
+                timeGapArray.remove(at: index)
+            }
+            
         default:
             return
         }

@@ -196,6 +196,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         DispatchQueue.main.async {
             HUD.show(.label("稍等..."))
             self.arrayCount = 25
+            //篩選條件方法
             self.infoArr = US.search()
             for i in 0...self.infoArr.count - 1{
                 if i < 50{
@@ -216,6 +217,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             localArray.removeAll()
             ageArray.removeAll()
             sterilizationArray.removeAll()
+            timeGapArray.removeAll()
             HUD.hide { (finish) in
                 HUD.flash(.success,delay:2)
             }
@@ -318,8 +320,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             }
         }
     }
-
-    
 }
 
 

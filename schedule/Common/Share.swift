@@ -84,12 +84,29 @@ class Share : NSObject{
         let timeInterval:TimeInterval = d.timeIntervalSince1970
         return floor(timeInterval)
     }
+    
+    //Date轉Double
+    func setTimeStampToDouble(date:Date) -> Double {
+        let timeInterval:TimeInterval = date.timeIntervalSince1970
+        return floor(timeInterval)
+    }
+    
     //日期轉換String
     func dateToString(date:Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: date)
         return dateString
+    }
+    //日期String轉Date
+    func stringToDate(string:String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: string){
+            return date
+        }else{
+            return Date()
+        }
     }
     
     //搜尋條件結果
@@ -135,6 +152,16 @@ class Share : NSObject{
                     conditionFound = false
                 }
             }
+            if timeGapArray.count > 0 {
+                let gap = timeGapArray.max()
+                let catchDate = stringToDate(string: order.cDate)
+                let catchDouble = setTimeStampToDouble(date: catchDate)
+                let nowDouble = getTimeStampToDouble()
+                if (nowDouble - catchDouble) > gap! {
+                    conditionFound = false
+                }
+            }
+            
             if conditionFound {
                 infoArr.append(order)
             }
@@ -146,7 +173,7 @@ class Share : NSObject{
         if let r = try? Realm(){
             //清除舊的DB資料
             let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
-            if(type == 1 && gapTime < 84000){
+            if(type == 1 && gapTime < 86400){
                 completion(true)
             }
             if(type == 0){
