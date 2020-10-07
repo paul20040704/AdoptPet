@@ -14,6 +14,7 @@ class AdSearchCollectionViewCell: UICollectionViewCell {
     
     
     
+    
 }
 
 

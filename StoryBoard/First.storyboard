@@ -102,88 +102,50 @@
                                     <action selector="goSearch:" destination="bbl-Ys-8Lf" eventType="touchUpInside" id="UmN-lA-GeX"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pMS-wF-sRg">
-                                <rect key="frame" x="90" y="98" width="83" height="89"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部種類" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKs-zP-TVx">
-                                        <rect key="frame" x="0.0" y="0.0" width="83" height="26.5"/>
-                                        <color key="backgroundColor" red="1" green="0.32711025599244314" blue="0.59063888798142539" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="多個地區" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSk-g6-oFN">
-                                        <rect key="frame" x="0.0" y="31.5" width="83" height="26"/>
-                                        <color key="backgroundColor" red="1" green="0.32711025599999999" blue="0.59063888799999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="多種體型" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpt-hz-KaA">
-                                        <rect key="frame" x="0.0" y="62.5" width="83" height="26.5"/>
-                                        <color key="backgroundColor" red="1" green="0.32711025599999999" blue="0.59063888799999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yGa-5J-cis">
-                                <rect key="frame" x="193" y="98" width="82.5" height="89"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不分性別" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYr-qc-uGY">
-                                        <rect key="frame" x="0.0" y="0.0" width="82.5" height="26.5"/>
-                                        <color key="backgroundColor" red="1" green="0.32711025599999999" blue="0.59063888799999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="絕育未定" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oee-pl-z6L">
-                                        <rect key="frame" x="0.0" y="31.5" width="82.5" height="26"/>
-                                        <color key="backgroundColor" red="1" green="0.32711025599999999" blue="0.59063888799999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不分年紀" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pB-tS-arc" userLabel="年紀">
-                                        <rect key="frame" x="0.0" y="62.5" width="82.5" height="26.5"/>
-                                        <color key="backgroundColor" red="1" green="0.32711025599999999" blue="0.59063888799999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="I1f-nZ-syf">
+                                <rect key="frame" x="75" y="93" width="231" height="99"/>
+                                <color key="backgroundColor" red="1" green="0.69864347412178529" blue="0.84849851342464788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="kcs-tb-QPO">
+                                    <size key="itemSize" width="60" height="30"/>
+                                    <size key="estimatedItemSize" width="85" height="30"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="ann-xw-tWF" customClass="ConditionCollectionViewCell" customModule="schedule" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="74J-Am-jpl">
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lur-no-xk1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
+                                                    <color key="backgroundColor" red="1" green="0.9872648369" blue="0.76993069309999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Ldg-fK-xKT"/>
+                                                        <constraint firstAttribute="width" constant="60" id="lko-ko-baQ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Lur-no-xk1" secondAttribute="trailing" id="1Vk-cJ-yox"/>
+                                                <constraint firstItem="Lur-no-xk1" firstAttribute="top" secondItem="74J-Am-jpl" secondAttribute="top" id="PkW-8m-DwQ"/>
+                                                <constraint firstItem="Lur-no-xk1" firstAttribute="leading" secondItem="74J-Am-jpl" secondAttribute="leading" id="nlh-qi-6HD"/>
+                                                <constraint firstAttribute="bottom" secondItem="Lur-no-xk1" secondAttribute="bottom" id="sMo-qE-am6"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="85" height="30"/>
+                                        <connections>
+                                            <outlet property="conditionLabel" destination="Lur-no-xk1" id="bXZ-gJ-jjO"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSp-6L-6fA">
                                 <rect key="frame" x="311" y="152" width="83" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.32711025599999999" blue="0.59063888799999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -213,19 +175,14 @@
                         <color key="backgroundColor" red="1" green="0.68132561170854311" blue="0.8332750871650042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="yGa-5J-cis" firstAttribute="leading" secondItem="pMS-wF-sRg" secondAttribute="trailing" constant="20" id="4Mv-iD-jZR"/>
+                            <constraint firstItem="I1f-nZ-syf" firstAttribute="top" secondItem="6we-Ru-MBF" secondAttribute="top" constant="5" id="2ds-JC-kRC"/>
                             <constraint firstItem="vUh-eK-aX2" firstAttribute="top" secondItem="BSp-6L-6fA" secondAttribute="bottom" constant="15" id="8WG-7W-Jwf"/>
-                            <constraint firstItem="yGa-5J-cis" firstAttribute="width" secondItem="6we-Ru-MBF" secondAttribute="width" multiplier="0.2" id="DpF-gZ-tHB"/>
-                            <constraint firstItem="pMS-wF-sRg" firstAttribute="width" secondItem="6we-Ru-MBF" secondAttribute="width" multiplier="0.2" id="Jhf-Mp-lJP"/>
-                            <constraint firstItem="vUh-eK-aX2" firstAttribute="top" secondItem="pMS-wF-sRg" secondAttribute="bottom" constant="10" id="W9Y-ap-aQl"/>
+                            <constraint firstItem="BSp-6L-6fA" firstAttribute="leading" secondItem="I1f-nZ-syf" secondAttribute="trailing" constant="5" id="MYL-rz-sLO"/>
                             <constraint firstItem="am9-3p-E98" firstAttribute="top" secondItem="6we-Ru-MBF" secondAttribute="top" constant="25" id="YVb-ZD-3vW"/>
-                            <constraint firstItem="pMS-wF-sRg" firstAttribute="leading" secondItem="am9-3p-E98" secondAttribute="trailing" constant="20" id="aiQ-yd-xxg"/>
-                            <constraint firstItem="vUh-eK-aX2" firstAttribute="top" secondItem="yGa-5J-cis" secondAttribute="bottom" constant="10" id="c6U-Xg-b9f"/>
                             <constraint firstAttribute="bottom" secondItem="vUh-eK-aX2" secondAttribute="bottom" id="dJa-nM-7gY"/>
-                            <constraint firstItem="pMS-wF-sRg" firstAttribute="top" secondItem="6we-Ru-MBF" secondAttribute="top" constant="10" id="gUl-X1-fak"/>
                             <constraint firstItem="vUh-eK-aX2" firstAttribute="trailing" secondItem="6we-Ru-MBF" secondAttribute="trailing" id="gvQ-gd-4gi"/>
+                            <constraint firstItem="I1f-nZ-syf" firstAttribute="leading" secondItem="am9-3p-E98" secondAttribute="trailing" constant="5" id="hAl-Is-dX2"/>
                             <constraint firstItem="vUh-eK-aX2" firstAttribute="height" secondItem="jF3-ym-yVl" secondAttribute="height" multiplier="0.78" id="jfk-y5-HDk"/>
-                            <constraint firstItem="yGa-5J-cis" firstAttribute="top" secondItem="6we-Ru-MBF" secondAttribute="top" constant="10" id="jwT-Kk-4B4"/>
                             <constraint firstItem="FtH-Ne-Z1t" firstAttribute="leading" secondItem="6we-Ru-MBF" secondAttribute="leading" id="mfK-Qu-RVD"/>
                             <constraint firstItem="FtH-Ne-Z1t" firstAttribute="top" secondItem="6we-Ru-MBF" secondAttribute="top" id="neI-DL-Wh6"/>
                             <constraint firstItem="6we-Ru-MBF" firstAttribute="trailing" secondItem="BSp-6L-6fA" secondAttribute="trailing" constant="20" id="pHl-KO-j1x"/>
@@ -233,6 +190,7 @@
                             <constraint firstItem="BSp-6L-6fA" firstAttribute="width" secondItem="6we-Ru-MBF" secondAttribute="width" multiplier="0.2" id="xfi-Te-3d0"/>
                             <constraint firstItem="FtH-Ne-Z1t" firstAttribute="trailing" secondItem="6we-Ru-MBF" secondAttribute="trailing" id="xyJ-Rm-hLk"/>
                             <constraint firstItem="am9-3p-E98" firstAttribute="leading" secondItem="6we-Ru-MBF" secondAttribute="leading" constant="20" id="yTb-GH-d91"/>
+                            <constraint firstItem="vUh-eK-aX2" firstAttribute="top" secondItem="I1f-nZ-syf" secondAttribute="bottom" constant="5" id="z0J-uS-Mpg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rOs-5o-Pdw">
@@ -243,13 +201,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="ageLabel" destination="9pB-tS-arc" id="txy-Wu-yOW"/>
-                        <outlet property="kindLabel" destination="RKs-zP-TVx" id="8RH-qb-otW"/>
-                        <outlet property="localLabel" destination="LSk-g6-oFN" id="cRT-Th-0vb"/>
+                        <outlet property="collectionView" destination="I1f-nZ-syf" id="HVz-Wb-84b"/>
                         <outlet property="netLabel" destination="FtH-Ne-Z1t" id="1IW-RI-yjF"/>
-                        <outlet property="sexLabel" destination="HYr-qc-uGY" id="rXC-kD-eiy"/>
-                        <outlet property="sizeLabel" destination="Fpt-hz-KaA" id="I7T-Q3-6Ps"/>
-                        <outlet property="sterLabel" destination="Oee-pl-z6L" id="TJZ-fo-v2v"/>
                         <outlet property="tableView" destination="vUh-eK-aX2" id="ZzF-4J-rF8"/>
                     </connections>
                 </viewController>

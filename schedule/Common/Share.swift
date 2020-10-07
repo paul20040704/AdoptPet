@@ -108,6 +108,63 @@ class Share : NSObject{
             return Date()
         }
     }
+    //計算要顯示的條件陣列
+    func showConditionArr() -> Array<String>{
+        var condArr = Array<String>()
+        if sexArray.count == 1 {
+            switch sexArray[0] {
+            case "M":
+                condArr.append("公")
+            default:
+                condArr.append("母")
+            }
+        }else if typeArray.count == 1 {
+            condArr.append(typeArray[0])
+        }else if sizeArray.count == 1{
+            switch sizeArray[0] {
+            case "SMALL":
+                condArr.append("小型")
+            case "MEDIUM":
+                condArr.append("中型")
+            default:
+                condArr.append("大型")
+            }
+        }else if sizeArray.count > 1{
+            condArr.append("多種體型")
+        }else if localArray.count == 1{
+            condArr.append(localArray[0])
+        }else if localArray.count > 1{
+            condArr.append("多個地區")
+        }else if ageArray.count == 1{
+            switch ageArray[0] {
+            case "ADULT":
+                condArr.append("成年")
+            default:
+                condArr.append("幼年")
+            }
+        }else if sterilizationArray.count == 1{
+            switch sterilizationArray[0] {
+            case "T":
+                condArr.append("已絕育")
+            case "F":
+                condArr.append("未絕育")
+            default:
+                condArr.append("絕育未知")
+            }
+        }else if timeGapArray.count > 0{
+            switch timeGapArray.max() {
+            case 259200:
+                condArr.append("三天前")
+            case 604800:
+                condArr.append("一週前")
+            case 2592000:
+                condArr.append("一月前")
+            default:
+                condArr.append("半年前")
+            }
+        }
+        return condArr
+    }
     
     //搜尋條件結果
     func search() -> [RLM_ApiData]{

@@ -20,16 +20,11 @@ enum PageStatus {
     case NotLoadingMore
 }
 
-class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource{
+class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource{
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var kindLabel: UILabel!
-    @IBOutlet weak var localLabel: UILabel!
-    @IBOutlet weak var sizeLabel: UILabel!
-    @IBOutlet weak var sexLabel: UILabel!
-    @IBOutlet weak var sterLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var netLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     let sliderBarView = SliderBarView()
     var infoArr = [RLM_ApiData]()
@@ -37,6 +32,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     var arrayCount = 25
     var refreshControl : UIRefreshControl!
     var reachability = try! Reachability()
+    var conditionArr = Array<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +59,8 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
@@ -70,7 +68,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         self.resetInfoArr()
         self.updateTotal()
         
-        sliderBarView.setUI(spView: self.view )
+        sliderBarView.setUI(spView: self.view)
         
     }
     
@@ -151,6 +149,25 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
       }
     }
     
+    //UICollectionDelegate
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if conditionArr.count < 1{
+            return 1
+        }else{
+            return conditionArr.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ConditionCollectionViewCell
+        if conditionArr.count < 1{
+            cell.conditionLabel.text = "全部條件"
+        }else{
+            cell.conditionLabel.text = conditionArr[indexPath.row]
+        }
+        return cell
+    }
+    
     
     //按下喜歡
     @objc func like (sender:UIButton){
@@ -170,8 +187,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         UD.set(idArr, forKey: "likeID")
         //NotificationCenter
         NotificationCenter.default.post(name: Notification.Name("loadData"), object: nil)
-//        let alert = US.alertVC(message: "已加入收藏", title: "提醒")
-//        self.present(alert,animated: true,completion: nil)
         }
     
     }
@@ -192,7 +207,9 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     
     @objc func search(){
-        changeLabel()
+        //changeLabel()
+        conditionArr = US.showConditionArr()
+        self.collectionView.reloadData()
         DispatchQueue.main.async {
             HUD.show(.label("稍等..."))
             self.arrayCount = 25
@@ -246,80 +263,83 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     @IBAction func resetCondition(_ sender: Any) {
         resetInfoArr()
-        changeLabel()
+        //changeLabel()
+        conditionArr = US.showConditionArr()
+        self.collectionView.reloadData()
         updateTotal()
         search()
         self.tableView.reloadData()
     }
     
-    func changeLabel(){
-        if typeArray.count == 2 || typeArray.count == 0{
-            kindLabel.text = "全部種類"
-        }
-        if typeArray.count == 1{
-            kindLabel.text = typeArray[0]
-        }
-        if localArray.count > 1 || localArray.count == 0{
-            localLabel.text = "多個地區"
-        }
-        if localArray.count == 1{
-            localLabel.text = localArray[0]
-        }
-        if sizeArray.count > 1 || sizeArray.count == 0{
-            sizeLabel.text = "多種體型"
-        }
-        if sizeArray.count == 1{
-            let size = sizeArray[0]
-            switch size {
-            case "SMALL":
-                sizeLabel.text = "小型"
-            case "MEDIUN":
-                sizeLabel.text = "中型"
-            case "BIG":
-                sizeLabel.text = "大型"
-            default:
-                return
-            }
-        }
-        if sexArray.count > 1 || localArray.count == 0{
-            sexLabel.text = "不分性別"
-        }
-        if sexArray.count == 1{
-            let sex = sexArray[0]
-            switch sex {
-            case "M":
-                sexLabel.text = "公"
-            default:
-                sexLabel.text = "母"
-            }
-        }
-        if sterilizationArray.count > 1 || sterilizationArray.count == 0{
-            sterLabel.text = "絕育未定"
-        }
-        if sterilizationArray.count == 1{
-            let sterilization = sterilizationArray[0]
-            switch sterilization {
-            case "T":
-                sterLabel.text = "是"
-            case "F":
-                sterLabel.text = "否"
-            default:
-                sterLabel.text = "未知"
-            }
-        }
-        if ageArray.count > 1 || ageArray.count == 0{
-            ageLabel.text = "不分年紀"
-        }
-        if ageArray.count == 1{
-            let age = ageArray[0]
-            switch age {
-            case "ADULT":
-                ageLabel.text = "成年"
-            default:
-                ageLabel.text = "幼年"
-            }
-        }
-    }
+//    func changeLabel(){
+//        if typeArray.count == 2 || typeArray.count == 0{
+//            kindLabel.text = "全部種類"
+//        }
+//        if typeArray.count == 1{
+//            kindLabel.text = typeArray[0]
+//        }
+//        if localArray.count > 1 || localArray.count == 0{
+//            localLabel.text = "多個地區"
+//        }
+//        if localArray.count == 1{
+//            localLabel.text = localArray[0]
+//        }
+//        if sizeArray.count > 1 || sizeArray.count == 0{
+//            sizeLabel.text = "多種體型"
+//        }
+//        if sizeArray.count == 1{
+//            let size = sizeArray[0]
+//            switch size {
+//            case "SMALL":
+//                sizeLabel.text = "小型"
+//            case "MEDIUN":
+//                sizeLabel.text = "中型"
+//            case "BIG":
+//                sizeLabel.text = "大型"
+//            default:
+//                return
+//            }
+//        }
+//        if sexArray.count > 1 || localArray.count == 0{
+//            sexLabel.text = "不分性別"
+//        }
+//        if sexArray.count == 1{
+//            let sex = sexArray[0]
+//            switch sex {
+//            case "M":
+//                sexLabel.text = "公"
+//            default:
+//                sexLabel.text = "母"
+//            }
+//        }
+//        if sterilizationArray.count > 1 || sterilizationArray.count == 0{
+//            sterLabel.text = "絕育未定"
+//        }
+//        if sterilizationArray.count == 1{
+//            let sterilization = sterilizationArray[0]
+//            switch sterilization {
+//            case "T":
+//                sterLabel.text = "是"
+//            case "F":
+//                sterLabel.text = "否"
+//            default:
+//                sterLabel.text = "未知"
+//            }
+//        }
+//        if ageArray.count > 1 || ageArray.count == 0{
+//            ageLabel.text = "不分年紀"
+//        }
+//        if ageArray.count == 1{
+//            let age = ageArray[0]
+//            switch age {
+//            case "ADULT":
+//                ageLabel.text = "成年"
+//            default:
+//                ageLabel.text = "幼年"
+//            }
+//        }
+//    }
+    
 }
 
 

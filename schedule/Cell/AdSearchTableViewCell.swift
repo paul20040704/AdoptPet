@@ -52,20 +52,26 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("*** \(chooseArr)")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! AdSearchCollectionViewCell
-        cell.chooseLabel.text = totalDic[tableTitle]![indexPath.row]
+        cell.chooseLabel.backgroundColor = .systemYellow
+        let showText = totalDic[tableTitle]![indexPath.row]
         cell.tag = tableTag
+        cell.chooseLabel.text = showText
+        if chooseArr.contains(showText){
+            cell.chooseLabel.backgroundColor = .green
+        }
+        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! AdSearchCollectionViewCell
-        if cell.tag > 0 {
+        let cellText = cell.chooseLabel.text
+        if !chooseArr.contains(cellText!) {
             cell.chooseLabel.backgroundColor = .green
             addCondition(tag: cell.tag, condition: totalDic[tableTitle]![indexPath.row])
-            cell.tag = -(cell.tag)
-        }else if cell.tag < 0 {
+        }else {
             cell.chooseLabel.backgroundColor = .systemYellow
-            cell.tag = -(cell.tag)
             removeCondition(tag: cell.tag, condition: totalDic[tableTitle]![indexPath.row])
         }
     }
@@ -74,10 +80,9 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
         for i in 0...totalDic[tableTitle]!.count - 1  {
             let index = IndexPath.init(row: i, section: 0)
             let cell = collectionView.cellForItem(at: index) as! AdSearchCollectionViewCell
-            if cell.tag < 0 {
-            cell.tag = -(cell.tag)
             cell.chooseLabel.backgroundColor = .systemYellow
-            }
+            chooseArr.removeAll()
+            
             sexArray.removeAll()
             typeArray.removeAll()
             sizeArray.removeAll()
@@ -90,6 +95,7 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     }
     
     func addCondition(tag:Int,condition:String){
+        chooseArr.append(condition)
         switch tag {
         case 1:
             if condition == "公"{
@@ -149,6 +155,9 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     }
     
     func removeCondition(tag:Int,condition:String){
+        if let index = chooseArr.firstIndex(of: condition){
+            chooseArr.remove(at: index)
+        }
         var conditionValue = ""
         var conditionDouble = 0.0
         switch tag {

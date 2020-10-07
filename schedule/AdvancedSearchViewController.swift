@@ -66,6 +66,7 @@ class AdvancedSearchViewController: UIViewController,UITableViewDelegate,UITable
     
     @IBAction func search(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name("search"), object: nil)
+        chooseArr.removeAll()
         self.dismiss(animated: true, completion: nil)
     }
     
