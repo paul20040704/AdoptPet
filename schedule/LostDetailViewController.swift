@@ -83,7 +83,6 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         guard let urlArray = info["photoArray"] as? Array<String> else{return}
         for i in 0...(urlArray.count - 1){
             let imageView = UIImageView(frame: CGRect(x: scrollView.frame.width * CGFloat(i), y: 0, width: scrollView.frame.width , height:scrollView.frame.height - 30))
-            print("***imageView : \(imageView.frame)")
             if let imageUrl = URL(string: urlArray[i]) {
                 let task = URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
                     if let data = data , let image = UIImage(data: data) {

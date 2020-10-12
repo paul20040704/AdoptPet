@@ -118,9 +118,11 @@ class Share : NSObject{
             default:
                 condArr.append("母")
             }
-        }else if typeArray.count == 1 {
+        }
+        if typeArray.count == 1 {
             condArr.append(typeArray[0])
-        }else if sizeArray.count == 1{
+        }
+        if sizeArray.count == 1{
             switch sizeArray[0] {
             case "SMALL":
                 condArr.append("小型")
@@ -129,20 +131,25 @@ class Share : NSObject{
             default:
                 condArr.append("大型")
             }
-        }else if sizeArray.count > 1{
+        }
+        if sizeArray.count > 1{
             condArr.append("多種體型")
-        }else if localArray.count == 1{
+        }
+        if localArray.count == 1{
             condArr.append(localArray[0])
-        }else if localArray.count > 1{
+        }
+        if localArray.count > 1{
             condArr.append("多個地區")
-        }else if ageArray.count == 1{
+        }
+        if ageArray.count == 1{
             switch ageArray[0] {
             case "ADULT":
                 condArr.append("成年")
             default:
                 condArr.append("幼年")
             }
-        }else if sterilizationArray.count == 1{
+        }
+        if sterilizationArray.count == 1{
             switch sterilizationArray[0] {
             case "T":
                 condArr.append("已絕育")
@@ -151,7 +158,8 @@ class Share : NSObject{
             default:
                 condArr.append("絕育未知")
             }
-        }else if timeGapArray.count > 0{
+        }
+        if timeGapArray.count > 0{
             switch timeGapArray.max() {
             case 259200:
                 condArr.append("三天前")
