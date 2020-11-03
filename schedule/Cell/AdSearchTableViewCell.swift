@@ -61,9 +61,9 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
         if chooseArr.contains(showText){
             cell.chooseLabel.backgroundColor = .green
         }
-        
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! AdSearchCollectionViewCell
         let cellText = cell.chooseLabel.text
