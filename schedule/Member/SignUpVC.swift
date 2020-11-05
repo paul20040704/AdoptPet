@@ -9,11 +9,16 @@
 import UIKit
 import Firebase
 
+protocol SignUpDelegate {
+    func signUp(emailAccount:String,password:String)
+}
 class SignUpVC: UIViewController , UITextFieldDelegate{
 
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var mailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
+    
+    var delegate : SignUpDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +57,7 @@ class SignUpVC: UIViewController , UITextFieldDelegate{
         }
         Auth.auth().createUser(withEmail: mailTF.text!, password: passwordTF.text!) { (user, error) in
             if error == nil {
+                self.delegate?.signUp(emailAccount: self.mailTF.text!,password:self.passwordTF.text!)
                 print("FireBase帳號註冊成功")
                 let uid = Auth.auth().currentUser!.uid
                 let accountDic = ["uid":uid, "mail":self.mailTF.text!, "name":self.nameTF.text] as [String : Any]

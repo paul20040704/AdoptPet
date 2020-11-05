@@ -25,5 +25,9 @@ target 'schedule' do
   pod 'SDWebImage'
   pod 'Lightbox'
   pod 'JSQMessagesViewController'
+  #FaceBook
+  pod ‘Bolts’
+  pod ‘FBSDKCoreKit’
+  pod ‘FBSDKLoginKit’
 
 end

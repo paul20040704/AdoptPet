@@ -1,7 +1,23 @@
 PODS:
   - AKSideMenu (1.4.5)
   - Alamofire (4.7.3)
+  - Bolts (1.9.1):
+    - Bolts/AppLinks (= 1.9.1)
+    - Bolts/Tasks (= 1.9.1)
+  - Bolts/AppLinks (1.9.1):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.1)
   - Cache (5.3.0)
+  - FBSDKCoreKit (8.1.0):
+    - FBSDKCoreKit/Basics (= 8.1.0)
+    - FBSDKCoreKit/Core (= 8.1.0)
+  - FBSDKCoreKit/Basics (8.1.0)
+  - FBSDKCoreKit/Core (8.1.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (8.1.0):
+    - FBSDKLoginKit/Login (= 8.1.0)
+  - FBSDKLoginKit/Login (8.1.0):
+    - FBSDKCoreKit (~> 8.1.0)
   - Firebase/Analytics (6.31.1):
     - Firebase/Core
   - Firebase/Auth (6.31.1):
@@ -118,6 +134,9 @@ PODS:
 DEPENDENCIES:
   - AKSideMenu
   - Alamofire
+  - Bolts
+  - FBSDKCoreKit
+  - FBSDKLoginKit
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
@@ -146,7 +165,10 @@ SPEC REPOS:
     - RealmSwift
     - SwiftyJSON
   trunk:
+    - Bolts
     - Cache
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -173,7 +195,10 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AKSideMenu: 2880c44ee04a68f40be783c5cb997b2e0ee22401
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
+  FBSDKCoreKit: b3ca27e124dae67122d3bb47c8f96800b39986a6
+  FBSDKLoginKit: a3a92ba9380759cd0c1aa8319465fb5f2857c602
   Firebase: 658370fa0181826a74b7cfca8d68c5856ca749ae
   FirebaseAnalytics: 0ca9aa2af7cc4dc92392b7a78bfc49feaa2eb60f
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
@@ -204,6 +229,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: c794a4c59c175743584de0f95763d6ec912320ce
+PODFILE CHECKSUM: 3cfa3e5a81bac5b5e3dae75d44b39d45393aa736
 
 COCOAPODS: 1.9.3
