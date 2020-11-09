@@ -22,17 +22,7 @@ class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
         
         email.delegate = self
         password.delegate = self
-        print("view did load")
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("*123 \(Auth.auth().currentUser?.uid)")
-        if let id = Auth.auth().currentUser?.uid {
-            let sb = UIStoryboard.init(name: "Member", bundle: Bundle.main)
-            let HomeVC = sb.instantiateViewController(withIdentifier: "Home") as! HomeVC
-            self.navigationController?.pushViewController(HomeVC, animated: true)
-        }
     }
     
     func signUp(emailAccount: String,password:String) {
@@ -44,13 +34,12 @@ class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
     @IBAction func login(_ sender: Any) {
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { (user, error) in
             if error == nil {
+                NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
                 let alert = UIAlertController.init(title: "提醒", message: "登入成功", preferredStyle:.alert)
                 let action = UIAlertAction.init(title: "OK", style: .default) { (action) in
                     self.email.text = ""
                     self.password.text = ""
-                    let sb = UIStoryboard.init(name: "Member", bundle: Bundle.main)
-                    let HomeVC = sb.instantiateViewController(withIdentifier: "Home") as! HomeVC
-                    self.navigationController?.pushViewController(HomeVC, animated: true)
+                    self.dismiss(animated: true, completion: nil)
                 }
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
@@ -98,14 +87,14 @@ class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
                     print(error?.localizedDescription)
                     return
                 }
-                let sb = UIStoryboard.init(name: "Member", bundle: Bundle.main)
-                let HomeVC = sb.instantiateViewController(withIdentifier: "Home") as! HomeVC
-                self.navigationController?.pushViewController(HomeVC, animated: true)
+                NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
     
-    func jugdeLogin() {
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
         
     }
     

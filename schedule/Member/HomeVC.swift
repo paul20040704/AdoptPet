@@ -17,6 +17,9 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var userImageBtn: UIButton!
     @IBOutlet weak var userLab: UILabel!
+    @IBOutlet weak var loginBtn: UIButton!
+    
+    var isLogin = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +27,17 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         self.navigationItem.hidesBackButton = true
         // Do any additional setup after loading the view.
         getUserInfo()
+        NotificationCenter.default.addObserver(self, selector: #selector(login), name: NSNotification.Name(rawValue: "login"), object: nil)
         
-        print("* name \(Auth.auth().currentUser?.displayName)")
-        print("*456 \(Auth.auth().currentUser?.uid)")
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let id = Auth.auth().currentUser?.uid {
+            isLogin = true
+        }else{
+            isLogin = false
+        }
     }
     
     
@@ -39,28 +50,49 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
     
     func getUserInfo() {
-        if Auth.auth().currentUser!.displayName != nil{
-            self.userLab.text = Auth.auth().currentUser!.displayName
+        if !(isLogin) {
+            self.userLab.text = "尚未登入"
+            self.loginBtn.setTitle("點此登入", for: .normal)
+        }
+        if let name = Auth.auth().currentUser?.displayName {
+            self.userLab.text = name
+            self.loginBtn.setTitle("登出", for: .normal)
             return
         }
-        let databaseRef = Database.database().reference().child("User").child(Auth.auth().currentUser!.uid)
-        databaseRef.observe(.value) { (user) in
-            if let userData = user.value as? [String:String] {
-                self.userLab.text = userData["name"]
+        if let id = Auth.auth().currentUser?.uid {
+            let databaseRef = Database.database().reference().child("User").child(id)
+            databaseRef.observe(.value) { (user) in
+                if let userData = user.value as? [String:String] {
+                    self.userLab.text = userData["name"]
+                    self.loginBtn.setTitle("登出", for: .normal)
+                }
             }
         }
     }
     
+    @objc func login() {
+        isLogin = true
+        getUserInfo()
+    }
+    
    
-    @IBAction func logout(_ sender: Any) {
-        print("logout")
-        if Auth.auth().currentUser != nil {
-            do {
-                try Auth.auth().signOut()
-                self.navigationController?.popViewController(animated: true)
-            }catch{
-                print(error.localizedDescription)
-            }
+    @IBAction func homeBtn(_ sender: Any) {
+        if isLogin {
+            if Auth.auth().currentUser != nil {
+                do {
+                    try Auth.auth().signOut()
+                    isLogin = false
+                    getUserInfo()
+                    let alert = US.alertVC(message: "登出成功", title: "提醒")
+                    self.present(alert, animated: true, completion: nil)
+                    }catch{
+                        print(error.localizedDescription)
+                    }
+                }
+        }else {
+            let sb = UIStoryboard(name: "Member", bundle: nil)
+            let memberVC = sb.instantiateViewController(withIdentifier: "MemberVC") as! MemberVC
+            self.present(memberVC, animated: true, completion: nil)
         }
     }
     

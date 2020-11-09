@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
         
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
+        
         return true
         
     }

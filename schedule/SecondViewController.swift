@@ -114,7 +114,7 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
                 }
         }
         //print("getInfoArrCount : \(infoArr.count)")
-        self.navigationItem.title = "我的收藏送共 : \(infoArr.count) 筆"
+        self.navigationItem.title = "領養收藏送共 : \(infoArr.count) 筆"
         
     }
     
