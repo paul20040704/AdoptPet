@@ -63,12 +63,18 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! LostCollectionViewCell
         guard let info = infoDic[infoKey[indexPath.row]] as? [String:Any] else{return cell}
+        cell.userLabel.text = (info["userID"] as! String)
+        
         cell.kindLael.text = "種類 : \(info["kind"] as! String)"
         cell.placeLabel.text = "發現地 : \(info["place"] as! String)"
         cell.dateLabel.text = "發現日 : \(info["pickDate"] as! String)"
         guard let urlArray = info["photoArray"] as? Array<String> else{return cell}
         let urlString = urlArray[0]
-        setImageCell(cell: cell, indexPath: indexPath, url: URL(string: urlString)!)
+        setImageCell(cell: cell, indexPath: indexPath, url: URL(string: urlString)!, type: 0)
+        let userUrlStr = info["userUrlStr"] as! String
+        if let userUrl = URL(string: userUrlStr){
+            setImageCell(cell: cell, indexPath: indexPath, url: userUrl, type: 1)
+        }
         //cell.imageView.image = UIImage.gif(name: "loadView")
         return cell
 }
@@ -85,8 +91,6 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         
     }
 
-
-
     
     func updateLostView() {
         let databaseRef = Database.database().reference().child("LostPostUpload")
@@ -100,17 +104,26 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
     }
     
-    func setImageCell(cell: LostCollectionViewCell, indexPath: IndexPath, url: URL) -> () {
+    func setImageCell(cell: LostCollectionViewCell, indexPath: IndexPath, url: URL, type :Int) -> () {
         let cachedImage = SDImageCache.shared.imageFromDiskCache(forKey: "\(url)")
-        if cachedImage == nil{
+        if cachedImage == nil {
             downLoadImage(imageUrl: url, indexPath: indexPath)
-            cell.imageView?.image = UIImage.gif(name: "loadView")
+            if type == 0{
+                cell.imageView?.image = UIImage.gif(name: "loadView")
+            }else{
+                cell.userImageView.image = UIImage(named: "user")
+            }
         }else{
-            cell.imageView?.image = cachedImage
+            if type == 0{
+                cell.imageView?.image = cachedImage
+            }else{
+                cell.userImageView.image = cachedImage
+            }
         }
     }
     
-    func downLoadImage(imageUrl: URL,indexPath : IndexPath) -> (){
+    func downLoadImage(imageUrl: URL, indexPath : IndexPath) -> (){
+        
            SDWebImageDownloader.shared.downloadImage(with: imageUrl, options: .useNSURLCache, progress: { (receivedSize, expectedSize, url) in
            }) { (image, data, error, finished) in
                if error == nil{
@@ -122,12 +135,22 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
                    return
                }
            }
-       }
+    }
     
     @objc func reloadImageCell(indexPath: IndexPath) -> () {
         collectionView.reloadItems(at: [indexPath])
     }
     
+    @IBAction func goPost(_ sender: Any) {
+        if let id = Auth.auth().currentUser?.uid {
+            let sb = UIStoryboard.init(name: "Third", bundle: nil)
+            let postVC = sb.instantiateViewController(withIdentifier: "postVC")
+            self.present(postVC, animated: true, completion: nil)
+        }else{
+            let alert = US.alertVC(message: "請先登入", title: "提醒")
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
  
 }

@@ -21,6 +21,8 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var remarkLabel: UILabel!
     @IBOutlet weak var netLabel: UILabel!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userLabel: UILabel!
     
     var reachability = try! Reachability()
     var info = [String:Any]()

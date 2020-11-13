@@ -9,11 +9,10 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import GoogleSignIn
 
+class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignInDelegate{
 
-class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
-    
-   
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     
@@ -22,7 +21,11 @@ class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
         
         email.delegate = self
         password.delegate = self
-        // Do any additional setup after loading the view.
+        // Google Sign
+        GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance()?.delegate = self
+        
     }
     
     func signUp(emailAccount: String,password:String) {
@@ -62,6 +65,7 @@ class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
     }
     
     @IBAction func signGoogle(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.signIn()
     }
     
     @IBAction func signFacebook(_ sender: Any) {
@@ -107,4 +111,29 @@ class MemberVC: UIViewController ,UITextFieldDelegate,SignUpDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             self.view.endEditing(true)
         }
+    
+    //GoogleSignIn Delegate 
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if error == nil {
+            if let userName = user.profile.name {
+                if let auth = user.authentication {
+                    let credential = GoogleAuthProvider.credential(withIDToken: auth.idToken, accessToken: auth.accessToken)
+                    Auth.auth().signIn(with: credential) { (firebaseUser, error) in
+                        if error == nil {
+                            print("Google 登入成功")
+                            NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
+                            self.dismiss(animated: true, completion: nil)
+                        }else{
+                            print(error?.localizedDescription)
+                            let alert = US.alertVC(message: "Google 登入失敗", title: "提醒")
+                            self.present(alert, animated: true, completion: nil)
+                            return
+                        }
+                    }
+                }
+            }
+        }else{
+            print(error.localizedDescription)
+        }
+      }
 }

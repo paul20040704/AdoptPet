@@ -67,6 +67,7 @@ class Share : NSObject{
             return false
         }
     }
+    
     //取得最上方的view
     func getCurrentViewController() -> UIViewController?{
     if let rootVC = UIApplication.shared.keyWindow?.rootViewController{
@@ -323,8 +324,6 @@ class Share : NSObject{
         appDelegate.window?.rootViewController = mainTBC
     }
     
-    
-
     
     
 }

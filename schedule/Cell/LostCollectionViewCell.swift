@@ -13,6 +13,9 @@ class LostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var kindLael: UILabel!
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var userLabel: UILabel!
+    
     
     
 }

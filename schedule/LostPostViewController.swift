@@ -14,6 +14,7 @@ import FirebaseDatabase
 import PKHUD
 import Lightbox
 import Reachability
+import Firebase
 
 class LostPostViewController: UIViewController , UITextViewDelegate, ImagePickerDelegate , LightboxControllerDismissalDelegate {
     
@@ -214,10 +215,13 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         }
         //隨機生成7位數
         let postID = String(Int(arc4random_uniform(8999999) + 1000000))
-        
+        var urlStr = ""
+        if let str = Auth.auth().currentUser?.photoURL?.absoluteString{
+            urlStr = str
+        }
         getImagePath { (imagePaths) in
             guard  let remark = self.remarkTextView.text, let pickDate = self.dateBtn.titleLabel?.text, let contact = self.contactField.text, let place = self.placeField.text  else {return}
-            let postDataItem = PostData(kind: kind, remark: remark, pickDate: pickDate, contact: contact, plcae: place, photoArray: imagePaths)
+            let postDataItem = PostData(kind: kind, remark: remark, pickDate: pickDate, contact: contact, plcae: place, userID: userDisplayName, userUrlStr: urlStr, photoArray: imagePaths)
             let databaseRef = Database.database().reference().child("LostPostUpload").child(postID)
             databaseRef.setValue(postDataItem.toAnyObject()) { (error, dataRef) in
             if error != nil {

@@ -29,5 +29,6 @@ target 'schedule' do
   pod ‘Bolts’
   pod ‘FBSDKCoreKit’
   pod ‘FBSDKLoginKit’
+  pod 'GoogleSignIn'
 
 end
