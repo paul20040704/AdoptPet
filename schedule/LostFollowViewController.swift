@@ -51,7 +51,6 @@ class LostFollowViewController: UIViewController ,UITableViewDelegate,UITableVie
             lostDetailVC.hidesBottomBarWhenPushed = true
             lostDetailVC.info = info
             lostDetailVC.key = keyArr[indexPath.row]
-            lostDetailVC.type = 1
             navigationController?.show(lostDetailVC, sender: nil)
         }
     }

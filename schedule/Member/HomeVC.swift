@@ -10,6 +10,7 @@ import UIKit
 import JSQMessagesViewController
 import Firebase
 import FirebaseStorage
+import SDWebImage
 
 class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
@@ -21,16 +22,17 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     var isLogin = false
     var firstTime = true
+    var userLikeArr = Array<Dictionary<String,Any>>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         homeTableView.delegate = self
+        homeTableView.dataSource = self
         self.navigationItem.hidesBackButton = true
         // Do any additional setup after loading the view.
         getUserInfo()
-        getUserCollect()
+        getUserLike()
         NotificationCenter.default.addObserver(self, selector: #selector(login), name: NSNotification.Name(rawValue: "login"), object: nil)
-        
         
     }
     
@@ -39,7 +41,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             setUserImage()
             firstTime = false
         }
-        if let id = Auth.auth().currentUser?.uid {
+        if (Auth.auth().currentUser?.uid) != nil {
             isLogin = true
         }else{
             isLogin = false
@@ -48,12 +50,28 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 1
+            return userLikeArr.count
         }
+    
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HomeTVCell
+        let likeDic = userLikeArr[indexPath.row]
+        cell.nameLab.text = likeDic["userID"] as! String
+        cell.kindLab.text = "種類 : \(likeDic["kind"] as! String)"
+        cell.dateLab.text = "拾獲日 : \(likeDic["pickDate"] as! String)"
+        if let userUrl = URL(string:likeDic["userUrlStr"] as! String) {
+            let userCache = SDImageCache.shared.imageFromCache(forKey: "\(userUrl)")
+            cell.userImage.image = userCache
         }
+        guard let urlArr = likeDic["photoArray"] as? Array<String> else{return cell}
+        if let postUrl = URL(string: urlArr[0]) {
+            let postCache = SDImageCache.shared.imageFromCache(forKey: "\(postUrl)")
+            cell.likeImage.image = postCache
+        }
+        return cell
+        
+    }
     
     //判斷是否登入並取得用戶資訊
     func getUserInfo() {
@@ -83,7 +101,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         isLogin = true
         getUserInfo()
         setUserImage()
-        getUserCollect()
+        getUserLike()
     }
     
    
@@ -95,6 +113,8 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     userImage.image = UIImage(named: "user")
                     isLogin = false
                     getUserInfo()
+                    userLikeArr.removeAll()
+                    homeTableView.reloadData()
                     let alert = US.alertVC(message: "登出成功", title: "提醒")
                     self.present(alert, animated: true, completion: nil)
                     }catch{
@@ -122,9 +142,33 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    //取得用戶關注資料
-    func getUserCollect(){
-        print("UID : \(Auth.auth().currentUser?.uid)")
+    //取得用戶收藏的資訊
+    func getUserLike(){
+        let group : DispatchGroup = DispatchGroup()
+        if let id = Auth.auth().currentUser?.uid{
+            let databaseRef = Database.database().reference().child("UserLike").child(id)
+            databaseRef.observe(.value) { (data) in
+                self.userLikeArr.removeAll()
+                if let likeData = data.value as? [String:Any]{
+                    let keyArr = Array(likeData.keys)
+                    for key in keyArr {
+                        group.enter()
+                        let databaseRef = Database.database().reference().child("LostPostUpload").child(key)
+                        databaseRef.observe(.value) { (data) in
+                            if let postData = data.value as? [String:Any]{
+                                self.userLikeArr.append(postData)
+                                group.leave()
+                            }
+                        }
+                    }
+                    group.notify(queue: DispatchQueue.main) {
+                        print("reloadData")
+                        self.homeTableView.reloadData()
+                    }
+                }
+            }
+        }
     }
+    
     
 }

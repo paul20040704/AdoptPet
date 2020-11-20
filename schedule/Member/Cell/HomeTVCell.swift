@@ -9,8 +9,12 @@
 import UIKit
 
 class HomeTVCell: UITableViewCell {
-    @IBOutlet weak var userImage: UIImageView!
+    
     @IBOutlet weak var nameLab: UILabel!
+    @IBOutlet weak var likeImage: UIImageView!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var kindLab: UILabel!
+    @IBOutlet weak var dateLab: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

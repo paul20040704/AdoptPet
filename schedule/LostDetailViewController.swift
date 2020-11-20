@@ -10,10 +10,11 @@ import UIKit
 import SDWebImage
 import PKHUD
 import Reachability
+import Firebase
 
-class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
-
-    @IBOutlet weak var scrollView: UIScrollView!
+class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var kindLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -24,14 +25,25 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userLabel: UILabel!
     
+    @IBOutlet weak var layout: UICollectionViewFlowLayout!
+    
+    
     var reachability = try! Reachability()
     var info = [String:Any]()
     var key = String()
-    //0:加入關注 1:取消關注
-    var type = 0
+    var urlCount = 0
+    var urlArray = Array<String>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "遺失待領回"
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        layout.sectionInset = UIEdgeInsets(top: 0 , left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: 414, height: 414)
+        
+        collectionView.isPagingEnabled = true
         
         self.reachability!.whenReachable = { reachability in
             self.netLabel.isHidden = true
@@ -47,33 +59,32 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
             debugPrint("Unable to start notifier")
         }
         
-        scrollView.delegate = self
-        guard let urlArray = info["photoArray"] as? Array<String> else{return}
-        let urlCount = urlArray.count
-        scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(urlCount) , height: scrollView.frame.height)
-        scrollView.bounces = false
-        scrollView.isPagingEnabled = true
+        if let array = info["photoArray"] as? Array<String>{
+            urlArray = array
+            urlCount = urlArray.count
+        }
         // Do any additional setup after loading the view.
         pageControl.pageIndicatorTintColor = .lightGray
         pageControl.currentPageIndicatorTintColor = .black
         pageControl.numberOfPages = urlCount
         pageControl.currentPage = 0
         
+        userLabel.text = info["userID"] as! String
         kindLabel.text = "種類 : \(info["kind"] as! String)"
         dateLabel.text = "拾獲日期 : \(info["pickDate"] as! String)"
         placeLabel.text = "拾獲地 : \(info["place"] as! String)"
         contactLabel.text = "聯絡方式 : \(info["contact"] as! String)"
         remarkLabel.text = "特徵 : \(info["remark"] as! String)"
-        
-        if type == 0{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入關注", style: .plain, target: self, action: #selector(addFollow))
+        let urlStr = info["userUrlStr"] as! String
+        if let url = URL(string: urlStr){
+            let cachedImage = SDImageCache.shared.imageFromDiskCache(forKey: "\(url)")
+            userImage.image = cachedImage
+        }else{
+            userImage.image = UIImage(named: "user")
         }
-        else{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消關注", style: .plain, target: self, action: #selector(cancelFollow))
-        }
-        navigationItem.rightBarButtonItem?.tintColor = .darkGray
         
-        setupImageView()
+        setNVItem()
+        
         
     }
     
@@ -81,64 +92,79 @@ class LostDetailViewController: UIViewController ,UIScrollViewDelegate {
         self.reachability?.stopNotifier()
     }
     
-    func setupImageView() {
-        guard let urlArray = info["photoArray"] as? Array<String> else{return}
-        for i in 0...(urlArray.count - 1){
-            let imageView = UIImageView(frame: CGRect(x: scrollView.frame.width * CGFloat(i), y: 0, width: scrollView.frame.width , height:scrollView.frame.height - 30))
-            if let imageUrl = URL(string: urlArray[i]) {
-                let task = URLSession.shared.dataTask(with: imageUrl) { (data, response, error) in
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return urlCount
+        }
+        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! LostDetailCVCell
+        if let url = URL(string: urlArray[indexPath.row]){
+            let cachedImage = SDImageCache.shared.imageFromCache(forKey: "\(url)")
+            if cachedImage == nil {
+                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                     if let data = data , let image = UIImage(data: data) {
                         DispatchQueue.main.async {
-                            imageView.image = image
+                            cell.lostImageView.image = image
                         }
                     }
                 }
                 task.resume()
+            }else{
+                cell.lostImageView.image = cachedImage
             }
-            scrollView.addSubview(imageView)
+        }else{
+            cell.lostImageView.image = UIImage(named: "user")
         }
-    }
+            
+            return cell
+        }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = page
     }
     
-    @objc func addFollow() {
-        if var followArray = UD.array(forKey: "LostKey") as? [String] {
-            if followArray.contains(key){
-                CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
-            }else{
-                HUD.show(.label("加入關注..."))
-                followArray.append(key)
-                UD.set(followArray, forKey: "LostKey")
-                HUD.flash(.success, delay: 0.5)
+    func setNVItem() {
+        if let id = Auth.auth().currentUser?.uid {
+            let databaseRef = Database.database().reference().child("UserLike").child(id)
+            databaseRef.observe(.value) { (data) in
+                if let likeData = data.value as? [String:Any]{
+                    let keyArr = Array(likeData.keys)
+                    if keyArr.contains(self.key){
+                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "已有收藏", style: .plain, target: self, action: #selector(self.hasFollow))
+                    }
+                }
             }
-        }else{
-            HUD.show(.label("加入關注..."))
-            var keyArr = [key]
-            UD.set(keyArr, forKey: "LostKey")
-            HUD.flash(.success, delay: 0.5)
         }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入收藏", style: .plain, target: self, action: #selector(addFollow))
+        navigationItem.rightBarButtonItem?.tintColor = .darkGray
     }
     
-    @objc func cancelFollow(){
-        if var followArray = UD.array(forKey: "LostKey") as? [String] {
-            if !followArray.contains(key){
-                CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
-            }else {
-                HUD.show(.label("取消關注..."))
-                var i = 0
-                for udKey in followArray {
-                    if udKey == key {
-                        followArray.remove(at: i)
-                        UD.set(followArray, forKey: "LostKey")
-                    }
-                    i += 1
+    @objc func addFollow() {
+        if let id = Auth.auth().currentUser?.uid {
+            let postArr = [""]
+            let databaseRef = Database.database().reference().child("UserLike").child(id).child(key)
+            databaseRef.setValue(postArr) { (error, dataRef) in
+                if error != nil{
+                    let alert = US.alertVC(message: "加入收藏失敗", title: "提醒")
+                    self.present(alert, animated: true, completion: nil)
+                    self.setNVItem()
+                }else{
+                    let alert = US.alertVC(message: "加入收藏成功", title: "提醒")
+                    self.present(alert, animated: true, completion: nil)
                 }
-                HUD.flash(.success, delay: 0.5)
             }
+        }else {
+            let alert = US.alertVC(message: "請先登入", title: "提醒")
+            self.present(alert, animated: true, completion: nil)
         }
+        
+    }
+    
+    @objc func hasFollow() {
+        let alert = US.alertVC(message: "已經加入收藏", title: "提醒")
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
 

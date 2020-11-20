@@ -26,6 +26,8 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.delegate = self
         
+        let layer = CAGradientLayer()
+        
     }
     
     func signUp(emailAccount: String,password:String) {

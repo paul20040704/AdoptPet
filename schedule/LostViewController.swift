@@ -86,7 +86,6 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         lostDetailVC.hidesBottomBarWhenPushed = true
         lostDetailVC.info = info
         lostDetailVC.key = infoKey[indexPath.row]
-        lostDetailVC.type = 0
         navigationController?.show(lostDetailVC, sender: nil)
         
     }

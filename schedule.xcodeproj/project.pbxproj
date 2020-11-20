@@ -25,6 +25,7 @@
 		4B8B264E0C38C6A7E8406249 /* Pods_schedule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60899BD15835228DAC9FAC54 /* Pods_schedule.framework */; };
 		6F186B2224E3DF780013C065 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F186B2024E3DF780013C065 /* LoadingCell.swift */; };
 		6F186B2324E3DF780013C065 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F186B2124E3DF780013C065 /* LoadingCell.xib */; };
+		6F1E1E56255E6C2E0036E8D2 /* LostDetailCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1E1E55255E6C2E0036E8D2 /* LostDetailCVCell.swift */; };
 		6F2CCFEE2501E0F000C843AC /* LostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2CCFED2501E0F000C843AC /* LostViewController.swift */; };
 		6F2CCFF02501EF3500C843AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */; };
 		6F4A94EC242216C10088024A /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A94EB242216C10088024A /* GoogleMapViewController.swift */; };
@@ -76,6 +77,7 @@
 		60899BD15835228DAC9FAC54 /* Pods_schedule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_schedule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F186B2024E3DF780013C065 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		6F186B2124E3DF780013C065 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
+		6F1E1E55255E6C2E0036E8D2 /* LostDetailCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostDetailCVCell.swift; sourceTree = "<group>"; };
 		6F2CCFED2501E0F000C843AC /* LostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostViewController.swift; sourceTree = "<group>"; };
 		6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F4A94EB242216C10088024A /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */,
 				6F2CCFED2501E0F000C843AC /* LostViewController.swift */,
 				6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */,
+				6F1E1E55255E6C2E0036E8D2 /* LostDetailCVCell.swift */,
 				6FE235442505E8B900F02974 /* LostPostViewController.swift */,
 				6FE989B4251095510011A6F4 /* LostFollowViewController.swift */,
 				6FD412092554FA68001A4BB3 /* TabBarController.swift */,
@@ -427,6 +430,7 @@
 				6FE989B5251095510011A6F4 /* LostFollowViewController.swift in Sources */,
 				6FE93AC924F4ADDB00694B30 /* AdSearchTableViewCell.swift in Sources */,
 				6FE235452505E8B900F02974 /* LostPostViewController.swift in Sources */,
+				6F1E1E56255E6C2E0036E8D2 /* LostDetailCVCell.swift in Sources */,
 				6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */,
 				14D0F09D2345D55C00B599A2 /* FirstTableViewCell.swift in Sources */,
 				141421DE238673B400B063A1 /* SecondViewController.swift in Sources */,
