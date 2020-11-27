@@ -52,7 +52,6 @@ class AdSearchTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("*** \(chooseArr)")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! AdSearchCollectionViewCell
         cell.chooseLabel.backgroundColor = .systemYellow
         let showText = totalDic[tableTitle]![indexPath.row]

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="G0L-yK-OqG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="G0L-yK-OqG">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d8I-rb-5ms">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" red="1" green="0.92225264520000005" blue="0.91667639970000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.82873690590000004" green="1" blue="0.90324729390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="160" id="8mB-E7-VI2" customClass="SecondTableViewCell" customModule="schedule" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="160"/>
@@ -68,7 +68,7 @@
                                                 <constraint firstItem="wQh-0X-G2Q" firstAttribute="top" secondItem="s93-HE-a9b" secondAttribute="top" constant="5" id="yrq-IC-48c"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="0.92225264520000005" blue="0.91667639970000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.82873690590000004" green="1" blue="0.90324729390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="address" destination="fDv-H1-adc" id="Au3-4b-6tx"/>
                                             <outlet property="aniImage" destination="wQh-0X-G2Q" id="VpJ-l9-qHS"/>
@@ -79,6 +79,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="iaI-EX-wuc"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d8I-rb-5ms" firstAttribute="top" secondItem="iaI-EX-wuc" secondAttribute="top" id="Ckq-Sk-wdq"/>
@@ -86,7 +87,6 @@
                             <constraint firstItem="d8I-rb-5ms" firstAttribute="leading" secondItem="iaI-EX-wuc" secondAttribute="leading" id="P0W-MO-2Ie"/>
                             <constraint firstItem="iaI-EX-wuc" firstAttribute="bottom" secondItem="d8I-rb-5ms" secondAttribute="bottom" id="ctL-zf-UkI"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="iaI-EX-wuc"/>
                     </view>
                     <navigationItem key="navigationItem" id="dO1-Yu-Ak3"/>
                     <connections>

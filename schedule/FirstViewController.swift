@@ -33,6 +33,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     var refreshControl : UIRefreshControl!
     var reachability = try! Reachability()
     var conditionArr = Array<String>()
+    var sliderBarSelect = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -258,7 +259,14 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     }
     
     @IBAction func showSideBar(_ sender: Any) {
-        sliderBarView.show()
+        if sliderBarSelect {
+            sliderBarView.hide()
+            sliderBarSelect = false
+        }else{
+            sliderBarView.show()
+            sliderBarSelect = true
+        }
+    
     }
     
     @IBAction func resetCondition(_ sender: Any) {

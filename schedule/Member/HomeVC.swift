@@ -11,6 +11,7 @@ import JSQMessagesViewController
 import Firebase
 import FirebaseStorage
 import SDWebImage
+import PKHUD
 
 class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
@@ -19,6 +20,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var userLab: UILabel!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var coverView: UIView!
     
     var isLogin = false
     var firstTime = true
@@ -26,6 +28,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        HUD.flash(.systemActivity, onView: self.view, delay: 2, completion: nil)
         homeTableView.delegate = self
         homeTableView.dataSource = self
         self.navigationItem.hidesBackButton = true
@@ -48,13 +51,18 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if userLikeArr.count == 0{
+            return 1
+        }else{
             return userLikeArr.count
         }
+    }
     
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    if userLikeArr.count > 0{
+        coverView.isHidden = true
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HomeTVCell
         let likeDic = userLikeArr[indexPath.row]
         cell.nameLab.text = likeDic["userID"] as! String
@@ -62,16 +70,44 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         cell.dateLab.text = "拾獲日 : \(likeDic["pickDate"] as! String)"
         if let userUrl = URL(string:likeDic["userUrlStr"] as! String) {
             let userCache = SDImageCache.shared.imageFromCache(forKey: "\(userUrl)")
-            cell.userImage.image = userCache
+            if userCache != nil{
+                cell.userImage.image = userCache
+            }else{
+                cell.userImage.image = UIImage(named: "user")
+                downLoadImage(imageUrl: userUrl, indexPath: indexPath)
+            }
         }
         guard let urlArr = likeDic["photoArray"] as? Array<String> else{return cell}
         if let postUrl = URL(string: urlArr[0]) {
             let postCache = SDImageCache.shared.imageFromCache(forKey: "\(postUrl)")
-            cell.likeImage.image = postCache
+            if postCache != nil{
+                cell.likeImage.image = postCache
+            }else{
+                cell.likeImage.image = UIImage.gif(name: "loadView")
+                downLoadImage(imageUrl: postUrl, indexPath: indexPath)
+            }
         }
         return cell
+    }else{
+        let cell = UITableViewCell()
+        coverView.isHidden = false
+        return cell
+        }
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let info = userLikeArr[indexPath.row] as? [String : Any] else {return}
+        let sb = UIStoryboard.init(name: "Third", bundle: Bundle.main)
+        let lostDetailVC = sb.instantiateViewController(withIdentifier: "LostDetailVC") as! LostDetailViewController
+        lostDetailVC.hidesBottomBarWhenPushed = true
+        lostDetailVC.info = info
+        
+        navigationController?.show(lostDetailVC, sender: nil)
+        
+    }
+    
+    
     
     //判斷是否登入並取得用戶資訊
     func getUserInfo() {
@@ -98,6 +134,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     }
     
     @objc func login() {
+        HUD.flash(.systemActivity, onView: self.view, delay: 2, completion: nil)
         isLogin = true
         getUserInfo()
         setUserImage()
@@ -131,14 +168,20 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     //設定用戶照片
     func setUserImage(){
         if let url = Auth.auth().currentUser?.photoURL {
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let data = data , let image = UIImage(data: data){
-                    DispatchQueue.main.async {
-                        self.userImage.image = image
+            let cachedImage = SDImageCache.shared.imageFromCache(forKey: "\(url)")
+            if cachedImage == nil {
+                let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    if let data = data , let image = UIImage(data: data){
+                        DispatchQueue.main.async {
+                            self.userImage.image = image
+                            SDImageCache.shared.store(image, forKey: "\(url)", completion: nil)
+                        }
                     }
                 }
-            }
             task.resume()
+            }else{
+                self.userImage.image = cachedImage
+            }
         }
     }
     
@@ -162,7 +205,6 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                         }
                     }
                     group.notify(queue: DispatchQueue.main) {
-                        print("reloadData")
                         self.homeTableView.reloadData()
                     }
                 }
@@ -170,5 +212,24 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
     }
     
+    //下載cell要呈現的Image
+    func downLoadImage(imageUrl: URL, indexPath : IndexPath) -> (){
+           SDWebImageDownloader.shared.downloadImage(with: imageUrl, options: .useNSURLCache, progress: { (receivedSize, expectedSize, url) in
+           }) { (image, data, error, finished) in
+               if error == nil{
+                   SDImageCache.shared.store(image, forKey: "\(imageUrl)",toDisk: true ,completion: nil)
+                   DispatchQueue.main.async {
+                       self.performSelector(onMainThread: #selector(self.reloadImageCell(indexPath:)), with: indexPath, waitUntilDone: false)
+                   }
+               }else{
+                   return
+               }
+           }
+    }
+    
+    @objc func reloadImageCell(indexPath: IndexPath) -> () {
+
+        homeTableView.reloadRows(at: [indexPath], with: .top)
+    }
     
 }

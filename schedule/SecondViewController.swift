@@ -65,9 +65,11 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         if infoArr.count == 0{
             let noCell = UITableViewCell.init()
             noCell.textLabel?.text = "無資訊"
+            noCell.textLabel?.font = UIFont(name: "Avenir", size: 22)
             noCell.selectionStyle = .none
             noCell.backgroundColor = defultColor
             tableView.backgroundColor = defultColor
+            #colorLiteral(red: 0.8287369059, green: 1, blue: 0.9032472939, alpha: 1)
             return noCell
         }
         if infoArr.count > 0{

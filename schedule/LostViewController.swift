@@ -18,6 +18,7 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet weak var collectionView: UICollectionView!
     var infoDic = [String:Any]()
     var infoKey = Array<String>()
+    var userLikeArr = Array<String>()
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     var reachability = try! Reachability()
     @IBOutlet weak var netLabel: UILabel!
@@ -76,6 +77,11 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
             setImageCell(cell: cell, indexPath: indexPath, url: userUrl, type: 1)
         }
         //cell.imageView.image = UIImage.gif(name: "loadView")
+        if userLikeArr.contains(infoKey[indexPath.row]){
+            cell.likeImage.isHidden = false
+        }else{
+            cell.likeImage.isHidden = true
+        }
         return cell
 }
     
@@ -92,6 +98,7 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
 
     
     func updateLostView() {
+        findUserLike()
         let databaseRef = Database.database().reference().child("LostPostUpload")
         databaseRef.observe(.value) { (postData) in
             if let firebaseData = postData.value as? [String:Any] {
@@ -101,6 +108,20 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    func findUserLike(){
+        if let id = Auth.auth().currentUser?.uid{
+            let databaseRef = Database.database().reference().child("UserLike").child(id)
+            databaseRef.observe(.value) { (postData) in
+                self.userLikeArr.removeAll()
+                if let likeArr = postData.value as? [String:Any] {
+                    self.userLikeArr = Array(likeArr.keys)
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+        
     }
     
     func setImageCell(cell: LostCollectionViewCell, indexPath: IndexPath, url: URL, type :Int) -> () {

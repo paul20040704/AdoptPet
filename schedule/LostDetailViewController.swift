@@ -26,6 +26,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
     @IBOutlet weak var userLabel: UILabel!
     
     @IBOutlet weak var layout: UICollectionViewFlowLayout!
+    @IBOutlet weak var likeLab: UILabel!
     
     
     var reachability = try! Reachability()
@@ -104,6 +105,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
                 let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                     if let data = data , let image = UIImage(data: data) {
                         DispatchQueue.main.async {
+                            SDImageCache.shared.store(image, forKey: "\(url)", completion: nil)
                             cell.lostImageView.image = image
                         }
                     }
@@ -125,18 +127,23 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
     }
     
     func setNVItem() {
-        if let id = Auth.auth().currentUser?.uid {
-            let databaseRef = Database.database().reference().child("UserLike").child(id)
-            databaseRef.observe(.value) { (data) in
-                if let likeData = data.value as? [String:Any]{
-                    let keyArr = Array(likeData.keys)
-                    if keyArr.contains(self.key){
-                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "已有收藏", style: .plain, target: self, action: #selector(self.hasFollow))
+        HUD.flash(.systemActivity, delay: 0.5)
+            if let id = Auth.auth().currentUser?.uid {
+                let databaseRef = Database.database().reference().child("UserLike").child(id)
+                databaseRef.observe(.value) { (data) in
+                    if let likeData = data.value as? [String:Any]{
+                        let keyArr = Array(likeData.keys)
+                        if keyArr.contains(self.key){
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消收藏", style: .plain, target: self, action: #selector(self.cancelFollow))
+                                self.likeLab.text = "已收藏"
+                        }else{
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入收藏", style: .plain, target: self, action: #selector(self.addFollow))
+                            self.likeLab.text = "未收藏"
+                        }
                     }
                 }
             }
-        }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入收藏", style: .plain, target: self, action: #selector(addFollow))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入收藏", style: .plain, target: self, action: #selector(addFollow))
         navigationItem.rightBarButtonItem?.tintColor = .darkGray
     }
     
@@ -144,16 +151,16 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         if let id = Auth.auth().currentUser?.uid {
             let postArr = [""]
             let databaseRef = Database.database().reference().child("UserLike").child(id).child(key)
-            databaseRef.setValue(postArr) { (error, dataRef) in
-                if error != nil{
-                    let alert = US.alertVC(message: "加入收藏失敗", title: "提醒")
-                    self.present(alert, animated: true, completion: nil)
-                    self.setNVItem()
-                }else{
-                    let alert = US.alertVC(message: "加入收藏成功", title: "提醒")
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
+                databaseRef.setValue(postArr) { (error, dataRef) in
+                    if error != nil{
+                        let alert = US.alertVC(message: "加入收藏失敗", title: "提醒")
+                        self.present(alert, animated: true, completion: nil)
+                    }else{
+                        let alert = US.alertVC(message: "加入收藏成功", title: "提醒")
+                        self.present(alert, animated: true, completion: nil)
+                        self.setNVItem()
+                        }
+                    }
         }else {
             let alert = US.alertVC(message: "請先登入", title: "提醒")
             self.present(alert, animated: true, completion: nil)
@@ -161,12 +168,21 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         
     }
     
-    @objc func hasFollow() {
-        let alert = US.alertVC(message: "已經加入收藏", title: "提醒")
-        self.present(alert, animated: true, completion: nil)
-        
+    @objc func cancelFollow(){
+        if let id = Auth.auth().currentUser?.uid {
+            let databaseRef = Database.database().reference().child("UserLike").child(id).child(key)
+            databaseRef.removeValue { (error, dataRef) in
+                if error != nil{
+                    let alert = US.alertVC(message: "取消收藏失敗", title: "提醒")
+                    self.present(alert, animated: true, completion: nil)
+                }else{
+                    let alert = US.alertVC(message: "取消收藏成功", title: "提醒")
+                    self.present(alert, animated: true, completion: nil)
+                    self.setNVItem()
+                }
+            }
+        }
     }
-    
 
     
 

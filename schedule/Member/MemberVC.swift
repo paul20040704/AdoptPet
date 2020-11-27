@@ -15,6 +15,7 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    var BGView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,10 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance()?.delegate = self
+        
+        BGView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        BGView.alpha = 0.5
+        BGView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         
         let layer = CAGradientLayer()
         
@@ -37,6 +42,7 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
     
 
     @IBAction func login(_ sender: Any) {
+        self.view.addSubview(BGView)
         Auth.auth().signIn(withEmail: email.text!, password: password.text!) { (user, error) in
             if error == nil {
                 NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
@@ -45,6 +51,7 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
                     self.email.text = ""
                     self.password.text = ""
                     self.dismiss(animated: true, completion: nil)
+                    self.BGView.removeFromSuperview()
                 }
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
@@ -52,6 +59,7 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
             }else{
                 let alert = US.alertVC(message: "帳號或密碼錯誤", title: "登入失敗")
                 self.present(alert, animated: true, completion: nil)
+                self.BGView.removeFromSuperview()
                 return
                 print("Login Error")
             }
@@ -67,35 +75,41 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
     }
     
     @IBAction func signGoogle(_ sender: Any) {
+        self.view.addSubview(BGView)
         GIDSignIn.sharedInstance()?.signIn()
     }
     
     @IBAction func signFacebook(_ sender: Any) {
+        self.view.addSubview(BGView)
         let fbLoginManager = LoginManager()
         
-        fbLoginManager.logIn(permissions: ["public_profile","email"], from: self) { (result, error) in
-            
-            if error != nil {
-                print("FB login fail \(error?.localizedDescription)")
+        fbLoginManager.logIn(permissions: ["public_profile","email"], viewController: self) { (loginResult) in
+            switch loginResult {
+            case .cancelled:
+                print("FB login cancel")
+                self.BGView.removeFromSuperview()
                 return
-            }
-            
-            if AccessToken.current == nil{
-                print("failed to get access token")
+            case .failed(let error):
+                print("FB login fail \(error.localizedDescription)")
                 return
-            }
-            
-            let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-            
-            Auth.auth().signIn(with: credential) { (user, error) in
-                
-                if error != nil {
-                    print(error?.localizedDescription)
+            case .success(granted: let granted, declined: let declined, token: let accessToken):
+                if AccessToken.current == nil{
+                    print("failed to get access token")
                     return
                 }
-                NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
-                self.dismiss(animated: true, completion: nil)
+                let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+                    Auth.auth().signIn(with: credential) { (user, error) in
+                        
+                        if error != nil {
+                            print(error?.localizedDescription)
+                            return
+                        }
+                        NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
+                        self.BGView.removeFromSuperview()
+                        self.dismiss(animated: true, completion: nil)
+                    }
             }
+            
         }
     }
     
@@ -125,16 +139,19 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
                             print("Google 登入成功")
                             NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
                             self.dismiss(animated: true, completion: nil)
+                            self.BGView.removeFromSuperview()
                         }else{
                             print(error?.localizedDescription)
                             let alert = US.alertVC(message: "Google 登入失敗", title: "提醒")
                             self.present(alert, animated: true, completion: nil)
+                            self.BGView.removeFromSuperview()
                             return
                         }
                     }
                 }
             }
         }else{
+            self.BGView.removeFromSuperview()
             print(error.localizedDescription)
         }
       }

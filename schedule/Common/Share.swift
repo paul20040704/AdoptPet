@@ -44,7 +44,6 @@ class Share : NSObject{
     func downloadImage(path:String , name:String){
         DispatchQueue.global().async {
             let fileName = "\(name).jpg"
-            print(fileName)
             let filePath = US.fileDocumentsPath(fileName: fileName)
             if let imgUrl = URL(string: path){
                 do{
@@ -253,8 +252,11 @@ class Share : NSObject{
             print("***** start get API")
             let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
             var i = 0
+            let startTime = CFAbsoluteTimeGetCurrent()
             Alamofire.request(url).responseJSON { (response) in
                 if response.result.isSuccess {
+                    let endTime = CFAbsoluteTimeGetCurrent()
+                    print("***\(endTime - startTime)")
                     do {
                         let json = try JSON(data:response.data!)
                         if let result = json.array{
@@ -292,7 +294,7 @@ class Share : NSObject{
                                         aniArray.append(data["shelter_tel"].stringValue)
                                         r.create(RLM_ApiData.self, value: aniArray, update: true)
                                         //下載圖片100筆
-                                        if i < 100 {
+                                        if i < 50 {
                                             if US.judgeImage(fileName: "\(data["animal_id"].stringValue).jpg"){
                                                 continue
                                             }
