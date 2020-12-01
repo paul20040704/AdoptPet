@@ -12,6 +12,7 @@ import Firebase
 import FirebaseStorage
 import SDWebImage
 import PKHUD
+import SnapKit
 
 class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
@@ -20,11 +21,12 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var userLab: UILabel!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var coverView: UIView!
     
     var isLogin = false
     var firstTime = true
+    var likeKey = Array<String>()
     var userLikeArr = Array<Dictionary<String,Any>>()
+    var coverView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,8 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         // Do any additional setup after loading the view.
         getUserInfo()
         getUserLike()
+        
+        setCoverView()
         NotificationCenter.default.addObserver(self, selector: #selector(login), name: NSNotification.Name(rawValue: "login"), object: nil)
         
     }
@@ -98,11 +102,12 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let info = userLikeArr[indexPath.row] as? [String : Any] else {return}
+        guard let id = likeKey[indexPath.row] as? String else {return}
         let sb = UIStoryboard.init(name: "Third", bundle: Bundle.main)
         let lostDetailVC = sb.instantiateViewController(withIdentifier: "LostDetailVC") as! LostDetailViewController
         lostDetailVC.hidesBottomBarWhenPushed = true
         lostDetailVC.info = info
-        
+        lostDetailVC.key = id
         navigationController?.show(lostDetailVC, sender: nil)
         
     }
@@ -151,6 +156,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     isLogin = false
                     getUserInfo()
                     userLikeArr.removeAll()
+                    likeKey.removeAll()
                     homeTableView.reloadData()
                     let alert = US.alertVC(message: "登出成功", title: "提醒")
                     self.present(alert, animated: true, completion: nil)
@@ -192,8 +198,10 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             let databaseRef = Database.database().reference().child("UserLike").child(id)
             databaseRef.observe(.value) { (data) in
                 self.userLikeArr.removeAll()
+                self.likeKey.removeAll()
                 if let likeData = data.value as? [String:Any]{
                     let keyArr = Array(likeData.keys)
+                    self.likeKey = keyArr
                     for key in keyArr {
                         group.enter()
                         let databaseRef = Database.database().reference().child("LostPostUpload").child(key)
@@ -230,6 +238,26 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     @objc func reloadImageCell(indexPath: IndexPath) -> () {
 
         homeTableView.reloadRows(at: [indexPath], with: .top)
+    }
+    
+    func setCoverView() {
+        coverView = UIView(frame: CGRect(x: 0, y: 0, width: homeTableView.frame.width, height: homeTableView.frame.height))
+        coverView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        //let coverLab = UILabel(frame: CGRect(x: coverView.frame.width/2 - 75, y: 50, width: 200 ,height: 50))
+        let coverLab = UILabel()
+        coverLab.text = "目前無關注資料"
+        coverLab.font = UIFont(name: "System Medium", size: 25)
+        coverLab.font = coverLab.font.withSize(25)
+        coverLab.textColor = .white
+        coverLab.textAlignment = .center
+        coverView.addSubview(coverLab)
+        homeTableView.addSubview(coverView)
+        
+        coverLab.snp.makeConstraints { (make) in
+            make.centerX.equalTo(coverView)
+            make.top.equalTo(coverView).offset(50)
+        }
+        
     }
     
 }
