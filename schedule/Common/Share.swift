@@ -38,7 +38,7 @@ class Share : NSObject{
                 return UIImage(data: imageData)
             }
         }
-        return UIImage(named: "noImage")
+        return UIImage.gif(name: "loadView")
     }
     
     func downloadImage(path:String , name:String){
@@ -235,19 +235,22 @@ class Share : NSObject{
     }
     
     func getAdoptData(type:Int, completion: @escaping(_ finish: Bool) -> ()){
-        if let r = try? Realm(){
             //清除舊的DB資料
             let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
             if(type == 1 && gapTime < 86400){
                 completion(true)
             }
-            if(type == 0){
-                try? r.write {
-                    let apiDatas = r.objects(RLM_ApiData.self)
-                    r.delete(apiDatas)
-                    UD.set(US.getTimeStampToDouble(), forKey: UPD)
-                }
-            }
+            //如果已經有資料而且時間不超過一天，就不去抓資料
+            else if(type == 0 && UD.bool(forKey: "haveData") == true && gapTime < 86400){
+                print(UD.bool(forKey: "haveData"))
+                completion(true)
+            }else{
+                if let r = try? Realm(){
+                    try? r.write {
+                        let apiDatas = r.objects(RLM_ApiData.self)
+                        r.delete(apiDatas)
+                        UD.set(US.getTimeStampToDouble(), forKey: UPD)
+                    }
             //開始Loading
             print("***** start get API")
             let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
@@ -294,7 +297,7 @@ class Share : NSObject{
                                         aniArray.append(data["shelter_tel"].stringValue)
                                         r.create(RLM_ApiData.self, value: aniArray, update: true)
                                         //下載圖片100筆
-                                        if i < 50 {
+                                        if i < 50 && i != 25{
                                             if US.judgeImage(fileName: "\(data["animal_id"].stringValue).jpg"){
                                                 continue
                                             }
@@ -304,6 +307,7 @@ class Share : NSObject{
                                 }
                             }
                         completion(true)
+                        UD.set(true, forKey: "haveData")
                     }
                 }catch{
                     completion(false)
@@ -316,6 +320,7 @@ class Share : NSObject{
                 CTAlertView.ctalertView.showAlert(title: "提醒", body: "無法找到資料，麻煩稍後再嘗試", action: "確認")
                     }
                 }
+              }
             }
         }
     

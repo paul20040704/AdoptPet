@@ -20,6 +20,8 @@ enum PageStatus {
     case NotLoadingMore
 }
 
+var sliderBarSelect = false
+
 class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource{
     
     @IBOutlet weak var tableView: UITableView!
@@ -33,7 +35,6 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     var refreshControl : UIRefreshControl!
     var reachability = try! Reachability()
     var conditionArr = Array<String>()
-    var sliderBarSelect = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,8 +126,13 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             }
             if indexPath.row < infoArr.count{
                 let info = infoArr[indexPath.row]
-                let cellImage = US.loadImage(fileName: "\(info.animal_id).jpg")
-                cell.aniImage.image = cellImage?.scaleImage(scaleSize: 0.5)
+                if US.judgeImage(fileName: "\(info.animal_id).jpg"){
+                    let cellImage = US.loadImage(fileName: "\(info.animal_id).jpg")
+                    cell.aniImage.image = cellImage?.scaleImage(scaleSize: 0.5)
+                }else{
+                    downloadForCell(path: "\(info.album_file)", name: "\(info.animal_id)")
+                    cell.aniImage.image = UIImage.gif(name: "loadView")
+                }
                 cell.type.text = "種類 : \(info.animal_kind)"
                 cell.address.text = "位置 : \(info.shelter_name)"
                 cell.checkDate.text = "登入日期 : \(info.cDate)"
@@ -279,77 +285,26 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         self.tableView.reloadData()
     }
     
-//    func changeLabel(){
-//        if typeArray.count == 2 || typeArray.count == 0{
-//            kindLabel.text = "全部種類"
-//        }
-//        if typeArray.count == 1{
-//            kindLabel.text = typeArray[0]
-//        }
-//        if localArray.count > 1 || localArray.count == 0{
-//            localLabel.text = "多個地區"
-//        }
-//        if localArray.count == 1{
-//            localLabel.text = localArray[0]
-//        }
-//        if sizeArray.count > 1 || sizeArray.count == 0{
-//            sizeLabel.text = "多種體型"
-//        }
-//        if sizeArray.count == 1{
-//            let size = sizeArray[0]
-//            switch size {
-//            case "SMALL":
-//                sizeLabel.text = "小型"
-//            case "MEDIUN":
-//                sizeLabel.text = "中型"
-//            case "BIG":
-//                sizeLabel.text = "大型"
-//            default:
-//                return
-//            }
-//        }
-//        if sexArray.count > 1 || localArray.count == 0{
-//            sexLabel.text = "不分性別"
-//        }
-//        if sexArray.count == 1{
-//            let sex = sexArray[0]
-//            switch sex {
-//            case "M":
-//                sexLabel.text = "公"
-//            default:
-//                sexLabel.text = "母"
-//            }
-//        }
-//        if sterilizationArray.count > 1 || sterilizationArray.count == 0{
-//            sterLabel.text = "絕育未定"
-//        }
-//        if sterilizationArray.count == 1{
-//            let sterilization = sterilizationArray[0]
-//            switch sterilization {
-//            case "T":
-//                sterLabel.text = "是"
-//            case "F":
-//                sterLabel.text = "否"
-//            default:
-//                sterLabel.text = "未知"
-//            }
-//        }
-//        if ageArray.count > 1 || ageArray.count == 0{
-//            ageLabel.text = "不分年紀"
-//        }
-//        if ageArray.count == 1{
-//            let age = ageArray[0]
-//            switch age {
-//            case "ADULT":
-//                ageLabel.text = "成年"
-//            default:
-//                ageLabel.text = "幼年"
-//            }
-//        }
-//    }
+    
+   //下載cell需要的圖片並更新cell
+    func downloadForCell(path:String ,name:String) {
+        DispatchQueue.global().async {
+            let fileName = "\(name).jpg"
+            let filePath = US.fileDocumentsPath(fileName: fileName)
+            if let imgUrl = URL(string: path){
+                do{
+                    let imgData = try Data(contentsOf: imgUrl)
+                    try imgData.write(to: filePath)
+                }catch{
+                    print("\(name) : catch imageData fail..")
+                }
+            }else{
+                print("\(name) : analysis imageUrl fail..")
+            }
+        }
+    }
     
 }
-
 
 
 
@@ -365,10 +320,12 @@ extension FirstViewController : UIScrollViewDelegate{
                     self.pageStatus = .NotLoadingMore
                     self.arrayCount += 25
                     //預載25張圖片
-                    print(self.arrayCount)
+                    print("arrayCount\(self.arrayCount)")
                     for i in self.arrayCount...self.arrayCount + 25{
                         if self.infoArr.count > i {
-                        US.downloadImage(path: self.infoArr[i-1].album_file, name: self.infoArr[i-1].animal_id)
+                            if !(US.judgeImage(fileName: "\(self.infoArr[i-1].animal_id).jpg")){
+                                US.downloadImage(path: self.infoArr[i-1].album_file, name: self.infoArr[i-1].animal_id)
+                            }
                         }
                     }
                 }

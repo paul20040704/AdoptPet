@@ -53,8 +53,10 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         self.view.addSubview(button2)
         self.view.addSubview(button3)
         
+        self.addSwipeRecognizer()
         let tap = UITapGestureRecognizer(target: self, action: #selector(hide))
         bgView.addGestureRecognizer(tap)
+        
     }
     
     @objc func show(){
@@ -65,6 +67,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
     @objc func hide(){
         bgView.isHidden = true
         self.view.isHidden = true
+        sliderBarSelect = false
     }
     
     @objc func sideBarBtn(sender:UIButton){
@@ -97,7 +100,13 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-
+    func addSwipeRecognizer() {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(hide))
+        swipeRecognizer.direction = .left
+        bgView.addGestureRecognizer(swipeRecognizer)
+    }
+    
+    
 
 
 }

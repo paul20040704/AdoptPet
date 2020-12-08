@@ -23,14 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyBQ1zsYnFa0IH-LLz_5FGWuu88bngMavtk")
-        UINavigationBar.appearance().backgroundColor = .blue
+        UINavigationBar.appearance().backgroundColor = .green
         //初始化時間UD
         if UD.object(forKey: UPD) == nil {
              UD.set(US.getTimeStampToDouble(), forKey: UPD)
              UD.synchronize()
             
          }
-        
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
         
         return true
