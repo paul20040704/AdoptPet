@@ -30,6 +30,11 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
         BGView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         BGView.alpha = 0.5
         BGView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        let activityView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        activityView.center = BGView.center
+        activityView.startAnimating()
+        activityView.style = .white
+        BGView.addSubview(activityView)
         
         let layer = CAGradientLayer()
         

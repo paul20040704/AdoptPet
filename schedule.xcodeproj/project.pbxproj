@@ -27,7 +27,6 @@
 		6F186B2324E3DF780013C065 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F186B2124E3DF780013C065 /* LoadingCell.xib */; };
 		6F1E1E56255E6C2E0036E8D2 /* LostDetailCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1E1E55255E6C2E0036E8D2 /* LostDetailCVCell.swift */; };
 		6F2CCFEE2501E0F000C843AC /* LostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2CCFED2501E0F000C843AC /* LostViewController.swift */; };
-		6F2CCFF02501EF3500C843AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */; };
 		6F4A94EC242216C10088024A /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A94EB242216C10088024A /* GoogleMapViewController.swift */; };
 		6F58DC43250879E800A415B1 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC42250879E800A415B1 /* Extension.swift */; };
 		6F58DC4625087E1700A415B1 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F58DC4525087E1700A415B1 /* Database.swift */; };
@@ -47,6 +46,7 @@
 		6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDE757524E5430E006C4E08 /* RuleViewController.swift */; };
 		6FE0F0B524FF966900800521 /* AboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0F0B424FF966900800521 /* AboutMeViewController.swift */; };
 		6FE235452505E8B900F02974 /* LostPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE235442505E8B900F02974 /* LostPostViewController.swift */; };
+		6FE39909258066C8006069CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FE39908258066C7006069CC /* GoogleService-Info.plist */; };
 		6FE93AC924F4ADDB00694B30 /* AdSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE93AC824F4ADDB00694B30 /* AdSearchTableViewCell.swift */; };
 		6FE93ACB24F4B50600694B30 /* AdSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE93ACA24F4B50600694B30 /* AdSearchCollectionViewCell.swift */; };
 		6FE989B72511B7140011A6F4 /* LostFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE989B62511B7140011A6F4 /* LostFollowTableViewCell.swift */; };
@@ -78,7 +78,6 @@
 		6F186B2124E3DF780013C065 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		6F1E1E55255E6C2E0036E8D2 /* LostDetailCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostDetailCVCell.swift; sourceTree = "<group>"; };
 		6F2CCFED2501E0F000C843AC /* LostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostViewController.swift; sourceTree = "<group>"; };
-		6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F4A94EB242216C10088024A /* GoogleMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 		6F58DC42250879E800A415B1 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		6F58DC4525087E1700A415B1 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		6FDE757524E5430E006C4E08 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleViewController.swift; path = /Users/yenfu/Documents/yenfu/schedule/schedule/RuleViewController.swift; sourceTree = "<absolute>"; };
 		6FE0F0B424FF966900800521 /* AboutMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeViewController.swift; sourceTree = "<group>"; };
 		6FE235442505E8B900F02974 /* LostPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostPostViewController.swift; sourceTree = "<group>"; };
+		6FE39908258066C7006069CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6FE93AC824F4ADDB00694B30 /* AdSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdSearchTableViewCell.swift; sourceTree = "<group>"; };
 		6FE93ACA24F4B50600694B30 /* AdSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		6FE989B62511B7140011A6F4 /* LostFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFollowTableViewCell.swift; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 				14D0F09F234C97E500B599A2 /* LaunchVC.swift */,
 				145049EB233DE6CB00FAF3AA /* Assets.xcassets */,
 				145049ED233DE6CB00FAF3AA /* LaunchScreen.storyboard */,
+				6FE39908258066C7006069CC /* GoogleService-Info.plist */,
 				145049F0233DE6CB00FAF3AA /* Info.plist */,
-				6F2CCFEF2501EF3500C843AC /* GoogleService-Info.plist */,
 				6F2CCFED2501E0F000C843AC /* LostViewController.swift */,
 				6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */,
 				6F1E1E55255E6C2E0036E8D2 /* LostDetailCVCell.swift */,
@@ -337,11 +337,11 @@
 				6F9CF60625243632000D71A8 /* CustomAlertView.xib in Resources */,
 				6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */,
 				14D0F0AA234CA33F00B599A2 /* Second.storyboard in Resources */,
-				6F2CCFF02501EF3500C843AC /* GoogleService-Info.plist in Resources */,
 				145049EF233DE6CB00FAF3AA /* LaunchScreen.storyboard in Resources */,
 				6F186B2324E3DF780013C065 /* LoadingCell.xib in Resources */,
 				6F8D98762500C3DC00A3CEA7 /* Third.storyboard in Resources */,
 				14D0F0A8234CA1DD00B599A2 /* First.storyboard in Resources */,
+				6FE39909258066C8006069CC /* GoogleService-Info.plist in Resources */,
 				145049EC233DE6CB00FAF3AA /* Assets.xcassets in Resources */,
 				14D0F0A6234CA18B00B599A2 /* Main.storyboard in Resources */,
 			);

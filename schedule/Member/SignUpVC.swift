@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import PKHUD
 
 protocol SignUpDelegate {
     func signUp(emailAccount:String,password:String)
@@ -55,6 +56,7 @@ class SignUpVC: UIViewController , UITextFieldDelegate{
             self.present(alertVC, animated: true, completion: nil)
             return
         }
+        HUD.show(.label("註冊中..."))
         Auth.auth().createUser(withEmail: mailTF.text!, password: passwordTF.text!) { (user, error) in
             if error == nil {
                 self.delegate?.signUp(emailAccount: self.mailTF.text!,password:self.passwordTF.text!)
@@ -62,6 +64,7 @@ class SignUpVC: UIViewController , UITextFieldDelegate{
                 let uid = Auth.auth().currentUser!.uid
                 let accountDic = ["uid":uid, "mail":self.mailTF.text!, "name":self.nameTF.text] as [String : Any]
                 Database.database().reference().child("User").child("\(uid)").setValue(accountDic)
+                HUD.hide()
                 let alert = UIAlertController.init(title: "提醒", message: "註冊成功", preferredStyle: .alert)
                 let action = UIAlertAction.init(title: "OK", style: .default) { (action) in
                     self.dismiss(animated: true, completion: nil)
@@ -70,6 +73,10 @@ class SignUpVC: UIViewController , UITextFieldDelegate{
                 self.present(alert, animated: true, completion: nil)
             }else{
                 print("註冊失敗 : \(error)")
+                HUD.hide()
+                let alert = US.alertVC(message: "註冊失敗", title: "請換一個信箱試試")
+                self.present(alert, animated: true, completion: nil)
+                
             }
         }
         

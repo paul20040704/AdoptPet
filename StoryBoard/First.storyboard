@@ -80,7 +80,7 @@
                                                 <constraint firstItem="S3y-Qh-8He" firstAttribute="top" secondItem="cPZ-HJ-Leo" secondAttribute="topMargin" constant="10" id="lDe-Wk-uBN"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.82873690590000004" green="1" blue="0.90324729390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.95734850888324874" green="0.85052303669310214" blue="0.89210220492746739" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="address" destination="X8i-p7-7vb" id="T20-ml-4M3"/>
                                             <outlet property="aniImage" destination="DN2-Cd-RbC" id="cdN-gM-3u5"/>
@@ -181,13 +181,13 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的條件" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1P-df-1ql">
                                 <rect key="frame" x="180.5" y="93" width="53.5" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                 <color key="textColor" red="0.16897252110316252" green="0.38531091370558379" blue="0.019612743118557905" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6we-Ru-MBF"/>
-                        <color key="backgroundColor" red="1" green="0.68132561170854311" blue="0.8332750871650042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.95734850888324874" green="0.78752396277863257" blue="0.84561583091740433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="I1f-nZ-syf" firstAttribute="top" secondItem="6we-Ru-MBF" secondAttribute="top" constant="30" id="2ds-JC-kRC"/>
@@ -548,7 +548,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.82873690590000004" green="1" blue="0.90324729390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.95734850888324874" green="0.84200990449067892" blue="0.87815616479043879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="YKF-Im-Nk1" firstAttribute="leading" secondItem="hM2-0e-Ssx" secondAttribute="leading" id="8xz-WU-hk4"/>
                                     <constraint firstItem="YKF-Im-Nk1" firstAttribute="top" secondItem="hM2-0e-Ssx" secondAttribute="top" id="944-zn-JH7"/>
