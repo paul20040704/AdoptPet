@@ -394,16 +394,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我關注的拾獲動物" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoU-hg-svw">
-                                <rect key="frame" x="20" y="281" width="374" height="50"/>
-                                <color key="backgroundColor" red="0.48418220979999999" green="0.74094949450000003" blue="0.90734057739999996" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="htu-bB-pJV"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVF-Ld-zw6">
                                 <rect key="frame" x="294" y="223" width="100" height="30"/>
                                 <color key="backgroundColor" red="0.94062024099135866" green="0.78155419722881381" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -418,25 +408,36 @@
                                     <action selector="homeBtn:" destination="JOl-ng-E1S" eventType="touchUpInside" id="RJ4-XF-2U7"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sNj-Z3-T8D">
+                                <rect key="frame" x="10" y="281" width="394" height="51"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Jtg-k3-0Gp"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="我的關注"/>
+                                    <segment title="我的文章"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zaj-9D-IHL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="DXw-Bs-jha" firstAttribute="top" secondItem="ixG-Ni-Gpv" secondAttribute="bottom" constant="15" id="3vx-sg-dTR"/>
                             <constraint firstItem="E5R-82-EAC" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="20" id="4sx-ES-VKA"/>
-                            <constraint firstItem="qoU-hg-svw" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="20" id="4tQ-Bb-Mgr"/>
                             <constraint firstItem="ixG-Ni-Gpv" firstAttribute="top" secondItem="Zaj-9D-IHL" secondAttribute="top" constant="25" id="4w9-Aw-Ay0"/>
                             <constraint firstItem="fs2-ou-TGy" firstAttribute="top" secondItem="YVF-Ld-zw6" secondAttribute="bottom" constant="20" id="6YA-2u-2FT"/>
-                            <constraint firstItem="E5R-82-EAC" firstAttribute="top" secondItem="qoU-hg-svw" secondAttribute="bottom" constant="5" id="E8r-FG-7sx"/>
+                            <constraint firstItem="E5R-82-EAC" firstAttribute="top" secondItem="sNj-Z3-T8D" secondAttribute="bottom" constant="5" id="75Y-ze-aac"/>
+                            <constraint firstItem="sNj-Z3-T8D" firstAttribute="top" secondItem="fs2-ou-TGy" secondAttribute="bottom" constant="5" id="EVG-Ni-4zx"/>
                             <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="YVF-Ld-zw6" secondAttribute="trailing" constant="20" id="Er9-sl-jv8"/>
                             <constraint firstItem="DXw-Bs-jha" firstAttribute="width" secondItem="ixG-Ni-Gpv" secondAttribute="width" id="G5U-wP-m10"/>
                             <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="E5R-82-EAC" secondAttribute="trailing" constant="20" id="HkL-QH-3f7"/>
                             <constraint firstItem="DXw-Bs-jha" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="25" id="NkJ-Dt-Dcf"/>
+                            <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="sNj-Z3-T8D" secondAttribute="trailing" constant="10" id="Nl9-Cc-58i"/>
                             <constraint firstItem="fs2-ou-TGy" firstAttribute="trailing" secondItem="MLf-Gy-pAl" secondAttribute="trailingMargin" id="Pyb-Mo-cHf"/>
                             <constraint firstItem="YVF-Ld-zw6" firstAttribute="top" secondItem="Zaj-9D-IHL" secondAttribute="top" constant="135" id="T65-U9-50P"/>
+                            <constraint firstItem="sNj-Z3-T8D" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="10" id="eUE-As-NdF"/>
                             <constraint firstItem="ixG-Ni-Gpv" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="25" id="hrh-ns-uHa"/>
-                            <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="qoU-hg-svw" secondAttribute="trailing" constant="20" id="lwX-QA-IhE"/>
-                            <constraint firstItem="qoU-hg-svw" firstAttribute="top" secondItem="fs2-ou-TGy" secondAttribute="bottom" constant="5" id="mpx-br-UjV"/>
                             <constraint firstAttribute="bottom" secondItem="E5R-82-EAC" secondAttribute="bottom" id="nIh-vN-Oi4"/>
                             <constraint firstItem="fs2-ou-TGy" firstAttribute="leading" secondItem="MLf-Gy-pAl" secondAttribute="leadingMargin" id="obu-Oq-CWr"/>
                         </constraints>
@@ -445,6 +446,7 @@
                     <connections>
                         <outlet property="homeTableView" destination="E5R-82-EAC" id="jDe-cR-5l0"/>
                         <outlet property="loginBtn" destination="YVF-Ld-zw6" id="r9j-nQ-miP"/>
+                        <outlet property="segmentedControl" destination="sNj-Z3-T8D" id="ifE-7r-amc"/>
                         <outlet property="userImage" destination="ixG-Ni-Gpv" id="TwW-32-ugq"/>
                         <outlet property="userLab" destination="DXw-Bs-jha" id="9xv-he-2DI"/>
                     </connections>
@@ -487,6 +489,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

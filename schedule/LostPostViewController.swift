@@ -222,6 +222,12 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         getImagePath { (imagePaths) in
             guard  let remark = self.remarkTextView.text, let pickDate = self.dateBtn.titleLabel?.text, let contact = self.contactField.text, let place = self.placeField.text  else {return}
             let postDataItem = PostData(kind: kind, remark: remark, pickDate: pickDate, contact: contact, plcae: place, userID: userDisplayName, userUrlStr: urlStr, photoArray: imagePaths)
+            let uid = Auth.auth().currentUser!.uid
+            //寫入使用者擁有
+            let ownDBRef = Database.database().reference().child("UserOwn").child(uid).child(postID)
+            let postArr = [""]
+            ownDBRef.setValue(postArr)
+            //寫入發表的資料
             let databaseRef = Database.database().reference().child("LostPostUpload").child(postID)
             databaseRef.setValue(postDataItem.toAnyObject()) { (error, dataRef) in
             if error != nil {

@@ -27,3 +27,4 @@ var reachability = Reachability()
 var chooseArr = [""]
 
 var userDisplayName = ""
+

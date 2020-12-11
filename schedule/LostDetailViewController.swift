@@ -127,7 +127,6 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
     }
     
     func setNVItem() {
-        HUD.flash(.systemActivity, delay: 0.5)
             if let id = Auth.auth().currentUser?.uid {
                 let databaseRef = Database.database().reference().child("UserLike").child(id)
                 databaseRef.observe(.value) { (data) in
@@ -141,6 +140,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
                             self.likeLab.text = "未收藏"
                         }
                     }
+                    HUD.hide()
                 }
             }
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "加入收藏", style: .plain, target: self, action: #selector(addFollow))
@@ -148,6 +148,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
     }
     
     @objc func addFollow() {
+        HUD.show(.systemActivity)
         if let id = Auth.auth().currentUser?.uid {
             let postArr = [""]
             let databaseRef = Database.database().reference().child("UserLike").child(id).child(key)
@@ -169,6 +170,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
     }
     
     @objc func cancelFollow(){
+        HUD.show(.systemActivity)
         if let id = Auth.auth().currentUser?.uid {
             let databaseRef = Database.database().reference().child("UserLike").child(id).child(key)
             databaseRef.removeValue { (error, dataRef) in
@@ -176,6 +178,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
                     let alert = US.alertVC(message: "取消收藏失敗", title: "提醒")
                     self.present(alert, animated: true, completion: nil)
                 }else{
+                    NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
                     let alert = US.alertVC(message: "取消收藏成功", title: "提醒")
                     self.present(alert, animated: true, completion: nil)
                     self.setNVItem()
