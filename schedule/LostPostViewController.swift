@@ -235,6 +235,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                 CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳失敗", action: "確定")
                 HUD.hide()
                 }else{
+                 NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
                  HUD.hide()
                  self.chooseKind.setTitle("選擇種類", for: .normal)
                  self.remarkTextView.text = ""

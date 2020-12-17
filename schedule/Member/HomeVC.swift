@@ -47,7 +47,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         setCoverView()
         NotificationCenter.default.addObserver(self, selector: #selector(login), name: NSNotification.Name(rawValue: "login"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name(rawValue: "reload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getUserLike), name: NSNotification.Name(rawValue: "reload"), object: nil)
         
         segmentedControl.addTarget(self, action: #selector(segmentedChange(sender:)), for: .valueChanged)
         
@@ -185,9 +185,6 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         getUserLike()
     }
     
-    @objc func reload() {
-        homeTableView.reloadData()
-    }
    
     @IBAction func homeBtn(_ sender: Any) {
         if isLogin {
@@ -234,12 +231,12 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     }
     
     //取得用戶收藏的資訊
-    func getUserLike(){
+    @objc func getUserLike(){
         let group = DispatchGroup()
         if let id = Auth.auth().currentUser?.uid{
             let databaseRef = Database.database().reference().child("UserLike")
-            databaseRef.observe(.value) { (data) in
-                group.enter()
+            group.enter()
+            databaseRef.observeSingleEvent(of: .value) { (data) in
                 self.attentionKey.removeAll()
                 if let likeData = data.value as? [String:Any]{
                     if let keyDic = likeData[id] as? [String:Any]{
@@ -250,10 +247,9 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     }
                 }
             
-            group.enter()
             let postDatabaseRef = Database.database().reference().child("LostPostUpload")
-            postDatabaseRef.observe(.value) { (data) in
-                group.enter()
+            group.enter()
+            postDatabaseRef.observeSingleEvent(of: .value) { (data) in
                 self.postDic.removeAll()
                 if let postData = data.value as? [String:Any]{
                     self.postDic = postData
@@ -261,10 +257,9 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     }
                 }
             
-            group.enter()
             let ownDatabaseRef = Database.database().reference().child("UserOwn")
-            ownDatabaseRef.observe(.value) { (data) in
-                group.enter()
+            group.enter()
+            ownDatabaseRef.observeSingleEvent(of: .value) { (data) in
                 self.myOwnKey.removeAll()
                 if let ownData = data.value as? [String:Any]{
                     if let keyDic = ownData[id] as? [String:Any]{
@@ -274,6 +269,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     group.leave()
                 }
             }
+            
             
             group.notify(queue: DispatchQueue.main) {
                 self.homeTableView.reloadData()

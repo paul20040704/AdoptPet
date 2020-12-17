@@ -95,7 +95,6 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         navigationController?.show(lostDetailVC, sender: nil)
         
     }
-
     
     func updateLostView() {
         findUserLike()
