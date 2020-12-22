@@ -22,7 +22,7 @@ enum PageStatus {
 
 var sliderBarSelect = false
 
-class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource{
+class FirstViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ReloadDelegate{
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var netLabel: UILabel!
@@ -72,6 +72,14 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         
         sliderBarView.setUI(spView: self.view)
         
+//        let sb = UIStoryboard.init(name: "Second", bundle: Bundle.main)
+//        let secondVC = sb.instantiateViewController(withIdentifier: "Second") as! SecondViewController
+        let navVC = (self.tabBarController?.viewControllers![1])! as! UINavigationController
+        let secondVC = navVC.viewControllers.first as! SecondViewController
+
+        
+        secondVC.RDelegate = self
+        
     }
     
     deinit {
@@ -81,6 +89,11 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     @objc func loadData(){
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
+    }
+    
+    //Delegale
+    func reloadData() {
+        self.tableView.reloadData()
     }
     
     
@@ -136,6 +149,11 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
                 cell.type.text = "種類 : \(info.animal_kind)"
                 cell.address.text = "位置 : \(info.shelter_name)"
                 cell.checkDate.text = "登入日期 : \(info.cDate)"
+                if isAddLike(id: info.animal_id){
+                    cell.likeBtn.setImage(UIImage(named: "rHeart"), for: .normal)
+                }else{
+                    cell.likeBtn.setImage(UIImage(named: "wHeart"), for: .normal)
+                }
                 cell.likeBtn.tag = indexPath.row
                 cell.likeBtn.addTarget(self, action: #selector(like(sender:)), for: .touchUpInside)
             }
@@ -183,13 +201,14 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         if let id = UD.array(forKey: "likeID") {
             idArr = id as! [String]
         }
-        if idArr.contains(info.animal_id){
+        if isAddLike(id: info.animal_id){
             CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
         }else{
         HUD.show(.label("更新中..."))
             HUD.hide(afterDelay: 1.0) { (finish) in
                 HUD.flash(.success, delay: 0.5)
             }
+        self.tableView.reloadData()
         idArr.append(info.animal_id)
         UD.set(idArr, forKey: "likeID")
         //NotificationCenter
@@ -303,6 +322,20 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
             }
         }
     }
+    
+    //判斷是否已經加入收藏
+    func isAddLike(id:String) -> Bool {
+        var idArr = [""]
+        if let arr = UD.array(forKey: "likeID") as? [String] {
+            idArr = arr
+        }
+        if idArr.contains(id) {
+            return true
+        }else{
+            return false
+        }
+    }
+    
     
 }
 

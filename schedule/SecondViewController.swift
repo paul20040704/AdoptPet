@@ -9,6 +9,9 @@
 import UIKit
 import RealmSwift
 
+protocol ReloadDelegate {
+    func reloadData()
+}
 
 class SecondViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -16,6 +19,8 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
     var idArr = Array<String>()
     var infoArr = [RLM_ApiData]()
     var refreshControl : UIRefreshControl!
+    
+    var RDelegate: ReloadDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +30,6 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         self.getNewId()
 
-        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
@@ -69,7 +73,6 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
             noCell.selectionStyle = .none
             noCell.backgroundColor = defultColor
             tableView.backgroundColor = defultColor
-            #colorLiteral(red: 0.8287369059, green: 1, blue: 0.9032472939, alpha: 1)
             return noCell
         }
         if infoArr.count > 0{
@@ -88,6 +91,7 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
             idArr.remove(at: indexPath.row)
             UD.set(idArr, forKey: "likeID")
             getNewId()
+            RDelegate?.reloadData()
             self.tableView.reloadData()
         }
     }

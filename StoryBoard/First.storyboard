@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yLg-3O-jW0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yLg-3O-jW0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -65,7 +65,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="nf0-9i-iJZ"/>
                                                         <constraint firstAttribute="height" constant="30" id="xl2-Hb-Gbk"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="heart"/>
+                                                    <state key="normal" title="Button" image="wHeart"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -680,12 +680,12 @@
     <resources>
         <image name="First" width="32" height="32"/>
         <image name="cancel" width="80" height="80"/>
-        <image name="heart" width="32" height="32"/>
         <image name="list" width="24" height="24"/>
         <image name="map" width="64" height="64"/>
         <image name="navagate" width="96" height="96"/>
         <image name="search" width="512" height="512"/>
         <image name="share" width="48" height="48"/>
+        <image name="wHeart" width="64" height="64"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
