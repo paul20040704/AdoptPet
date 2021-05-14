@@ -23,8 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         GMSServices.provideAPIKey("AIzaSyBQ1zsYnFa0IH-LLz_5FGWuu88bngMavtk")
-        UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 0.9972601472, blue: 0.7642197333, alpha: 1)
-        
+        //UINavigationBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 0.9972601472, blue: 0.7642197333, alpha: 1)
+        UINavigationBar.appearance().barTintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        UITabBar.appearance().barTintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         //初始化時間UD
         if UD.object(forKey: UPD) == nil {
              UD.set(US.getTimeStampToDouble(), forKey: UPD)

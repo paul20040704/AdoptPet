@@ -15,7 +15,7 @@ import PKHUD
 import SnapKit
 
 
-class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
+class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource,DeleteDelegate{
     
 
     @IBOutlet weak var homeTableView: UITableView!
@@ -37,11 +37,12 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        HUD.flash(.systemActivity, onView: self.view, delay: 2, completion: nil)
+        HUD.flash(.systemActivity, onView: self.view, delay: 2.5, completion: nil)
         homeTableView.delegate = self
         homeTableView.dataSource = self
         self.navigationItem.hidesBackButton = true
         // Do any additional setup after loading the view.
+        HomeMenuView.homeMenuView.delegate = self
         getUserInfo()
         getUserLike()
         
@@ -89,18 +90,21 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HomeTVCell
         var keyArr = [""]
         switch segmentedIndex {
         case 0:
             keyArr = attentionKey
+            cell.menuBtn.isHidden = true
         default:
             keyArr = myOwnKey
+            cell.menuBtn.isHidden = false
         }
     if keyArr.count > 0{
         coverView.isHidden = true
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HomeTVCell
         let key = keyArr[indexPath.row]
         let likeDic = postDic[key] as! [String:Any]
+        cell.id = key
         cell.nameLab.text = likeDic["userID"] as! String
         cell.kindLab.text = "種類 : \(likeDic["kind"] as! String)"
         cell.dateLab.text = "拾獲日 : \(likeDic["pickDate"] as! String)"
@@ -125,9 +129,9 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
         return cell
     }else{
-        let cell = UITableViewCell()
+        let noCell = UITableViewCell()
         coverView.isHidden = false
-        return cell
+        return noCell
         }
         
     }
@@ -230,8 +234,9 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
     }
     
-    //取得用戶收藏的資訊
+    //取得用戶收藏&擁有的資訊
     @objc func getUserLike(){
+        HUD.show(.systemActivity)
         let group = DispatchGroup()
         if let id = Auth.auth().currentUser?.uid{
             let databaseRef = Database.database().reference().child("UserLike")
@@ -272,7 +277,19 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             
             
             group.notify(queue: DispatchQueue.main) {
+                //判斷用戶收藏的文章是否被刪除，如果找不到文章刪除使用者的收藏。
+                var i = 0
+                for key in self.attentionKey {
+                    let dicKeys = self.postDic.keys
+                    if !(dicKeys.contains(key)){
+                        self.attentionKey.remove(at: i)
+                        let databaseRef = Database.database().reference().child("UserLike").child(id).child(key)
+                        databaseRef.removeValue()
+                    }
+                    i += 1
+                }
                 self.homeTableView.reloadData()
+                HUD.hide()
             }
         }
     }
@@ -317,5 +334,39 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
         
     }
+    
+    //DeleteDelegate
+    func delete(id:String) {
+        HUD.show(.systemActivity)
+        let group = DispatchGroup()
+        print("刪除 : \(id)")
+        if let userID = Auth.auth().currentUser?.uid {
+            group.enter()
+            let databaseRef = Database.database().reference().child("LostPostUpload").child(id)
+            databaseRef.removeValue { (error, response) in
+                group.leave()
+                if error != nil {
+                    print("error : \(error?.localizedDescription)")
+                }
+            }
+            let databaseRef1 = Database.database().reference().child("UserOwn").child(userID).child(id)
+            group.enter()
+            databaseRef1.removeValue { (error, response) in
+                group.leave()
+                if error != nil{
+                    print("error : \(error?.localizedDescription)")
+                }
+            }
+            
+            group.notify(queue: DispatchQueue.main) {
+                self.getUserLike()
+                HUD.hide()
+            }
+            
+        }else{
+            HUD.hide()
+        }
+    }
+    
     
 }

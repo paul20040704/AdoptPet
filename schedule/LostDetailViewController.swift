@@ -156,16 +156,19 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
                     if error != nil{
                         let alert = US.alertVC(message: "加入收藏失敗", title: "提醒")
                         self.present(alert, animated: true, completion: nil)
+                        HUD.hide()
                     }else{
                         NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
                         let alert = US.alertVC(message: "加入收藏成功", title: "提醒")
                         self.present(alert, animated: true, completion: nil)
                         self.setNVItem()
+                        HUD.hide()
                         }
                     }
         }else {
             let alert = US.alertVC(message: "請先登入", title: "提醒")
             self.present(alert, animated: true, completion: nil)
+            HUD.hide()
         }
         
     }
@@ -178,11 +181,13 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
                 if error != nil{
                     let alert = US.alertVC(message: "取消收藏失敗", title: "提醒")
                     self.present(alert, animated: true, completion: nil)
+                    HUD.hide()
                 }else{
                     NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
                     let alert = US.alertVC(message: "取消收藏成功", title: "提醒")
                     self.present(alert, animated: true, completion: nil)
                     self.setNVItem()
+                    HUD.hide()
                 }
             }
         }

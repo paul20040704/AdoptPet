@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class HomeTVCell: UITableViewCell {
     
     @IBOutlet weak var nameLab: UILabel!
@@ -15,6 +16,8 @@ class HomeTVCell: UITableViewCell {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var kindLab: UILabel!
     @IBOutlet weak var dateLab: UILabel!
+    @IBOutlet weak var menuBtn: UIButton!
+    var id = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +26,13 @@ class HomeTVCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
+    
+    @IBAction func click(_ sender: Any) {
+        HomeMenuView.homeMenuView.showMenuView(id: self.id)
+    }
+    
 
 }

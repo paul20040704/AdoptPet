@@ -22,6 +22,7 @@ class CTAlertView : UIView {
         super.init(frame: frame)
         Bundle.main.loadNibNamed("CustomAlertView", owner: self, options: nil)
         commonInit()
+        
     }
     
     required init?(coder: NSCoder) {

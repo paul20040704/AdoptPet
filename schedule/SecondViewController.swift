@@ -95,6 +95,10 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.tableView.reloadData()
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
 
     @objc func loadData(){
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
