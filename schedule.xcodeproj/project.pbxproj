@@ -47,13 +47,13 @@
 		6FE0886B2591AA3500F6D462 /* HomeMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0886A2591AA3500F6D462 /* HomeMenuView.swift */; };
 		6FE0F0B524FF966900800521 /* AboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE0F0B424FF966900800521 /* AboutMeViewController.swift */; };
 		6FE235452505E8B900F02974 /* LostPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE235442505E8B900F02974 /* LostPostViewController.swift */; };
-		6FE39909258066C8006069CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FE39908258066C7006069CC /* GoogleService-Info.plist */; };
 		6FE93AC924F4ADDB00694B30 /* AdSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE93AC824F4ADDB00694B30 /* AdSearchTableViewCell.swift */; };
 		6FE93ACB24F4B50600694B30 /* AdSearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE93ACA24F4B50600694B30 /* AdSearchCollectionViewCell.swift */; };
 		6FE989B72511B7140011A6F4 /* LostFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE989B62511B7140011A6F4 /* LostFollowTableViewCell.swift */; };
 		6FF35ACC25514EB300AACDD4 /* HomeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF35ACB25514EB300AACDD4 /* HomeTVCell.swift */; };
 		6FF7D44D24EE6CCC007A67F3 /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF7D44C24EE6CCC007A67F3 /* AdvancedSearchViewController.swift */; };
 		6FFB55972502267B00DEB8AF /* LostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFB55962502267B00DEB8AF /* LostCollectionViewCell.swift */; };
+		DA326B3B26B7F8990047470C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA326B3A26B7F8990047470C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +62,7 @@
 		141421DD238673B400B063A1 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		141421DF2386762100B063A1 /* SecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTableViewCell.swift; sourceTree = "<group>"; };
 		142086C22355D517008496D8 /* FirstDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDetailViewController.swift; sourceTree = "<group>"; };
-		145049E1233DE6C900FAF3AA /* schedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = schedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		145049E1233DE6C900FAF3AA /* 幫牠找個家.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "幫牠找個家.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		145049E4233DE6C900FAF3AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		145049E6233DE6C900FAF3AA /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		145049EB233DE6CB00FAF3AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,7 +99,6 @@
 		6FE0886A2591AA3500F6D462 /* HomeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuView.swift; sourceTree = "<group>"; };
 		6FE0F0B424FF966900800521 /* AboutMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeViewController.swift; sourceTree = "<group>"; };
 		6FE235442505E8B900F02974 /* LostPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostPostViewController.swift; sourceTree = "<group>"; };
-		6FE39908258066C7006069CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6FE93AC824F4ADDB00694B30 /* AdSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdSearchTableViewCell.swift; sourceTree = "<group>"; };
 		6FE93ACA24F4B50600694B30 /* AdSearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		6FE989B62511B7140011A6F4 /* LostFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostFollowTableViewCell.swift; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		6FFB55962502267B00DEB8AF /* LostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostCollectionViewCell.swift; sourceTree = "<group>"; };
 		85D31E20975BAA7B29E8B65B /* Pods-schedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-schedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-schedule/Pods-schedule.release.xcconfig"; sourceTree = "<group>"; };
 		C9693604D4A636BCDC9C8BE4 /* Pods-schedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-schedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-schedule/Pods-schedule.debug.xcconfig"; sourceTree = "<group>"; };
+		DA326B3A26B7F8990047470C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +153,7 @@
 		145049E2233DE6C900FAF3AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				145049E1233DE6C900FAF3AA /* schedule.app */,
+				145049E1233DE6C900FAF3AA /* 幫牠找個家.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -174,7 +174,7 @@
 				14D0F09F234C97E500B599A2 /* LaunchVC.swift */,
 				145049EB233DE6CB00FAF3AA /* Assets.xcassets */,
 				145049ED233DE6CB00FAF3AA /* LaunchScreen.storyboard */,
-				6FE39908258066C7006069CC /* GoogleService-Info.plist */,
+				DA326B3A26B7F8990047470C /* GoogleService-Info.plist */,
 				145049F0233DE6CB00FAF3AA /* Info.plist */,
 				6F2CCFED2501E0F000C843AC /* LostViewController.swift */,
 				6F58DC77250B69A800A415B1 /* LostDetailViewController.swift */,
@@ -303,7 +303,7 @@
 			);
 			name = schedule;
 			productName = schedule;
-			productReference = 145049E1233DE6C900FAF3AA /* schedule.app */;
+			productReference = 145049E1233DE6C900FAF3AA /* 幫牠找個家.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -349,10 +349,10 @@
 				6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */,
 				14D0F0AA234CA33F00B599A2 /* Second.storyboard in Resources */,
 				145049EF233DE6CB00FAF3AA /* LaunchScreen.storyboard in Resources */,
+				DA326B3B26B7F8990047470C /* GoogleService-Info.plist in Resources */,
 				6F186B2324E3DF780013C065 /* LoadingCell.xib in Resources */,
 				6F8D98762500C3DC00A3CEA7 /* Third.storyboard in Resources */,
 				14D0F0A8234CA1DD00B599A2 /* First.storyboard in Resources */,
-				6FE39909258066C8006069CC /* GoogleService-Info.plist in Resources */,
 				145049EC233DE6CB00FAF3AA /* Assets.xcassets in Resources */,
 				14D0F0A6234CA18B00B599A2 /* Main.storyboard in Resources */,
 			);
@@ -598,15 +598,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UCTUY7XWML;
+				DEVELOPMENT_TEAM = X6V8PFVL2W;
 				INFOPLIST_FILE = schedule/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.schedule;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adopt0704;
+				PRODUCT_NAME = "幫牠找個家";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -618,15 +618,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UCTUY7XWML;
+				DEVELOPMENT_TEAM = X6V8PFVL2W;
 				INFOPLIST_FILE = schedule/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.schedule;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adopt0704;
+				PRODUCT_NAME = "幫牠找個家";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
