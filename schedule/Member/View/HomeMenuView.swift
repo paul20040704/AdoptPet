@@ -11,6 +11,7 @@ import SnapKit
 
 protocol DeleteDelegate {
     func delete(id:String)
+    func edit(id:String)
 }
 class HomeMenuView: UIView {
 
@@ -141,6 +142,8 @@ class HomeMenuView: UIView {
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         case 2:
             print("2")
+            self.delegate?.edit(id:self.id)
+            self.hideMenuView()
         default:
             self.hideMenuView()
         }

@@ -15,6 +15,7 @@ import PKHUD
 import Lightbox
 import Reachability
 import Firebase
+import SDWebImage
 
 class LostPostViewController: UIViewController , UITextViewDelegate, ImagePickerDelegate , LightboxControllerDismissalDelegate {
     
@@ -29,8 +30,13 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     @IBOutlet weak var contactField: UITextField!
     @IBOutlet weak var placeField: UITextField!
     @IBOutlet weak var netLabel: UILabel!
+    @IBOutlet weak var confirmBtn: UIButton!
     var reachability = try! Reachability()
     var netPossible = true
+    var mode = 0 // 發布 0 編輯模式 1
+    var selectID = "" // 需要編輯的文章ID
+    var isEditImage = false //是否有編輯圖片
+    var editModePathArr = Array<String>()
     
     
     override func viewDidLoad() {
@@ -71,10 +77,55 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         
         dateBtn.setTitle(US.dateToString(date: Date()), for: .normal)
         
+        if mode == 1 {
+            editMode()
+        }
+        
     }
     
     deinit {
         self.reachability?.stopNotifier()
+    }
+    
+    func editMode(){
+        print("postID \(selectID)")
+        let databaseRef = Database.database().reference().child("LostPostUpload").child(selectID)
+        databaseRef.observeSingleEvent(of: .value) { [self] (data) in
+            if let postData = data.value as? [String:Any]{
+                self.chooseKind.setTitle(postData["kind"] as? String, for: .normal)
+                self.remarkLabel.isHidden = true
+                self.remarkTextView.text = postData["remark"] as? String
+                self.dateBtn.setTitle(postData["pickDate"] as? String, for: .normal)
+                self.contactField.text = postData["contact"] as? String
+                self.placeField.text = postData["place"] as? String
+                self.confirmBtn.setTitle("確認編輯", for: .normal)
+                if let urlArr = postData["photoArray"] as? [String]{
+                    editModePathArr = urlArr
+                    var i = 0
+                    for urlStr in urlArr  {
+                        guard let url = URL(string: urlStr) else {return}
+                        let cachedImage = SDImageCache.shared.imageFromCache(forKey: "\(url)")
+                        if cachedImage == nil {
+                            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                                if let data = data , let image = UIImage(data: data) {
+                                    DispatchQueue.main.async { [self] in
+                                        SDImageCache.shared.store(image, forKey: "\(url)", completion: nil)
+                                        self.selectPhotos.append(image)
+                                        photoBtn[i].setImage(image, for: .normal)
+                                        i += 1
+                                    }
+                                }
+                            }
+                            task.resume()
+                        }else{
+                            self.selectPhotos.append(cachedImage!)
+                            photoBtn[i].setImage(cachedImage, for: .normal)
+                            i += 1
+                        }
+                    }
+                }//end urlArr
+            }
+        }
     }
     
     @IBAction func back(_ sender: Any) {
@@ -175,10 +226,15 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     }
     
     func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        isEditImage = true
         let number = images.count
         for i in 0...number - 1{
             photoBtn[i].setImage(images[i], for: .normal)
-            selectPhotos = images
+            if selectPhotos.count >= number {
+                selectPhotos[i] = images[i]
+            }else{
+                selectPhotos.append(images[i])
+            }
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -188,11 +244,15 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     }
     
     @IBAction func upload(_ sender: Any) {
+        var key = "上傳"
+        if mode == 1{
+            key = "編輯"
+        }
         if netPossible == false {
             CTAlertView.ctalertView.showAlert(title: "提醒", body: "請確認是否連上網路", action: "確認")
             return
         }
-        HUD.show(.label("上傳中..."))
+        HUD.show(.label("\(key)中..."))
         //判斷條件
         if contactField.text == ""{
             CTAlertView.ctalertView.showAlert(title: "提醒", body: "聯絡方式不可為空", action: "確定")
@@ -214,7 +274,12 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
             kind = ""
         }
         //隨機生成7位數
-        let postID = String(Int(arc4random_uniform(8999999) + 1000000))
+        var postID = ""
+        if mode == 0{
+            postID = String(Int(arc4random_uniform(8999999) + 1000000))
+        }else{
+            postID = selectID
+        }
         var urlStr = ""
         if let str = Auth.auth().currentUser?.photoURL?.absoluteString{
             urlStr = str
@@ -232,7 +297,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
             databaseRef.setValue(postDataItem.toAnyObject()) { (error, dataRef) in
             if error != nil {
                 print("Database Error :\(String(describing: error?.localizedDescription))")
-                CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳失敗", action: "確定")
+                CTAlertView.ctalertView.showAlert(title: "提醒", body: "\(key)失敗", action: "確定")
                 HUD.hide()
                 }else{
                  NotificationCenter.default.post(name: Notification.Name("reload"), object: nil)
@@ -245,38 +310,42 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                  for i in 0...2 {
                     self.photoBtn[i].setImage(UIImage.init(named: "AddPhoto"), for: .normal)
                  }
-                    CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳成功", action: "確定")
+                    CTAlertView.ctalertView.showAlert(title: "提醒", body: "\(key)成功", action: "確定")
                 }
             }
         }
     }
     
     func  getImagePath(completion: @escaping (_ imagePaths :Array<String>) ->()){
-        var imageUrlArray = Array<String>()
-        let index = selectPhotos.count - 1
-        for i in 0...index {
-            let image = selectPhotos[i]
-            let uniqueString = UUID().uuidString
-            let storageRef = Storage.storage().reference().child("LostPostUpload").child("\(uniqueString).png")
-            if let uploadData = image.pngData() {
-                storageRef.putData(uploadData, metadata: nil) { (data, error) in
-                    if error != nil{
-                        print("Error :\(String(describing: error?.localizedDescription))")
-                        CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳失敗", action: "確定")
-                        HUD.hide()
-                        return
-                    }
-                    storageRef.downloadURL { (url, error) in
-                        guard let downloadURL = url else{
+        if isEditImage {
+            var imageUrlArray = Array<String>()
+            let index = selectPhotos.count - 1
+            for i in 0...index {
+                let image = selectPhotos[i]
+                let uniqueString = UUID().uuidString
+                let storageRef = Storage.storage().reference().child("LostPostUpload").child("\(uniqueString).png")
+                if let uploadData = image.pngData() {
+                    storageRef.putData(uploadData, metadata: nil) { (data, error) in
+                        if error != nil{
+                            print("Error :\(String(describing: error?.localizedDescription))")
+                            CTAlertView.ctalertView.showAlert(title: "提醒", body: "上傳失敗", action: "確定")
+                            HUD.hide()
                             return
                         }
-                        imageUrlArray.append(downloadURL.absoluteString)
-                        if imageUrlArray.count == index + 1{
-                            completion(imageUrlArray)
+                        storageRef.downloadURL { (url, error) in
+                            guard let downloadURL = url else{
+                                return
+                            }
+                            imageUrlArray.append(downloadURL.absoluteString)
+                            if imageUrlArray.count == index + 1{
+                                completion(imageUrlArray)
+                            }
                         }
                     }
                 }
             }
+        }else{
+            completion(editModePathArr)
         }
     }
     

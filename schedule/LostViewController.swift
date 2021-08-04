@@ -26,7 +26,7 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 20)
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 5,left: 5,bottom: 5,right: 5)
         collectionViewLayout.itemSize = CGSize(width: screenWidth/2 - 20, height: 320)
         collectionViewLayout.minimumLineSpacing = 20
         
