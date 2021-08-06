@@ -352,9 +352,6 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     func lightboxControllerWillDismiss(_ controller: LightboxController) {
         controller.dismiss(animated: true, completion: nil)
        }
- 
-    
-    
     
 }
 

@@ -171,5 +171,9 @@ class LostViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
     }
     
- 
+    @IBAction func tint(_ sender: Any) {
+        let alert = US.alertVC(message: "  此處為刊登中的拾獲動物列表，用戶也可以自己刊登拾獲的動物。", title: "提示")
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }

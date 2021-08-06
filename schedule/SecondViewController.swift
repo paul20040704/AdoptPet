@@ -128,6 +128,10 @@ class SecondViewController: UIViewController,UITableViewDelegate,UITableViewData
         
     }
     
+    @IBAction func hint(_ sender: Any) {
+        let alert = US.alertVC(message: "  此處為最愛的領養清單，向左滑動可以刪除。", title: "提示")
+        self.present(alert, animated: true, completion: nil)
+    }
     
     
 

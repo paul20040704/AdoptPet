@@ -161,7 +161,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iz0-cK-fGv">
-                        <barButtonItem key="rightBarButtonItem" title="拾獲刊登" id="sYd-pU-DMN">
+                        <barButtonItem key="leftBarButtonItem" title="我要刊登" id="sYd-pU-DMN">
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
                                     <color key="value" red="0.80586139896373044" green="0.0" blue="0.73485495021353553" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -169,6 +169,11 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="goPost:" destination="iao-Lj-BJa" id="obW-JZ-8qE"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="question" id="1hX-Yr-6sv">
+                            <connections>
+                                <action selector="tint:" destination="iao-Lj-BJa" id="MNE-lP-2Yx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -706,6 +711,7 @@
         <image name="Third" width="32" height="32"/>
         <image name="cancel" width="80" height="80"/>
         <image name="heart" width="32" height="32"/>
+        <image name="question" width="50" height="50"/>
         <image name="user" width="100" height="100"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -315,12 +315,12 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource,Delete
     }
     
     func setCoverView() {
-        coverView = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        coverView = UIView(frame: CGRect(x: 0, y: 0, width: homeTableView.frame.width, height: screenHeight))
         coverView.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         //let coverLab = UILabel(frame: CGRect(x: coverView.frame.width/2 - 75, y: 50, width: 200 ,height: 50))
         let coverLab = UILabel()
         coverLab.text = "目前沒有資訊"
-        coverLab.font = UIFont(name: "System Medium", size: 25)
+        coverLab.font = UIFont(name: "System Medium", size: 30)
         coverLab.font = coverLab.font.withSize(25)
         coverLab.textColor = .white
         coverLab.textAlignment = .center
@@ -328,7 +328,7 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource,Delete
         homeTableView.addSubview(coverView)
         
         coverLab.snp.makeConstraints { (make) in
-            make.centerX.equalTo(coverView)
+            make.centerX.equalTo(coverView.center.x)
             make.top.equalTo(coverView).offset(50)
         }
         

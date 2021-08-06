@@ -39,6 +39,7 @@ class FirstDetailViewController: UIViewController {
         super.viewDidLoad()
         judge()
         self.navigationItem.title = "等待領養"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "upload"), style: .plain, target: self, action: #selector(share))
         let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
         imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
         ageLabel.text = "年齡     : \(age)"
@@ -126,12 +127,11 @@ class FirstDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func share(_ sender: Any) {
+    @objc func share() {
         let urlString = URL(string: infoDetail.album_file)
         let item = ["我要分享給你一個等待領養的流浪動物 ",urlString] as [Any]
         let activityVC = UIActivityViewController(activityItems: item, applicationActivities: [CustomActivity()])
         self.present(activityVC,animated: true,completion: nil)
-        
     }
 
     

@@ -80,6 +80,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         
         secondVC.RDelegate = self
         
+        
     }
     
     deinit {
@@ -293,6 +294,12 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         }
     
     }
+    
+    @IBAction func hint(_ sender: Any) {
+       let alert =  US.alertVC(message: "  你可以在這邊找到目前台灣各收容所，等待領養的貓狗們，並且加入他們到最愛。", title: "提示")
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     @IBAction func resetCondition(_ sender: Any) {
         resetInfoArr()
