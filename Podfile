@@ -19,6 +19,7 @@ target 'schedule' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'SnapKit', '~> 5.0.0'
   pod 'ImagePicker'

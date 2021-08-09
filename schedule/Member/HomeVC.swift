@@ -160,7 +160,10 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource,Delete
     func getUserInfo() {
         if !(isLogin) {
             self.userLab.text = "尚未登入"
+            self.navigationItem.title = "未登入"
             self.loginBtn.setTitle("點此登入", for: .normal)
+        }else{
+            self.navigationItem.title = "已登入"
         }
         if let name = Auth.auth().currentUser?.displayName {
             userDisplayName = name

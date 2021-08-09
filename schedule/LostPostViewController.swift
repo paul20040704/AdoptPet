@@ -100,7 +100,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                 self.placeField.text = postData["place"] as? String
                 self.confirmBtn.setTitle("確認編輯", for: .normal)
                 if let urlArr = postData["photoArray"] as? [String]{
-                    editModePathArr = urlArr
+                    self.editModePathArr = urlArr
                     var i = 0
                     for urlStr in urlArr  {
                         guard let url = URL(string: urlStr) else {return}
@@ -111,7 +111,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                                     DispatchQueue.main.async { [self] in
                                         SDImageCache.shared.store(image, forKey: "\(url)", completion: nil)
                                         self.selectPhotos.append(image)
-                                        photoBtn[i].setImage(image, for: .normal)
+                                        self.photoBtn[i].setImage(image, for: .normal)
                                         i += 1
                                     }
                                 }
@@ -119,7 +119,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                             task.resume()
                         }else{
                             self.selectPhotos.append(cachedImage!)
-                            photoBtn[i].setImage(cachedImage, for: .normal)
+                            self.photoBtn[i].setImage(cachedImage, for: .normal)
                             i += 1
                         }
                     }

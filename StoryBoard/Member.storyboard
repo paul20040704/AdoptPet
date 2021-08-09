@@ -88,7 +88,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="e9b-dp-bfj">
-                                <rect key="frame" x="132" y="518.5" width="150" height="60"/>
+                                <rect key="frame" x="87" y="518.5" width="240" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-BR-OlF">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -104,10 +104,17 @@
                                             <action selector="signFacebook:" destination="0vJ-8S-pEr" eventType="touchUpInside" id="3Fi-SR-kdm"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zr-Dy-GFi">
+                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                        <state key="normal" title="Button" image="apple"/>
+                                        <connections>
+                                            <action selector="signApple:" destination="0vJ-8S-pEr" eventType="touchUpInside" id="SgV-o9-ccJ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="1PS-0i-uyp"/>
-                                    <constraint firstAttribute="width" constant="150" id="Pbw-Rh-Y9l"/>
+                                    <constraint firstAttribute="width" constant="240" id="Pbw-Rh-Y9l"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="puj-hu-BK6">
@@ -151,6 +158,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="4VH-TK-a0g"/>
                     <connections>
+                        <outlet property="appleBtn" destination="0Zr-Dy-GFi" id="gYQ-TE-wQC"/>
                         <outlet property="email" destination="d4t-Bb-Wsv" id="ce8-fB-HFq"/>
                         <outlet property="password" destination="xji-wa-f7x" id="gm2-lv-y0w"/>
                     </connections>
@@ -382,12 +390,12 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXw-Bs-jha">
-                                <rect key="frame" x="25" y="228" width="100" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXw-Bs-jha">
+                                <rect key="frame" x="15" y="228" width="120" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="ty7-ng-oTw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -445,12 +453,12 @@
                             <constraint firstItem="E5R-82-EAC" firstAttribute="top" secondItem="sNj-Z3-T8D" secondAttribute="bottom" constant="5" id="75Y-ze-aac"/>
                             <constraint firstItem="sNj-Z3-T8D" firstAttribute="top" secondItem="fs2-ou-TGy" secondAttribute="bottom" constant="5" id="EVG-Ni-4zx"/>
                             <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="YVF-Ld-zw6" secondAttribute="trailing" constant="20" id="Er9-sl-jv8"/>
-                            <constraint firstItem="DXw-Bs-jha" firstAttribute="width" secondItem="ixG-Ni-Gpv" secondAttribute="width" id="G5U-wP-m10"/>
+                            <constraint firstItem="DXw-Bs-jha" firstAttribute="width" secondItem="ixG-Ni-Gpv" secondAttribute="width" multiplier="1.2" id="G5U-wP-m10"/>
                             <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="E5R-82-EAC" secondAttribute="trailing" constant="20" id="HkL-QH-3f7"/>
-                            <constraint firstItem="DXw-Bs-jha" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="25" id="NkJ-Dt-Dcf"/>
                             <constraint firstItem="Zaj-9D-IHL" firstAttribute="trailing" secondItem="sNj-Z3-T8D" secondAttribute="trailing" constant="10" id="Nl9-Cc-58i"/>
                             <constraint firstItem="fs2-ou-TGy" firstAttribute="trailing" secondItem="MLf-Gy-pAl" secondAttribute="trailingMargin" id="Pyb-Mo-cHf"/>
                             <constraint firstItem="YVF-Ld-zw6" firstAttribute="top" secondItem="Zaj-9D-IHL" secondAttribute="top" constant="135" id="T65-U9-50P"/>
+                            <constraint firstItem="DXw-Bs-jha" firstAttribute="centerX" secondItem="ixG-Ni-Gpv" secondAttribute="centerX" id="bUX-mK-nY2"/>
                             <constraint firstItem="sNj-Z3-T8D" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="10" id="eUE-As-NdF"/>
                             <constraint firstItem="ixG-Ni-Gpv" firstAttribute="leading" secondItem="Zaj-9D-IHL" secondAttribute="leading" constant="25" id="hrh-ns-uHa"/>
                             <constraint firstAttribute="bottom" secondItem="E5R-82-EAC" secondAttribute="bottom" id="nIh-vN-Oi4"/>
@@ -492,6 +500,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="apple" width="128" height="128"/>
         <image name="facebook" width="96" height="96"/>
         <image name="google" width="96" height="96"/>
         <image name="member" width="48" height="48"/>
