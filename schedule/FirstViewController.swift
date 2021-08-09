@@ -35,6 +35,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     var refreshControl : UIRefreshControl!
     var reachability = try! Reachability()
     var conditionArr = Array<String>()
+    let hangBtn = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,11 +81,37 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         
         secondVC.RDelegate = self
         
+        self.perform(#selector(createButton), with: nil, afterDelay: 1)
         
     }
     
     deinit {
         self.reachability?.stopNotifier()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        hangBtn.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        hangBtn.isHidden = true
+    }
+    
+    @objc func createButton() {
+        hangBtn.setTitle("回頂", for: .normal)
+        hangBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        hangBtn.layer.cornerRadius = 20
+        hangBtn.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        hangBtn.frame = CGRect(x: screenWidth - 50 , y: screenHeight - 150, width: 40, height: 40)
+        hangBtn.addTarget(self, action: #selector(goTop), for: .touchUpInside)
+        //let window = UIWindow.init(frame: CGRect(x: 100, y: 200, width: 80, height: 80))
+        self.view.window?.addSubview(hangBtn)
+        self.view.window?.makeKeyAndVisible()
+        
+    }
+    
+    @objc func goTop() {
+        self.tableView.setContentOffset(CGPoint(x: 0, y: 0 - self.tableView.contentInset.top), animated: false)
     }
     
     @objc func loadData(){
