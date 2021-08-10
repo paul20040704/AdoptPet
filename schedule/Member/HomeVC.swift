@@ -37,6 +37,13 @@ class HomeVC: UIViewController ,UITableViewDelegate,UITableViewDataSource,Delete
     override func viewDidLoad() {
         super.viewDidLoad()
         HUD.flash(.systemActivity, onView: self.view, delay: 2.5, completion: nil)
+        
+        if (Auth.auth().currentUser?.uid) != nil {
+            isLogin = true
+        }else{
+            isLogin = false
+        }
+        
         homeTableView.delegate = self
         homeTableView.dataSource = self
         self.navigationItem.hidesBackButton = true

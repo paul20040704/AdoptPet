@@ -58,8 +58,8 @@ class HomeMenuView: UIView {
         buttonView.snp.makeConstraints { (make) in
             //make.width.equalTo(self.frame.width)
             make.height.equalTo(400)
-            make.left.equalTo(self).offset(5)
-            make.right.equalTo(self).offset(-5)
+            make.left.equalTo(self).offset(50)
+            make.right.equalTo(self).offset(-50)
             make.bottom.equalTo(self).offset(-20)
         }
         button1.setTitle("刪除", for: .normal)
@@ -97,9 +97,9 @@ class HomeMenuView: UIView {
         buttonView.addSubview(lineLab1)
         buttonView.addSubview(lineLab2)
         buttonView.addSubview(lineLab3)
-        lineLab1.backgroundColor = .white
-        lineLab2.backgroundColor = .white
-        lineLab3.backgroundColor = .white
+        lineLab1.backgroundColor = .black
+        lineLab2.backgroundColor = .black
+        lineLab3.backgroundColor = .black
         
         lineLab1.snp.makeConstraints { (make) in
             make.height.equalTo(1)

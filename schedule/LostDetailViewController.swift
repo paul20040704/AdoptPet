@@ -85,7 +85,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         }
         
         setNVItem()
-        
+        setCoverView()
         
     }
     
@@ -192,7 +192,22 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
             }
         }
     }
-
+    
+    @IBAction func report(_ sender: Any) {
+        ReportView.reportView.showOptionView(id: key,VC: self)
+    }
+    
+    func setCoverView(){
+        if let reportArr = UD.array(forKey: "report"){
+            let isReport = reportArr.contains { (reportID) -> Bool in
+                reportID as! String == key
+            }
+            if isReport {
+                CoverView.coverView.setCoverView(VC: self)
+            }
+        }
+    }
+    
     
 
 }
