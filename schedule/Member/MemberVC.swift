@@ -123,11 +123,18 @@ class MemberVC: UIViewController, UITextFieldDelegate, SignUpDelegate, GIDSignIn
     }
     @available(iOS 13.0, *)
     @IBAction func signApple(_ sender: Any) {
+        var _request : ASAuthorizationAppleIDRequest?
         self.view.addSubview(BGView)
         let nonce = randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
+        let createRequest = appleIDProvider.createRequest()
+        if _request == nil {
+            _request = createRequest
+        }
+        guard let request = _request else{
+            self.BGView.removeFromSuperview()
+            return}
         request.requestedScopes = [.fullName, .email]
         request.nonce = sha256(nonce)
         
