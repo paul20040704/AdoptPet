@@ -235,22 +235,17 @@ class Share : NSObject{
     }
     
     func getAdoptData(type:Int, completion: @escaping(_ finish: Bool) -> ()){
-            //清除舊的DB資料
-            let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
-            if(type == 1 && gapTime < 86400){
-                completion(true)
-            }
-            //如果已經有資料而且時間不超過一天，就不去抓資料
-            else if(type == 0 && UD.bool(forKey: "haveData") == true && gapTime < 86400){
-                print(UD.bool(forKey: "haveData"))
-                completion(true)
-            }else{
-                if let r = try? Realm(){
-                    try? r.write {
-                        let apiDatas = r.objects(RLM_ApiData.self)
-                        r.delete(apiDatas)
-                        UD.set(US.getTimeStampToDouble(), forKey: UPD)
-                    }
+        //查看上次更新資料時間
+        let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
+        if(type == 1 && gapTime < 86400){
+            completion(true)
+        }
+        //如果已經有資料而且時間不超過一天，就不去抓資料
+        else if(type == 0 && UD.bool(forKey: "haveData") == true && gapTime < 86400){
+            print(UD.bool(forKey: "haveData"))
+            completion(true)
+        }else{
+            if let r = try? Realm(){
             //開始Loading
             print("***** start get API")
             let url = "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"
@@ -306,6 +301,7 @@ class Share : NSObject{
                                     }
                                 }
                             }
+                        UD.set(US.getTimeStampToDouble(), forKey: UPD)
                         completion(true)
                         UD.set(true, forKey: "haveData")
                     }

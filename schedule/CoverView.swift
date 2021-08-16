@@ -12,20 +12,20 @@ import SnapKit
 class CoverView: UIView {
 
     static let coverView = CoverView()
+    let label = UILabel()
     
     func setCoverView(VC:UIViewController) {
-        self.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 434)
+        self.frame = CGRect(x: 0, y: (VC.navigationController?.navigationBar.frame.size.height)! + 20, width: screenWidth, height: screenWidth + 40)
         self.backgroundColor = .black
         self.alpha = 0.95
         
-        let label = UILabel()
         label.text = "已屏蔽"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 25)
         label.textAlignment = .center
         self.addSubview(label)
         VC.view.addSubview(self)
-    
+            
         label.snp.makeConstraints { (make) in
             make.height.equalTo(30)
             make.width.equalTo(150)

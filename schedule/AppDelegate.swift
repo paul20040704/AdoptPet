@@ -52,10 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         HUD.show(.label("更新資料中"))
             US.getAdoptData(type: 1) { (finish) in
-                if finish  {
                     HUD.hide()
-                }
             }
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

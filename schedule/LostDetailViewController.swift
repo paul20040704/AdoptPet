@@ -41,8 +41,8 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        layout.sectionInset = UIEdgeInsets(top: 0 , left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: 414, height: 414)
+        //layout.sectionInset = UIEdgeInsets(top: 0 , left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: screenWidth, height: screenWidth)
         
         collectionView.isPagingEnabled = true
         
@@ -117,9 +117,17 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         }else{
             cell.lostImageView.image = UIImage(named: "user")
         }
-            
             return cell
-        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let url = URL(string: urlArray[indexPath.row]) else{return}
+        let scrollImageVC = ScrollImageVC()
+        guard let cachedImage = SDImageCache.shared.imageFromCache(forKey: "\(url)") else{return}
+        scrollImageVC.cachedImage = cachedImage
+        self.present(scrollImageVC, animated: true, completion: nil)
+        
+    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)

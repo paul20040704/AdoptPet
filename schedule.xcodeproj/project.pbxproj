@@ -54,7 +54,6 @@
 		6FF7D44D24EE6CCC007A67F3 /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF7D44C24EE6CCC007A67F3 /* AdvancedSearchViewController.swift */; };
 		6FFB55972502267B00DEB8AF /* LostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFB55962502267B00DEB8AF /* LostCollectionViewCell.swift */; };
 		DA25907526C12CD100E488CC /* ScrollImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25907426C12CD100E488CC /* ScrollImageVC.swift */; };
-		DA25907826C12CF000E488CC /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA25907726C12CF000E488CC /* Share.storyboard */; };
 		DA25907B26C224DA00E488CC /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25907A26C224DA00E488CC /* ReportView.swift */; };
 		DA25907F26C257ED00E488CC /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25907E26C257ED00E488CC /* CoverView.swift */; };
 		DA6EB53726BD2E4D003A2A63 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA6EB53626BD2E4D003A2A63 /* GoogleService-Info.plist */; };
@@ -99,7 +98,7 @@
 		6FD4CB6B254BB70E001027FF /* MemberVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberVC.swift; sourceTree = "<group>"; };
 		6FD4CB90254BE657001027FF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		6FDBB40E252C5E33009C2AD9 /* ConditionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionCollectionViewCell.swift; sourceTree = "<group>"; };
-		6FDE757524E5430E006C4E08 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleViewController.swift; path = /Users/yenfu/Documents/yenfu/schedule/schedule/RuleViewController.swift; sourceTree = "<absolute>"; };
+		6FDE757524E5430E006C4E08 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RuleViewController.swift; path = ../RuleViewController.swift; sourceTree = "<group>"; };
 		6FE0886A2591AA3500F6D462 /* HomeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuView.swift; sourceTree = "<group>"; };
 		6FE0F0B424FF966900800521 /* AboutMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeViewController.swift; sourceTree = "<group>"; };
 		6FE235442505E8B900F02974 /* LostPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostPostViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +111,6 @@
 		85D31E20975BAA7B29E8B65B /* Pods-schedule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-schedule.release.xcconfig"; path = "Pods/Target Support Files/Pods-schedule/Pods-schedule.release.xcconfig"; sourceTree = "<group>"; };
 		C9693604D4A636BCDC9C8BE4 /* Pods-schedule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-schedule.debug.xcconfig"; path = "Pods/Target Support Files/Pods-schedule/Pods-schedule.debug.xcconfig"; sourceTree = "<group>"; };
 		DA25907426C12CD100E488CC /* ScrollImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollImageVC.swift; sourceTree = "<group>"; };
-		DA25907726C12CF000E488CC /* Share.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Share.storyboard; sourceTree = "<group>"; };
 		DA25907A26C224DA00E488CC /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		DA25907E26C257ED00E488CC /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		DA6EB53626BD2E4D003A2A63 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -258,7 +256,6 @@
 				6F9CF60525243632000D71A8 /* CustomAlertView.xib */,
 				6F9CF60825243991000D71A8 /* CustomAlertView.swift */,
 				DA25907426C12CD100E488CC /* ScrollImageVC.swift */,
-				DA25907726C12CF000E488CC /* Share.storyboard */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 			files = (
 				6F7E8174254A69EC00EA963E /* Member.storyboard in Resources */,
 				6F9CF60625243632000D71A8 /* CustomAlertView.xib in Resources */,
-				DA25907826C12CF000E488CC /* Share.storyboard in Resources */,
 				6F58DC76250B5F5C00A415B1 /* loadView.gif in Resources */,
 				14D0F0AA234CA33F00B599A2 /* Second.storyboard in Resources */,
 				145049EF233DE6CB00FAF3AA /* LaunchScreen.storyboard in Resources */,
@@ -619,7 +615,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.4;
 				DEVELOPMENT_TEAM = X6V8PFVL2W;
-				INFOPLIST_FILE = schedule/Info.plist;
+				INFOPLIST_FILE = /Users/paul/AdoptPet/schedule/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -642,7 +638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.4;
 				DEVELOPMENT_TEAM = X6V8PFVL2W;
-				INFOPLIST_FILE = schedule/Info.plist;
+				INFOPLIST_FILE = /Users/paul/AdoptPet/schedule/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
