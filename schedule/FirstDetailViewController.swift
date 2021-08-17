@@ -34,14 +34,17 @@ class FirstDetailViewController: UIViewController {
     var type = ""
     var bacterin = ""
     var age = ""
+    var cellImage = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         judge()
         self.navigationItem.title = "等待領養"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "upload"), style: .plain, target: self, action: #selector(share))
-        let cellImage = US.loadImage(fileName: "\(infoDetail.animal_id).jpg")
-        imageView.image = cellImage?.scaleImage(scaleSize: 0.5)
+        if let  image = US.loadImage(fileName: "\(infoDetail.animal_id).jpg"){
+            cellImage = image
+        }
+        imageView.image = cellImage.scaleImage(scaleSize: 0.5)
         ageLabel.text = "年齡     : \(age)"
         idLabel.text = "ID  : \(infoDetail.animal_id)"
         sterilizationLabel.text =    "是否絕育    : \(sterilization)"
@@ -59,17 +62,8 @@ class FirstDetailViewController: UIViewController {
         updateLabel.text = "資料更新日期 : \(infoDetail.animal_update)"
         
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(phoneCall(recognizer:)))
-        telLabel.isUserInteractionEnabled = true
-        telLabel.addGestureRecognizer(tap)
+        setTap()
         
-        
-    }
-    
-    @objc func phoneCall(recognizer:UITapGestureRecognizer){
-        if let telUrl = URL(string: "tel://\(infoDetail.shelter_tel)"){
-            UIApplication.shared.open(telUrl, options: [:], completionHandler: nil)
-        }
         
     }
 
@@ -128,13 +122,34 @@ class FirstDetailViewController: UIViewController {
     }
     
     @objc func share() {
-        let urlString = URL(string: infoDetail.album_file)
-        let item = ["我要分享給你一個等待領養的流浪動物 ",urlString] as [Any]
+        let urlString = URL(string: "https://apps.apple.com/us/app/%E5%B9%AB%E7%89%A0%E6%89%BE%E5%80%8B%E5%AE%B6/id1579290925#?platform=iphone")
+        let item = [imageView.image,"App下載連結",urlString] as [Any]
         let activityVC = UIActivityViewController(activityItems: item, applicationActivities: [CustomActivity()])
         self.present(activityVC,animated: true,completion: nil)
     }
 
+    func setTap(){
+        let imageTap = UITapGestureRecognizer.init(target: self, action: #selector(showScrollImage))
+        imageView.isUserInteractionEnabled = true
+        self.imageView.addGestureRecognizer(imageTap)
+        
+        let telTap = UITapGestureRecognizer(target: self, action: #selector(phoneCall(recognizer:)))
+        telLabel.isUserInteractionEnabled = true
+        telLabel.addGestureRecognizer(telTap)
+    }
     
+    @objc func showScrollImage() {
+        let scrollImageVC = ScrollImageVC()
+        scrollImageVC.cachedImage = cellImage
+        self.present(scrollImageVC, animated: true, completion: nil)
+    }
+    
+    @objc func phoneCall(recognizer:UITapGestureRecognizer){
+        if let telUrl = URL(string: "tel://\(infoDetail.shelter_tel)"){
+            UIApplication.shared.open(telUrl, options: [:], completionHandler: nil)
+        }
+        
+    }
     
 }
 

@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             
          }
         //NotificationCenter.default.post(name: Notification.Name("goMainTBC"), object: nil)
-        
+        checkVersion()
         return true
         
     }
@@ -68,6 +68,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
         return handled
+    }
+    
+    func checkVersion() {
+        if let infoDictionary = Bundle.main.infoDictionary {
+            
+            guard let bundleVersionStr = infoDictionary["CFBundleVersion"] as? String else {return}
+            let bundleVersion = Float(bundleVersionStr)
+            
+            let databaseRef = Database.database().reference().child("AppVersion")
+            databaseRef.observe(.value) { data in
+                guard let version = data.value as? Float else {return}
+                if version > bundleVersion! {
+                    if let rootVC = self.window?.rootViewController {
+                        let alertVC = UIAlertController(title: "提醒", message: "\n本程式有最新版本是否前往更新?\n", preferredStyle: .alert)
+                        let ok = UIAlertAction.init(title: "是", style: .destructive) { action in
+                            guard let url = URL(string: "https://apps.apple.com/us/app/%E5%B9%AB%E7%89%A0%E6%89%BE%E5%80%8B%E5%AE%B6/id1579290925#?platform=iphone") else{return}
+                            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        }
+                        let cancel = UIAlertAction.init(title: "否", style: .cancel, handler: nil)
+                        alertVC.addAction(ok)
+                        alertVC.addAction(cancel)
+                        rootVC.present(alertVC, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
     
     
