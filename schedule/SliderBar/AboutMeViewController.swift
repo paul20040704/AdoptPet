@@ -32,7 +32,7 @@ class AboutMeViewController: UIViewController {
         label.text = text
         label.numberOfLines = 44
         
-        backBtn = UIButton(frame: CGRect(x: screenWidth - 50, y: 30, width: 30, height: 30))
+        backBtn = UIButton(frame: CGRect(x: 50, y: 30, width: 30, height: 30))
         backBtn.setImage(UIImage(named: "cancel"), for: .normal)
         backBtn.backgroundColor = .none
         backBtn.addTarget(self, action: #selector(back), for: .touchUpInside)

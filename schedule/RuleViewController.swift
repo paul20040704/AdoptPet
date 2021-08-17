@@ -29,7 +29,7 @@ class RuleViewController: UIViewController {
         titleLabel.text = ruleTitle
         self.view.addSubview(titleLabel)
         
-        backButton = UIButton(frame: CGRect(x: screenWidth - 50, y: 20 , width: 30, height: 30))
+        backButton = UIButton(frame: CGRect(x: 50, y: 20 , width: 30, height: 30))
         backButton.setImage(UIImage(named: "cancel"), for: .normal)
         backButton.backgroundColor = .none
         backButton.addTarget(self, action: #selector(back), for: .touchUpInside)

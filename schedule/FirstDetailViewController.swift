@@ -125,7 +125,13 @@ class FirstDetailViewController: UIViewController {
         let urlString = URL(string: "https://apps.apple.com/us/app/%E5%B9%AB%E7%89%A0%E6%89%BE%E5%80%8B%E5%AE%B6/id1579290925#?platform=iphone")
         let item = [imageView.image,"App下載連結",urlString] as [Any]
         let activityVC = UIActivityViewController(activityItems: item, applicationActivities: [CustomActivity()])
-        self.present(activityVC,animated: true,completion: nil)
+        if UI_USER_INTERFACE_IDIOM() == .phone{
+            self.present(activityVC,animated: true,completion: nil)
+        }else{
+            activityVC.popoverPresentationController?.sourceView = self.view
+            activityVC.popoverPresentationController?.sourceRect = self.view.frame
+            self.present(activityVC,animated: true,completion: nil)
+        }
     }
 
     func setTap(){

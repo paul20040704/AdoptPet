@@ -15,7 +15,7 @@ class CoverView: UIView {
     let label = UILabel()
     
     func setCoverView(VC:UIViewController) {
-        self.frame = CGRect(x: 0, y: (VC.navigationController?.navigationBar.frame.size.height)! + 20, width: screenWidth, height: screenWidth + 40)
+        self.frame = CGRect(x: 0, y: 0 , width: screenWidth, height: screenWidth)
         self.backgroundColor = .black
         self.alpha = 0.95
         
@@ -24,8 +24,10 @@ class CoverView: UIView {
         label.font = UIFont.systemFont(ofSize: 25)
         label.textAlignment = .center
         self.addSubview(label)
-        VC.view.addSubview(self)
-            
+        let lostDetailVC = VC as! LostDetailViewController
+        //VC.view.addSubview(self)
+        lostDetailVC.collectionView.addSubview(self)
+        
         label.snp.makeConstraints { (make) in
             make.height.equalTo(30)
             make.width.equalTo(150)
