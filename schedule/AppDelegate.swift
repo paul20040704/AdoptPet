@@ -73,15 +73,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func checkVersion() {
         if let infoDictionary = Bundle.main.infoDictionary {
             
-            guard let bundleVersionStr = infoDictionary["CFBundleVersion"] as? String else {return}
+            guard let bundleVersionStr = infoDictionary["CFBundleShortVersionString"] as? String else {return}
             let bundleVersion = Float(bundleVersionStr)
             
             let databaseRef = Database.database().reference().child("AppVersion")
             databaseRef.observe(.value) { data in
-                guard let version = data.value as? Float else {return}
-                if version > bundleVersion! {
+                guard let versionStr = data.value as? String else {return}
+                let version = Float(versionStr)
+                if version! > bundleVersion! {
                     if let rootVC = self.window?.rootViewController {
-                        let alertVC = UIAlertController(title: "提醒", message: "\n本程式有最新版本是否前往更新?\n", preferredStyle: .alert)
+                        let alertVC = UIAlertController(title: "提醒", message: "\n本程式有最新版本，是否前往更新?\n", preferredStyle: .alert)
                         let ok = UIAlertAction.init(title: "是", style: .destructive) { action in
                             guard let url = URL(string: "https://apps.apple.com/us/app/%E5%B9%AB%E7%89%A0%E6%89%BE%E5%80%8B%E5%AE%B6/id1579290925#?platform=iphone") else{return}
                             UIApplication.shared.open(url, options: [:], completionHandler: nil)
