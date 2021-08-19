@@ -270,6 +270,8 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
             kind = "貓"
         case "狗":
             kind = "狗"
+        case "其他":
+            kind = "其他"
         default:
             kind = ""
         }

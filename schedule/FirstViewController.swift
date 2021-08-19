@@ -229,18 +229,28 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
         if let id = UD.array(forKey: "likeID") {
             idArr = id as! [String]
         }
-        if isAddLike(id: info.animal_id){
-            CTAlertView.ctalertView.showAlert(title: "提醒", body: "已加入收藏", action: "確定")
-        }else{
         HUD.show(.label("更新中..."))
-            HUD.hide(afterDelay: 1.0) { (finish) in
-                HUD.flash(.success, delay: 0.5)
+            HUD.hide(afterDelay: 0.3) { (finish) in
+                HUD.flash(.success, delay: 0.3)
             }
-        self.tableView.reloadData()
-        idArr.append(info.animal_id)
-        UD.set(idArr, forKey: "likeID")
-        //NotificationCenter
-        NotificationCenter.default.post(name: Notification.Name("loadData"), object: nil)
+        if idArr.contains(info.animal_id){
+            self.tableView.reloadData()
+            var i = 0
+            for id in idArr{
+                if id == info.animal_id {
+                    idArr.remove(at: i)
+                    UD.set(idArr, forKey: "likeID")
+                    self.tableView.reloadData()
+                    NotificationCenter.default.post(name: Notification.Name("loadData"), object: nil)
+                }
+                i += 1
+            }
+        }else{
+            idArr.append(info.animal_id)
+            UD.set(idArr, forKey: "likeID")
+            self.tableView.reloadData()
+            //NotificationCenter
+            NotificationCenter.default.post(name: Notification.Name("loadData"), object: nil)
         }
     
     }
@@ -303,7 +313,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
      func resetInfoArr() {
         infoArr = []
         let realm = try! Realm()
-        let orders = realm.objects(RLM_ApiData.self)
+        let orders = realm.objects(RLM_ApiData.self).sorted(byKeyPath: "animal_createtime", ascending: false)
         if orders.count > 10{
             for order in orders{
                 infoArr.append(order)

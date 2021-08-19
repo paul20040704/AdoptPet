@@ -216,7 +216,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbw-4D-nbQ">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="29"/>
-                                        <color key="backgroundColor" red="0.94223607509999996" green="0.74100609500000003" blue="0.82014808689999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.9316476548" green="0.94865456800000003" blue="0.86042194599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="選擇種類">
                                             <color key="titleColor" systemColor="systemIndigoColor"/>
@@ -232,7 +232,7 @@
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lkp-bF-y1w">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
-                                        <color key="backgroundColor" red="0.94223607509999996" green="0.74100609500000003" blue="0.82014808689999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.9316476548" green="0.94865456800000003" blue="0.86042194599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="貓">
                                             <color key="titleColor" systemColor="systemIndigoColor"/>
                                         </state>
@@ -242,12 +242,22 @@
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVk-1A-5Rg">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
-                                        <color key="backgroundColor" red="0.94223607509999996" green="0.74100609500000003" blue="0.82014808689999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.9316476548" green="0.94865456800000003" blue="0.86042194599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="狗">
                                             <color key="titleColor" systemColor="systemIndigoColor"/>
                                         </state>
                                         <connections>
                                             <action selector="kindBtnPress:" destination="R3j-aT-Yen" eventType="touchUpInside" id="Nj2-qi-3l8"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVn-6e-NFh">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
+                                        <color key="backgroundColor" red="0.9316476548" green="0.94865456800000003" blue="0.86042194599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="其他">
+                                            <color key="titleColor" systemColor="systemIndigoColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="kindBtnPress:" destination="R3j-aT-Yen" eventType="touchUpInside" id="TC1-Rb-bpd"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -505,6 +515,7 @@
                         <outletCollection property="photoBtn" destination="VWx-rR-2Gd" collectionClass="NSMutableArray" id="ITK-ei-ABH"/>
                         <outletCollection property="photoBtn" destination="jC5-Ga-4JB" collectionClass="NSMutableArray" id="m86-Gh-SnM"/>
                         <outletCollection property="photoBtn" destination="xAk-qo-ufM" collectionClass="NSMutableArray" id="zel-v3-Uqb"/>
+                        <outletCollection property="kindOptions" destination="OVn-6e-NFh" collectionClass="NSMutableArray" id="sIO-5N-psr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtr-Ro-pig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

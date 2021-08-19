@@ -313,6 +313,8 @@
 			dependencies = (
 			);
 			name = schedule;
+			packageProductDependencies = (
+			);
 			productName = schedule;
 			productReference = 145049E1233DE6C900FAF3AA /* 幫牠找個家.app */;
 			productType = "com.apple.product-type.application";
@@ -341,6 +343,8 @@
 				Base,
 			);
 			mainGroup = 145049D8233DE6C900FAF3AA;
+			packageReferences = (
+			);
 			productRefGroup = 145049E2233DE6C900FAF3AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

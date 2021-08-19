@@ -237,6 +237,7 @@ class Share : NSObject{
     func getAdoptData(type:Int, completion: @escaping(_ finish: Bool) -> ()){
         //查看上次更新資料時間
         let gapTime = US.getTimeStampToDouble() - UD.double(forKey: UPD)
+        print("gapTime:\(gapTime)")
         if(type == 1 && gapTime < 86400){
             completion(true)
         }
