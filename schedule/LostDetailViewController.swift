@@ -29,6 +29,7 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
     @IBOutlet weak var likeLab: UILabel!
     
     
+    @IBOutlet weak var contentView: UIView!
     var reachability = try! Reachability()
     var info = [String:Any]()
     var key = String()
@@ -40,9 +41,9 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         self.navigationItem.title = "遺失待領回"
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
         //layout.sectionInset = UIEdgeInsets(top: 0 , left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: screenWidth, height: screenWidth)
+        layout.itemSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         
         collectionView.isPagingEnabled = true
         

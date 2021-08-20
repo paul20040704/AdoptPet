@@ -371,45 +371,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="Cml-zH-W6o">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Cml-zH-W6o">
                                 <rect key="frame" x="20" y="513" width="374" height="124"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWx-rR-2Gd">
-                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="124"/>
-                                        <state key="normal" image="AddPhoto"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="choosePhoto:" destination="R3j-aT-Yen" eventType="touchUpInside" id="0fs-uj-Ljd"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jC5-Ga-4JB">
-                                        <rect key="frame" x="136.5" y="0.0" width="101" height="124"/>
-                                        <state key="normal" image="AddPhoto"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="choosePhoto:" destination="R3j-aT-Yen" eventType="touchUpInside" id="3RS-EN-gHG"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAk-qo-ufM">
-                                        <rect key="frame" x="273.5" y="0.0" width="100.5" height="124"/>
-                                        <state key="normal" image="AddPhoto"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="choosePhoto:" destination="R3j-aT-Yen" eventType="touchUpInside" id="tJT-9G-3F2"/>
-                                        </connections>
-                                    </button>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="J4N-t0-GGW">
+                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="124"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="SfI-z9-hHk">
+                                        <rect key="frame" x="131.5" y="0.0" width="111" height="124"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="9Xl-a6-BBe">
+                                        <rect key="frame" x="262.5" y="0.0" width="111.5" height="124"/>
+                                    </imageView>
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上傳照片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xk6-Lx-UYt">
@@ -512,10 +485,10 @@
                         <outlet property="remarkTextView" destination="J6V-02-a9u" id="6Nz-rx-vnh"/>
                         <outletCollection property="kindOptions" destination="Lkp-bF-y1w" collectionClass="NSMutableArray" id="J9D-kd-BX7"/>
                         <outletCollection property="kindOptions" destination="eVk-1A-5Rg" collectionClass="NSMutableArray" id="MwR-8b-PnV"/>
-                        <outletCollection property="photoBtn" destination="VWx-rR-2Gd" collectionClass="NSMutableArray" id="ITK-ei-ABH"/>
-                        <outletCollection property="photoBtn" destination="jC5-Ga-4JB" collectionClass="NSMutableArray" id="m86-Gh-SnM"/>
-                        <outletCollection property="photoBtn" destination="xAk-qo-ufM" collectionClass="NSMutableArray" id="zel-v3-Uqb"/>
                         <outletCollection property="kindOptions" destination="OVn-6e-NFh" collectionClass="NSMutableArray" id="sIO-5N-psr"/>
+                        <outletCollection property="selectPhotos" destination="J4N-t0-GGW" collectionClass="NSMutableArray" id="SMH-yz-bpu"/>
+                        <outletCollection property="selectPhotos" destination="SfI-z9-hHk" collectionClass="NSMutableArray" id="6N1-kR-F1b"/>
+                        <outletCollection property="selectPhotos" destination="9Xl-a6-BBe" collectionClass="NSMutableArray" id="uuV-gA-Auz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtr-Ro-pig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -661,19 +634,19 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="umU-eB-lof" customClass="LostDetailCVCell" customModule="幫牠找個家" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-41.5" width="414" height="414"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="TVN-IW-5fh">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Arc-Z6-cQy">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadView.gif" translatesAutoresizingMaskIntoConstraints="NO" id="cqm-cV-wOu">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loadView.gif" translatesAutoresizingMaskIntoConstraints="NO" id="cqm-cV-wOu">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="cqm-cV-wOu" secondAttribute="bottom" id="Xz9-3e-0Zf"/>
-                                                <constraint firstAttribute="trailing" secondItem="cqm-cV-wOu" secondAttribute="trailing" id="sgX-xh-gla"/>
-                                                <constraint firstItem="cqm-cV-wOu" firstAttribute="top" secondItem="TVN-IW-5fh" secondAttribute="top" id="un7-7u-gQX"/>
-                                                <constraint firstItem="cqm-cV-wOu" firstAttribute="leading" secondItem="TVN-IW-5fh" secondAttribute="leading" id="yIZ-9v-x0S"/>
+                                                <constraint firstAttribute="bottom" secondItem="cqm-cV-wOu" secondAttribute="bottom" id="KSg-x0-3g6"/>
+                                                <constraint firstAttribute="trailing" secondItem="cqm-cV-wOu" secondAttribute="trailing" id="PUj-B4-vvh"/>
+                                                <constraint firstItem="cqm-cV-wOu" firstAttribute="leading" secondItem="Arc-Z6-cQy" secondAttribute="leading" id="qiS-oX-fHb"/>
+                                                <constraint firstItem="cqm-cV-wOu" firstAttribute="top" secondItem="Arc-Z6-cQy" secondAttribute="top" id="tua-uQ-Sr5"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>

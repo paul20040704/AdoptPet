@@ -16,17 +16,17 @@ import Lightbox
 import Reachability
 import Firebase
 import SDWebImage
+import PhotosUI
 
-class LostPostViewController: UIViewController , UITextViewDelegate, ImagePickerDelegate , LightboxControllerDismissalDelegate {
+class LostPostViewController: UIViewController , UITextViewDelegate, LightboxControllerDismissalDelegate, PHPickerViewControllerDelegate{
     
     @IBOutlet weak var chooseKind: UIButton!
     @IBOutlet var kindOptions: [UIButton]!
     @IBOutlet weak var remarkTextView: UITextView!
     @IBOutlet weak var dateBtn: UIButton!
-    @IBOutlet var photoBtn: [UIButton]!
     var remarkLabel = UILabel()
     let imagePicker = ImagePickerController()
-    var selectPhotos = [UIImage]()
+    @IBOutlet var selectPhotos: [UIImageView]!
     @IBOutlet weak var contactField: UITextField!
     @IBOutlet weak var placeField: UITextField!
     @IBOutlet weak var netLabel: UILabel!
@@ -37,6 +37,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     var selectID = "" // 需要編輯的文章ID
     var isEditImage = false //是否有編輯圖片
     var editModePathArr = Array<String>()
+    var selectPhotoCount = 1
     
     
     override func viewDidLoad() {
@@ -77,6 +78,8 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         
         dateBtn.setTitle(US.dateToString(date: Date()), for: .normal)
         
+        setSelectPhoto()
+        
         if mode == 1 {
             editMode()
         }
@@ -100,6 +103,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                 self.placeField.text = postData["place"] as? String
                 self.confirmBtn.setTitle("確認編輯", for: .normal)
                 if let urlArr = postData["photoArray"] as? [String]{
+                    self.selectPhotoCount = urlArr.count
                     self.editModePathArr = urlArr
                     var i = 0
                     for urlStr in urlArr  {
@@ -110,16 +114,14 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                                 if let data = data , let image = UIImage(data: data) {
                                     DispatchQueue.main.async { [self] in
                                         SDImageCache.shared.store(image, forKey: "\(url)", completion: nil)
-                                        self.selectPhotos.append(image)
-                                        self.photoBtn[i].setImage(image, for: .normal)
+                                        self.selectPhotos[i].image = image
                                         i += 1
                                     }
                                 }
                             }
                             task.resume()
                         }else{
-                            self.selectPhotos.append(cachedImage!)
-                            self.photoBtn[i].setImage(cachedImage, for: .normal)
+                            self.selectPhotos[i].image = cachedImage
                             i += 1
                         }
                     }
@@ -196,52 +198,78 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
         
     }
     
-    @IBAction func choosePhoto(_ sender: Any) {
-        let config = Configuration()
-        config.doneButtonTitle = "Done"
-        config.noImagesTitle = "Sorry! There are no images here!"
-        config.recordLocation = false
-        config.allowVideoSelection = true
+@objc func choosePhoto(_ sender: Any) {
+//        let config = Configuration()
+//        config.doneButtonTitle = "Done"
+//        config.noImagesTitle = "Sorry! There are no images here!"
+//        config.recordLocation = false
+//        config.allowVideoSelection = true
+//
+//        let imagePicker = ImagePickerController(configuration: config)
+//        imagePicker.delegate = self
+//        imagePicker.imageLimit = 3
+//        imagePicker.modalPresentationStyle = .fullScreen
+//
+//        present(imagePicker, animated: true, completion: nil)
+        if #available(iOS 14, *) {
+            var configuration = PHPickerConfiguration()
+            configuration.filter = .images
+            configuration.selectionLimit = 3
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            present(picker, animated: true)
+        }
 
-        let imagePicker = ImagePickerController(configuration: config)
-        imagePicker.delegate = self
-        imagePicker.imageLimit = 3
-        imagePicker.modalPresentationStyle = .fullScreen
-        
-        
-        present(imagePicker, animated: true, completion: nil)
+    }
+    //PHPickerViewControllerDelegate
+    @available(iOS 14, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        let itemProviders = results.map(\.itemProvider)
+                self.selectPhotoCount = itemProviders.count
+                for(i, itemProvider) in itemProviders.enumerated() where itemProvider.canLoadObject(ofClass: UIImage.self) {
+                let previousImage = self.selectPhotos.first
+                itemProvider.loadObject(ofClass: UIImage.self) {[weak self] (image, error) in
+                DispatchQueue.main.async {
+                    guard let self = self, let image = image as? UIImage, self.selectPhotos.first == previousImage else { return }
+                    self.isEditImage = true
+                    self.selectPhotos[i].image = image
+                    }
+                }
+            }
+
     }
     
     //ImagePickerDelegate
-    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
-        guard images.count > 0 else{return}
-        let lightboxImages = images.map {
-            return LightboxImage(image: $0)
-        }
-        let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
-        lightbox.dismissalDelegate = self
-        lightbox.modalPresentationStyle = .fullScreen
-        lightbox.dynamicBackground = true
-        imagePicker.present(lightbox,animated: true,completion: nil)
-    }
-    
-    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
-        isEditImage = true
-        let number = images.count
-        for i in 0...number - 1{
-            photoBtn[i].setImage(images[i], for: .normal)
-            if selectPhotos.count >= number {
-                selectPhotos[i] = images[i]
-            }else{
-                selectPhotos.append(images[i])
-            }
-        }
-        imagePicker.dismiss(animated: true, completion: nil)
-    }
-    
-    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
-        imagePicker.dismiss(animated: true, completion: nil)
-    }
+//    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+//        guard images.count > 0 else{return}
+//        let lightboxImages = images.map {
+//            return LightboxImage(image: $0)
+//        }
+//        let lightbox = LightboxController(images: lightboxImages, startIndex: 0)
+//        lightbox.dismissalDelegate = self
+//        lightbox.modalPresentationStyle = .fullScreen
+//        lightbox.dynamicBackground = true
+//        imagePicker.present(lightbox,animated: true,completion: nil)
+//    }
+//
+//    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+//        isEditImage = true
+//        let number = images.count
+//        for i in 0...number - 1{
+//            photoBtn[i].setImage(images[i], for: .normal)
+//            if selectPhotos.count >= number {
+//                selectPhotos[i] = images[i]
+//            }else{
+//                selectPhotos.append(images[i])
+//            }
+//        }
+//        imagePicker.dismiss(animated: true, completion: nil)
+//    }
+//
+//    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+//        imagePicker.dismiss(animated: true, completion: nil)
+//    }
     
     @IBAction func upload(_ sender: Any) {
         var key = "上傳"
@@ -310,7 +338,7 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
                  self.contactField.text = ""
                  self.placeField.text = ""
                  for i in 0...2 {
-                    self.photoBtn[i].setImage(UIImage.init(named: "AddPhoto"), for: .normal)
+                    self.selectPhotos[i].image = UIImage.init(named: "AddPhoto")
                  }
                     CTAlertView.ctalertView.showAlert(title: "提醒", body: "\(key)成功", action: "確定")
                 }
@@ -321,12 +349,12 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
     func  getImagePath(completion: @escaping (_ imagePaths :Array<String>) ->()){
         if isEditImage {
             var imageUrlArray = Array<String>()
-            let index = selectPhotos.count - 1
+            let index = selectPhotoCount - 1
             for i in 0...index {
-                let image = selectPhotos[i]
+                let imageView = selectPhotos[i]
                 let uniqueString = UUID().uuidString
                 let storageRef = Storage.storage().reference().child("LostPostUpload").child("\(uniqueString).png")
-                if let uploadData = image.pngData() {
+                if let uploadData = imageView.image!.pngData() {
                     storageRef.putData(uploadData, metadata: nil) { (data, error) in
                         if error != nil{
                             print("Error :\(String(describing: error?.localizedDescription))")
@@ -348,6 +376,15 @@ class LostPostViewController: UIViewController , UITextViewDelegate, ImagePicker
             }
         }else{
             completion(editModePathArr)
+        }
+    }
+    
+    func setSelectPhoto(){
+        print(selectPhotos.count)
+        for imageView in selectPhotos {
+            let tap = UITapGestureRecognizer.init(target: self, action: #selector(choosePhoto(_:)))
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(tap)
         }
     }
     
