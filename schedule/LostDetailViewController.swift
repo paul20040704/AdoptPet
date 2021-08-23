@@ -43,7 +43,8 @@ class LostDetailViewController: UIViewController ,UICollectionViewDelegate, UICo
         collectionView.dataSource = self
 
         //layout.sectionInset = UIEdgeInsets(top: 0 , left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        //layout.itemSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        layout.itemSize = CGSize(width: screenWidth, height: screenWidth * 0.8)
         
         collectionView.isPagingEnabled = true
         

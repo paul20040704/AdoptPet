@@ -39,6 +39,7 @@ class FirstViewController: UIViewController, UITableViewDelegate,UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationHeight = (self.navigationController?.navigationBar.frame.size.height)!
         
         self.reachability!.whenReachable = { reachability in
             self.netLabel.isHidden = true

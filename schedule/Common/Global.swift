@@ -28,3 +28,11 @@ var chooseArr = [""]
 
 var userDisplayName = ""
 
+let BundleVersion = "1.3"
+
+let tabBarVC = UITabBarController()
+let tabbarHeight = tabBarVC.tabBar.frame.size.height
+
+var navigationHeight = CGFloat()
+
+let statusHeight = UIApplication.shared.statusBarFrame.size.height

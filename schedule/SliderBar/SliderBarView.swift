@@ -15,6 +15,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
     var button1 = UIButton()
     var button2 = UIButton()
     var button3 = UIButton()
+    let verLabel = UILabel()
     
     func setUI(spView:UIView){
         bgView = UIView.init(frame:CGRect(x: spView.frame.width/3 * 2, y: 0, width: spView.frame.width/3, height: spView.frame.height))
@@ -29,29 +30,33 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         spView.addSubview(self.view)
         bgView.isHidden = true
         self.view.isHidden = true
-        
-        button1.frame = CGRect(x: 0, y: 90, width: self.view.frame.width , height: 99)
+        button1.frame = CGRect(x: 0, y: (navigationHeight + statusHeight), width: self.view.frame.width , height: 99)
         button1.tag = 1
         button1.setTitle("關於領養", for: .normal)
         button1.setTitleColor(.white, for: .normal)
         button1.backgroundColor = .black
         button1.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
-        button2.frame = CGRect(x: 0 , y: 190, width: self.view.frame.width, height: 99)
+        button2.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 100), width: self.view.frame.width, height: 99)
         button2.tag = 2
         button2.setTitle("聯絡我", for: .normal)
         button2.setTitleColor(.white, for: .normal)
         button2.backgroundColor = .black
         button2.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
-        button3.frame = CGRect(x: 0 , y: 290, width: self.view.frame.width, height: 99)
+        button3.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 200), width: self.view.frame.width, height: 99)
         button3.tag = 3
         button3.setTitle("關於我", for: .normal)
         button3.setTitleColor(.white, for: .normal)
         button3.backgroundColor = .black
         button3.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
+        verLabel.frame = CGRect(x: 15, y: (screenHeight - statusHeight - tabbarHeight - 20), width: 100, height: 15)
+        verLabel.textColor = .darkGray
+        verLabel.font = UIFont.systemFont(ofSize: 12)
+        verLabel.text = "version : \(BundleVersion)"
         
         self.view.addSubview(button1)
         self.view.addSubview(button2)
         self.view.addSubview(button3)
+        self.view.addSubview(verLabel)
         
         self.addSwipeRecognizer()
         let tap = UITapGestureRecognizer(target: self, action: #selector(hide))
