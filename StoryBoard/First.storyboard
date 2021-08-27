@@ -496,7 +496,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" image="map"/>
                                                 <connections>
-                                                    <segue destination="kyt-pK-oAU" kind="show" id="vdA-0Y-N4s"/>
+                                                    <action selector="goMap:" destination="UBO-kG-sOS" eventType="touchUpInside" id="cWg-We-u4w"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EdU-DX-PJz">
@@ -625,7 +625,7 @@
         <!--Google Map View Controller-->
         <scene sceneID="fK6-Pd-KKk">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="kyt-pK-oAU" customClass="GoogleMapViewController" customModule="幫牠找個家" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoogleMapVC" modalPresentationStyle="fullScreen" id="kyt-pK-oAU" customClass="GoogleMapViewController" customModule="幫牠找個家" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="caj-gV-7qa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -639,9 +639,20 @@
                                     <constraint firstAttribute="width" constant="50" id="0Cq-oD-uRK"/>
                                     <constraint firstAttribute="height" constant="50" id="q9Z-ee-O48"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="navagate"/>
+                                <state key="normal" image="navagate"/>
                                 <connections>
                                     <action selector="mapNavagation:" destination="kyt-pK-oAU" eventType="touchUpInside" id="bg7-k8-Dxc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCV-7a-eMa">
+                                <rect key="frame" x="20" y="74" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="l9U-f0-86b"/>
+                                    <constraint firstAttribute="width" constant="40" id="vZs-fp-vOM"/>
+                                </constraints>
+                                <state key="normal" image="cancel"/>
+                                <connections>
+                                    <action selector="back:" destination="kyt-pK-oAU" eventType="touchUpInside" id="XWT-jH-K7u"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -653,6 +664,8 @@
                             <constraint firstItem="21w-Zp-g6F" firstAttribute="leading" secondItem="VKu-Qz-RUY" secondAttribute="leading" id="JwF-iR-lkF"/>
                             <constraint firstItem="VKu-Qz-RUY" firstAttribute="trailing" secondItem="21w-Zp-g6F" secondAttribute="trailing" id="gCq-h0-Sv1"/>
                             <constraint firstItem="VKu-Qz-RUY" firstAttribute="trailing" secondItem="gHU-KK-kWo" secondAttribute="trailing" constant="20" id="hCW-9f-BGA"/>
+                            <constraint firstItem="BCV-7a-eMa" firstAttribute="top" secondItem="VKu-Qz-RUY" secondAttribute="top" constant="30" id="iF3-P8-3yM"/>
+                            <constraint firstItem="BCV-7a-eMa" firstAttribute="leading" secondItem="VKu-Qz-RUY" secondAttribute="leading" constant="20" id="uAP-3O-7c8"/>
                             <constraint firstItem="gHU-KK-kWo" firstAttribute="top" secondItem="VKu-Qz-RUY" secondAttribute="top" constant="30" id="zw0-kz-aqL"/>
                         </constraints>
                     </view>

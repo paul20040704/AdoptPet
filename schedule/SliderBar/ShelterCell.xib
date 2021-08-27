@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelterCell" rowHeight="62" id="5aL-zc-Amh" customClass="ShelterCell" customModule="幫牠找個家" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="461" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5aL-zc-Amh" id="4ch-Z9-0ec">
+                <rect key="frame" x="0.0" y="0.0" width="461" height="62"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZa-39-zr3">
+                        <rect key="frame" x="20" y="10" width="421" height="42"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="cZa-39-zr3" firstAttribute="top" secondItem="4ch-Z9-0ec" secondAttribute="top" constant="10" id="HKP-V1-a4y"/>
+                    <constraint firstAttribute="trailing" secondItem="cZa-39-zr3" secondAttribute="trailing" constant="20" id="TV9-rH-7jV"/>
+                    <constraint firstAttribute="bottom" secondItem="cZa-39-zr3" secondAttribute="bottom" constant="10" id="X6w-dk-Y97"/>
+                    <constraint firstItem="cZa-39-zr3" firstAttribute="leading" secondItem="4ch-Z9-0ec" secondAttribute="leading" constant="20" id="imj-gc-IWj"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label" destination="cZa-39-zr3" id="nuf-fl-FfG"/>
+            </connections>
+            <point key="canvasLocation" x="142.75362318840581" y="79.017857142857139"/>
+        </tableViewCell>
+    </objects>
+</document>

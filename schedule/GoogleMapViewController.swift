@@ -101,11 +101,10 @@ class GoogleMapViewController: UIViewController, CLLocationManagerDelegate {
             MKMapItem.openMaps(with: mapItems, launchOptions: dic)
         }
     }
-    
-    
-    
-    
 
+    @IBAction func back(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }
 

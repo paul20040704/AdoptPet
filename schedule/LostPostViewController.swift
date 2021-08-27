@@ -12,13 +12,12 @@ import ImagePicker
 import FirebaseStorage
 import FirebaseDatabase
 import PKHUD
-import Lightbox
 import Reachability
 import Firebase
 import SDWebImage
 import PhotosUI
 
-class LostPostViewController: UIViewController , UITextViewDelegate, LightboxControllerDismissalDelegate, PHPickerViewControllerDelegate{
+class LostPostViewController: UIViewController , UITextViewDelegate, PHPickerViewControllerDelegate{
     
     @IBOutlet weak var chooseKind: UIButton!
     @IBOutlet var kindOptions: [UIButton]!
@@ -388,9 +387,9 @@ class LostPostViewController: UIViewController , UITextViewDelegate, LightboxCon
         }
     }
     
-    func lightboxControllerWillDismiss(_ controller: LightboxController) {
-        controller.dismiss(animated: true, completion: nil)
-       }
+//    func lightboxControllerWillDismiss(_ controller: LightboxController) {
+//        controller.dismiss(animated: true, completion: nil)
+//       }
     
 }
 

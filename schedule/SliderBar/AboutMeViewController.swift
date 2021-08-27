@@ -18,10 +18,10 @@ class AboutMeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //取消向下滑動返回
+        //ios13以上全螢幕
         if #available(iOS 13.0, *) {
-            self.isModalInPresentation = true
-            }
+            self.modalPresentationStyle = .fullScreen
+        }
         label = UILabel.init(frame: CGRect(x: 30, y: screenHeight / 3 + 90, width: screenWidth - 60, height: screenHeight))
         label.textAlignment = .left
         label.font = UIFont(name: "Arial-BoldMT", size: 18)
@@ -31,11 +31,6 @@ class AboutMeViewController: UIViewController {
         }
         label.text = text
         label.numberOfLines = 44
-        
-        backBtn = UIButton(frame: CGRect(x: 50, y: 30, width: 30, height: 30))
-        backBtn.setImage(UIImage(named: "cancel"), for: .normal)
-        backBtn.backgroundColor = .none
-        backBtn.addTarget(self, action: #selector(back), for: .touchUpInside)
         
 
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
@@ -53,11 +48,8 @@ class AboutMeViewController: UIViewController {
         scrollView.addSubview(label)
         self.view.addSubview(scrollView)
         
-    }
-    
-
-    @objc func back() {
-        self.dismiss(animated: true, completion: nil)
+        BackBtnView.backBtnView.setBtn(superVC: self)
+        
     }
     
 }

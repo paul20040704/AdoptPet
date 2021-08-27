@@ -66,11 +66,6 @@ class FirstDetailViewController: UIViewController {
         
         
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let googleMapVC = segue.destination as! GoogleMapViewController
-        googleMapVC.pickAddress = infoDetail.shelter_address
-    }
     
     func judge(){
         switch infoDetail.animal_sterilization {
@@ -133,7 +128,14 @@ class FirstDetailViewController: UIViewController {
             self.present(activityVC,animated: true,completion: nil)
         }
     }
-
+    
+    @IBAction func goMap(_ sender: Any) {
+        let sb = UIStoryboard.init(name: "First", bundle: nil)
+        let GoogleMapVC = sb.instantiateViewController(withIdentifier: "GoogleMapVC") as! GoogleMapViewController
+        GoogleMapVC.pickAddress = infoDetail.shelter_address
+        self.present(GoogleMapVC, animated: true, completion: nil)
+    }
+    
     func setTap(){
         let imageTap = UITapGestureRecognizer.init(target: self, action: #selector(showScrollImage))
         imageView.isUserInteractionEnabled = true

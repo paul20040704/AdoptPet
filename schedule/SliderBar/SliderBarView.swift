@@ -15,6 +15,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
     var button1 = UIButton()
     var button2 = UIButton()
     var button3 = UIButton()
+    var button4 = UIButton()
     let verLabel = UILabel()
     
     func setUI(spView:UIView){
@@ -30,24 +31,30 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         spView.addSubview(self.view)
         bgView.isHidden = true
         self.view.isHidden = true
-        button1.frame = CGRect(x: 0, y: (navigationHeight + statusHeight), width: self.view.frame.width , height: 99)
+        button1.frame = CGRect(x: 0, y: (navigationHeight + statusHeight), width: self.view.frame.width , height: 79)
         button1.tag = 1
         button1.setTitle("關於領養", for: .normal)
         button1.setTitleColor(.white, for: .normal)
         button1.backgroundColor = .black
         button1.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
-        button2.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 100), width: self.view.frame.width, height: 99)
+        button2.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 80), width: self.view.frame.width, height: 79)
         button2.tag = 2
         button2.setTitle("聯絡我", for: .normal)
         button2.setTitleColor(.white, for: .normal)
         button2.backgroundColor = .black
         button2.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
-        button3.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 200), width: self.view.frame.width, height: 99)
+        button3.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 160), width: self.view.frame.width, height: 79)
         button3.tag = 3
         button3.setTitle("關於我", for: .normal)
         button3.setTitleColor(.white, for: .normal)
         button3.backgroundColor = .black
         button3.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
+        button4.frame = CGRect(x: 0 , y: (navigationHeight + statusHeight + 240), width: self.view.frame.width, height: 79)
+        button4.tag = 4
+        button4.setTitle("收容所清單", for: .normal)
+        button4.setTitleColor(.white, for: .normal)
+        button4.backgroundColor = .black
+        button4.addTarget(self, action: #selector(sideBarBtn(sender:)), for: .touchUpInside)
         verLabel.frame = CGRect(x: 15, y: (screenHeight - statusHeight - tabbarHeight - 20), width: 100, height: 15)
         verLabel.textColor = .darkGray
         verLabel.font = UIFont.systemFont(ofSize: 12)
@@ -56,6 +63,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         self.view.addSubview(button1)
         self.view.addSubview(button2)
         self.view.addSubview(button3)
+        self.view.addSubview(button4)
         self.view.addSubview(verLabel)
         
         self.addSwipeRecognizer()
@@ -81,6 +89,7 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
         switch sender.tag{
         case 1 :
             let ruleVC = RuleViewController()
+            ruleVC.modalPresentationStyle = .fullScreen
             currentController?.present(ruleVC,animated: false,completion: nil)
         case 2 :
             guard MFMailComposeViewController.canSendMail() else{
@@ -91,10 +100,16 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
             mailController.mailComposeDelegate = self
             mailController.setToRecipients(["paul20040704@gmail.com"])
             mailController.setSubject("APP領養")
-            self.present(mailController,animated:true,completion:nil)
+            mailController.setMessageBody("我有問題想要回報", isHTML: false)
+            currentController?.present(mailController,animated:true,completion:nil)
         case 3 :
             let aboutMe = AboutMeViewController()
+            aboutMe.modalPresentationStyle = .fullScreen
             currentController?.present(aboutMe,animated: false,completion: nil)
+        case 4 :
+            let shelterVC = ShelterViewController()
+            shelterVC.modalPresentationStyle = .fullScreen
+            currentController?.present(shelterVC, animated: false, completion: nil)
             
         default:
             return
@@ -102,7 +117,30 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        self.dismiss(animated: true, completion: nil)
+        let currentController = US.getCurrentViewController()
+        let action = UIAlertAction.init(title: "ok", style: .cancel) { action in
+            controller.dismiss(animated: true, completion: nil)
+        }
+        if let _ = error {
+            controller.dismiss(animated: true, completion: nil)
+        }
+        switch result {
+        case .saved:
+            let alert = createAlert(message: "保存成功", title: "提醒")
+            alert.addAction(action)
+            currentController?.present(alert, animated: true, completion: nil)
+        case .failed:
+            let alert = createAlert(message: "發送失敗", title: "提醒")
+            alert.addAction(action)
+            currentController?.present(alert, animated: true, completion: nil)
+        case .sent:
+            let alert = createAlert(message: "發送成功", title: "提醒")
+            alert.addAction(action)
+            currentController?.present(alert, animated: true, completion: nil)
+        case .cancelled:
+            controller.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     func addSwipeRecognizer() {
@@ -112,6 +150,9 @@ class SliderBarView: UIViewController,MFMailComposeViewControllerDelegate {
     }
     
     
-
+    func createAlert(message:String, title:String ) -> UIAlertController{
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        return alert
+    }
 
 }

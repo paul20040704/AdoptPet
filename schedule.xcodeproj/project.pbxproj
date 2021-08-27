@@ -57,6 +57,10 @@
 		DA25907B26C224DA00E488CC /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25907A26C224DA00E488CC /* ReportView.swift */; };
 		DA25907F26C257ED00E488CC /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA25907E26C257ED00E488CC /* CoverView.swift */; };
 		DA6EB53726BD2E4D003A2A63 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA6EB53626BD2E4D003A2A63 /* GoogleService-Info.plist */; };
+		DAE3762826D4A9BF00390493 /* ShelterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3762726D4A9BF00390493 /* ShelterViewController.swift */; };
+		DAE3762A26D4ABD700390493 /* ShelterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3762926D4ABD700390493 /* ShelterCell.swift */; };
+		DAE3762E26D4C0AA00390493 /* ShelterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE3762D26D4C0AA00390493 /* ShelterCell.xib */; };
+		DAE3763026D7890800390493 /* BackBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3762F26D7890800390493 /* BackBtnView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +119,10 @@
 		DA25907E26C257ED00E488CC /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		DA6EB53626BD2E4D003A2A63 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DACA378926BCEBA400E0B107 /* 幫牠找個家.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "幫牠找個家.entitlements"; sourceTree = "<group>"; };
+		DAE3762726D4A9BF00390493 /* ShelterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterViewController.swift; sourceTree = "<group>"; };
+		DAE3762926D4ABD700390493 /* ShelterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterCell.swift; sourceTree = "<group>"; };
+		DAE3762D26D4C0AA00390493 /* ShelterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShelterCell.xib; sourceTree = "<group>"; };
+		DAE3762F26D7890800390493 /* BackBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackBtnView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +282,10 @@
 				6F9F35EC24189E0B0003896D /* SliderBarView.swift */,
 				6FDE757524E5430E006C4E08 /* RuleViewController.swift */,
 				6FE0F0B424FF966900800521 /* AboutMeViewController.swift */,
+				DAE3762726D4A9BF00390493 /* ShelterViewController.swift */,
+				DAE3762926D4ABD700390493 /* ShelterCell.swift */,
+				DAE3762D26D4C0AA00390493 /* ShelterCell.xib */,
+				DAE3762F26D7890800390493 /* BackBtnView.swift */,
 			);
 			path = SliderBar;
 			sourceTree = "<group>";
@@ -366,6 +378,7 @@
 				145049EF233DE6CB00FAF3AA /* LaunchScreen.storyboard in Resources */,
 				6F186B2324E3DF780013C065 /* LoadingCell.xib in Resources */,
 				6F8D98762500C3DC00A3CEA7 /* Third.storyboard in Resources */,
+				DAE3762E26D4C0AA00390493 /* ShelterCell.xib in Resources */,
 				14D0F0A8234CA1DD00B599A2 /* First.storyboard in Resources */,
 				DA6EB53726BD2E4D003A2A63 /* GoogleService-Info.plist in Resources */,
 				145049EC233DE6CB00FAF3AA /* Assets.xcassets in Resources */,
@@ -455,6 +468,7 @@
 				6FE93AC924F4ADDB00694B30 /* AdSearchTableViewCell.swift in Sources */,
 				6FE235452505E8B900F02974 /* LostPostViewController.swift in Sources */,
 				6F1E1E56255E6C2E0036E8D2 /* LostDetailCVCell.swift in Sources */,
+				DAE3763026D7890800390493 /* BackBtnView.swift in Sources */,
 				6FDE757624E5430E006C4E08 /* RuleViewController.swift in Sources */,
 				14D0F09D2345D55C00B599A2 /* FirstTableViewCell.swift in Sources */,
 				141421DE238673B400B063A1 /* SecondViewController.swift in Sources */,
@@ -474,7 +488,9 @@
 				145049E5233DE6C900FAF3AA /* AppDelegate.swift in Sources */,
 				6FE0F0B524FF966900800521 /* AboutMeViewController.swift in Sources */,
 				6F58DC4625087E1700A415B1 /* Database.swift in Sources */,
+				DAE3762A26D4ABD700390493 /* ShelterCell.swift in Sources */,
 				6F2CCFEE2501E0F000C843AC /* LostViewController.swift in Sources */,
+				DAE3762826D4A9BF00390493 /* ShelterViewController.swift in Sources */,
 				6FF7D44D24EE6CCC007A67F3 /* AdvancedSearchViewController.swift in Sources */,
 				DA25907B26C224DA00E488CC /* ReportView.swift in Sources */,
 			);
@@ -625,7 +641,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adopt0704;
 				PRODUCT_NAME = "幫牠找個家";
 				SWIFT_VERSION = 5.0;
@@ -648,7 +664,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adopt0704;
 				PRODUCT_NAME = "幫牠找個家";
 				SWIFT_VERSION = 5.0;
