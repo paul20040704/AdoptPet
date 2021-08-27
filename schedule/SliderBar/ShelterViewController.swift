@@ -23,7 +23,6 @@ class ShelterViewController: UIViewController, UITableViewDelegate, UITableViewD
         if #available(iOS 13.0, *) {
             self.modalPresentationStyle = .fullScreen
         }
-        
         tableView.register(UINib(nibName:"ShelterCell", bundle: nil), forCellReuseIdentifier: "ShelterCell")
         setTableView()
         setMapView()
@@ -55,7 +54,7 @@ class ShelterViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .darkGray
         let viewLabel = UILabel(frame: CGRect(x: 10, y: 0, width: screenWidth, height: 50))
         viewLabel.text = shelterData[section].0
         viewLabel.textColor = .white
@@ -75,7 +74,7 @@ class ShelterViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func setTableView(){
         BackBtnView.backBtnView.setBtn(superVC: self)
-        self.view.backgroundColor = .gray
+        self.view.backgroundColor = defultColor
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
